@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <!-- T-Shirt Icon -->
+    <symbol id="tshirt-icon" viewBox="0 0 100 100">
+        <path d="M80,30 L65,20 C65,20 60,10 50,10 C40,10 35,20 35,20 L20,30 L10,25 L20,80 L40,80 L40,50 C40,50 45,45 50,45 C55,45 60,50 60,50 L60,80 L80,80 L90,25 L80,30" fill="#FF8A5B"/>
+    </symbol>
+    
+    <!-- Mug Icon -->
+    <symbol id="mug-icon" viewBox="0 0 100 100">
+        <path d="M30,20 L70,20 L70,70 C70,75 65,80 60,80 L40,80 C35,80 30,75 30,70 L30,20" fill="#5B8CFF"/>
+        <path d="M70,35 L80,35 C85,35 90,40 90,45 L90,55 C90,60 85,65 80,65 L70,65" fill="#5B8CFF"/>
+    </symbol>
+    
+    <!-- Hoodie Icon -->
+    <symbol id="hoodie-icon" viewBox="0 0 100 100">
+        <path d="M50,10 C40,10 35,15 35,15 L20,25 L10,20 L25,80 L40,80 L40,50 C40,50 45,45 50,45 C55,45 60,50 60,50 L60,80 L75,80 L90,20 L80,25 L65,15 C65,15 60,10 50,10" fill="#A0E55B"/>
+        <path d="M50,10 C45,10 40,15 40,20 C40,25 45,30 50,30 C55,30 60,25 60,20 C60,15 55,10 50,10" fill="#A0E55B"/>
+    </symbol>
+</svg> 

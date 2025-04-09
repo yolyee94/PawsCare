@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Placeholder Images</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .image-container {
+            display: inline-block;
+            margin: 10px;
+            text-align: center;
+        }
+        canvas {
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Generate Placeholder Images</h1>
+    <button onclick="generateAllImages()">Generate All Images</button>
+    <div id="images"></div>
+
+    <script>
+        function generatePlaceholderImage(width, height, text, color) {
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+
+            // Background
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, width, height);
+
+            // Icon shape
+            ctx.fillStyle = color;
+            ctx.strokeStyle = color;
+            
+            if (text.includes('T-Shirt')) {
+                // Draw T-shirt shape
+                ctx.beginPath();
+                ctx.moveTo(width/2, height/4);
+                ctx.lineTo(width*0.8, height/3);
+                ctx.lineTo(width*0.8, height*0.8);
+                ctx.lineTo(width*0.2, height*0.8);
+                ctx.lineTo(width*0.2, height/3);
+                ctx.closePath();
+                ctx.fill();
+            } else if (text.includes('Mug')) {
+                // Draw mug shape
+                ctx.beginPath();
+                ctx.arc(width/2, height/2, width/3, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.beginPath();
+                ctx.arc(width/2, height/2, width/4, 0, Math.PI * 2);
+                ctx.fillStyle = '#ffffff';
+                ctx.fill();
+            } else if (text.includes('Hoodie')) {
+                // Draw hoodie shape
+                ctx.beginPath();
+                ctx.moveTo(width/2, height/4);
+                ctx.lineTo(width*0.8, height/3);
+                ctx.lineTo(width*0.8, height*0.8);
+                ctx.lineTo(width*0.2, height*0.8);
+                ctx.lineTo(width*0.2, height/3);
+                ctx.closePath();
+                ctx.fill();
+                // Add hood
+                ctx.beginPath();
+                ctx.arc(width/2, height/4, width/6, 0, Math.PI, true);
+                ctx.fill();
+            }
+
+            // Text
+            ctx.fillStyle = '#000000';
+            ctx.font = '14px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(text, width/2, height*0.9);
+
+            return canvas.toDataURL();
+        }
+
+        function downloadImage(canvas, filename) {
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/jpeg');
+            link.click();
+        }
+
+        function generateAllImages() {
+            const images = [
+                { name: 'T-Shirt', color: '#FF8A5B' },
+                { name: 'Mug', color: '#5B8CFF' },
+                { name: 'Hoodie', color: '#A0E55B' }
+            ];
+
+            const container = document.getElementById('images');
+            container.innerHTML = '';
+
+            images.forEach(img => {
+                const dataUrl = generatePlaceholderImage(200, 200, img.name, img.color);
+                console.log(`${img.name}:`, dataUrl);
+                const canvas = document.createElement('canvas');
+                canvas.width = 200;
+                canvas.height = 200;
+                const ctx = canvas.getContext('2d');
+                const imgElement = new Image();
+                imgElement.src = dataUrl;
+                imgElement.onload = () => {
+                    ctx.drawImage(imgElement, 0, 0, 200, 200);
+                    const div = document.createElement('div');
+                    div.className = 'image-container';
+                    div.appendChild(canvas);
+                    const button = document.createElement('button');
+                    button.textContent = `Download ${img.name}`;
+                    button.onclick = () => downloadImage(canvas, img.name);
+                    div.appendChild(button);
+                    container.appendChild(div);
+                };
+            });
+        }
+    </script>
+</body>
+</html> 

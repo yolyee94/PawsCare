@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PawsCare - Dog Services</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Auth Modal -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">Login</button>
+                <button class="auth-tab" data-tab="signup">Sign Up</button>
+                                </div>
+            
+            <!-- Login Form -->
+            <div id="loginForm" class="auth-form active">
+                <h2>Login</h2>
+                <form id="loginFormElement">
+                    <div class="form-group">
+                        <label for="loginEmail">Email</label>
+                        <input type="email" id="loginEmail" required>
+                            </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" required>
+                        </div>
+                    <button type="submit" class="submit-button">Login</button>
+                </form>
+                <p class="auth-switch">Don't have an account? <a href="#" class="switch-to-signup">Sign Up</a></p>
+                    </div>
+
+            <!-- Sign Up Form -->
+            <div id="signupForm" class="auth-form">
+                <h2>Sign Up</h2>
+                <form id="signupFormElement">
+                    <div class="form-group">
+                        <label for="signupName">Full Name</label>
+                        <input type="text" id="signupName" required>
+                </div>
+                    <div class="form-group">
+                        <label for="signupEmail">Email</label>
+                        <input type="email" id="signupEmail" required>
+                </div>
+                    <div class="form-group">
+                        <label for="signupPhone">Phone Number</label>
+                        <input type="tel" id="signupPhone" required>
+            </div>
+                    <div class="form-group">
+                        <label for="signupPassword">Password</label>
+                        <input type="password" id="signupPassword" required>
+        </div>
+                    <button type="submit" class="submit-button">Sign Up</button>
+                </form>
+                <p class="auth-switch">Already have an account? <a href="#" class="switch-to-login">Login</a></p>
+        </div>
+
+            <!-- OTP Verification Form -->
+            <div id="otpForm" class="auth-form">
+                <h2>Verify OTP</h2>
+                <p class="otp-message">We've sent an OTP to your email/phone</p>
+                <form id="otpFormElement">
+                    <div class="form-group">
+                        <label for="otp">Enter OTP</label>
+                        <input type="text" id="otp" maxlength="6" required>
+            </div>
+                    <button type="submit" class="submit-button">Verify</button>
+                </form>
+                <p class="resend-otp">Didn't receive OTP? <a href="#" id="resendOtp">Resend</a></p>
+                        </div>
+                    </div>
+                </div>
+
+    <!-- Add Auth Button to Navbar -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <h1>PawsCare</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><button id="authButton" class="auth-button">Login</button></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+                    </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h2>Professional Dog Care Services</h2>
+                <p>Your furry friend deserves the best care</p>
+                <a href="#contact" class="cta-button">Book a Service</a>
+                </div>
+        </section>
+
+        <section id="services" class="services">
+            <h2>Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card" onclick="showPetProfileModal()">
+                    <i class="fas fa-heart"></i>
+                    <h3>Mating Services</h3>
+                    <p>Professional breeding services with certified partners</p>
+                        </div>
+                <div class="service-card" onclick="showPetSittingModal()">
+                    <i class="fas fa-home"></i>
+                    <h3>Pet Sitting</h3>
+                    <p>Professional pet sitters to take care of your pets when you're away. Browse sitters or register as one!</p>
+                    </div>
+                <div class="service-card" onclick="showPetWalksModal()">
+                    <i class="fas fa-walking"></i>
+                    <h3>Pet Walks</h3>
+                    <p>Professional pet walkers to keep your pets active and healthy. Browse walkers or register as one!</p>
+                </div>
+                <div class="service-card" onclick="openPrintifyDesigner('all')">
+                    <i class="fas fa-tshirt"></i>
+                    <h3>Pet Merchandise</h3>
+                    <p>Create unique merchandise featuring your beloved pets! Custom t-shirts, mugs, hoodies and more.</p>
+                    <div class="coming-soon-wrapper">
+                        <span class="coming-soon-text">Coming Soon!</span>
+                        <div class="paw-prints">
+                            <i class="fas fa-paw"></i>
+                            <i class="fas fa-paw"></i>
+                            <i class="fas fa-paw"></i>
+                        </div>
+                    </div>
+                </div>
+                    </div>
+        </section>
+
+        <!-- Pet Merchandise Modal -->
+        <div id="printifyModal" class="modal">
+            <div class="modal-content scrollable">
+                <span class="close-modal" onclick="closePrintifyModal()">&times;</span>
+                <div id="printifyDesigner">
+                    <div class="design-options">
+                        <h3>Create Custom Pet Merchandise</h3>
+                        <p class="design-description">Transform your pet photos into beautiful custom merchandise</p>
+                        <div class="merchandise-options">
+                            <div class="merch-option" data-product="tshirt">
+                                <svg class="merch-icon" width="100" height="100">
+                                    <use href="images/merchandise-icons.svg#tshirt-icon"/>
+                                </svg>
+                                <h4>Custom T-Shirt</h4>
+                                </div>
+                            <div class="merch-option" data-product="mug">
+                                <svg class="merch-icon" width="100" height="100">
+                                    <use href="images/merchandise-icons.svg#mug-icon"/>
+                                </svg>
+                                <h4>Pet Mug</h4>
+                            </div>
+                            <div class="merch-option" data-product="hoodie">
+                                <svg class="merch-icon" width="100" height="100">
+                                    <use href="images/merchandise-icons.svg#hoodie-icon"/>
+                                </svg>
+                                <h4>Pet Hoodie</h4>
+                        </div>
+                    </div>
+                        <div class="upload-section">
+                            <label for="petPhoto">Upload Pet Photo:</label>
+                            <input type="file" id="petPhoto" accept="image/*">
+                                </div>
+                        <div class="customization-options">
+                            <div class="color-picker">
+                                <label>Product Color:</label>
+                                <select id="productColor">
+                                    <option value="white">White</option>
+                                    <option value="black">Black</option>
+                                    <option value="navy">Navy</option>
+                                    <option value="gray">Gray</option>
+                                </select>
+                            </div>
+                            <div class="size-picker">
+                                <label>Size:</label>
+                                <select id="productSize">
+                                    <option value="s">Small</option>
+                                    <option value="m">Medium</option>
+                                    <option value="l">Large</option>
+                                    <option value="xl">X-Large</option>
+                                </select>
+                        </div>
+                            <div class="text-customization">
+                                <label>Add Custom Text:</label>
+                                <input type="text" id="customText" placeholder="Enter your text here">
+                                <select id="textFont">
+                                    <option value="arial">Arial</option>
+                                    <option value="times">Times New Roman</option>
+                                    <option value="comic">Comic Sans</option>
+                                </select>
+                    </div>
+                                </div>
+                        <div class="preview-section">
+                            <h4>Preview</h4>
+                            <div id="designPreview"></div>
+                            </div>
+                        <button class="primary-button" onclick="addToCart()">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pet Profile Modal -->
+        <div id="petProfileModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>Register Your Pet for Mating</h2>
+                <form id="petProfileForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="petName">Pet Name</label>
+                            <input type="text" id="petName" required>
+                                </div>
+                        <div class="form-group">
+                            <label for="petType">Pet Type</label>
+                            <select id="petType" required onchange="updatePetBreedOptions()">
+                                <option value="">Select Type</option>
+                                <option value="dog">Dog</option>
+                                <option value="cat">Cat</option>
+                            </select>
+                            </div>
+                        </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="petBreed">Breed</label>
+                            <select id="petBreed" required>
+                                <option value="">Select Breed</option>
+                            </select>
+                    </div>
+                        <div class="form-group">
+                            <label for="petAge">Age (years)</label>
+                            <input type="number" id="petAge" min="0" max="30" required>
+                                </div>
+                            </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="petGender">Gender</label>
+                            <select id="petGender" required>
+                                <option value="">Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="petLocality">Locality</label>
+                            <select id="petLocality" required>
+                                <option value="">Select Locality</option>
+                            </select>
+                    </div>
+                                </div>
+                    <div class="form-group">
+                        <label for="petVaccination">Vaccination Status</label>
+                        <select id="petVaccination" required>
+                            <option value="">Select Status</option>
+                            <option value="up-to-date">Up to Date</option>
+                            <option value="partial">Partially Vaccinated</option>
+                            <option value="not-vaccinated">Not Vaccinated</option>
+                        </select>
+                            </div>
+                    <div class="form-group">
+                        <label for="petImage">Pet Photo</label>
+                        <input type="file" id="petImage" accept="image/*">
+                        </div>
+                    <button type="submit" class="submit-button">Save Pet Profile</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Pet Browsing Section -->
+        <section class="pet-browsing" id="find-mate">
+            <h2>Find a Mate for Your Pet</h2>
+            <div class="pet-filters">
+                <div class="filter-group">
+                    <label for="pet-type">Pet Type</label>
+                    <select id="pet-type">
+                        <option value="">All Types</option>
+                        <option value="dog">Dog</option>
+                        <option value="cat">Cat</option>
+                    </select>
+                                </div>
+                <div class="filter-group">
+                    <label for="pet-breed">Breed</label>
+                    <select id="pet-breed">
+                        <option value="">All Breeds</option>
+                    </select>
+                            </div>
+                <div class="filter-group">
+                    <label for="pet-gender">Gender</label>
+                    <select id="pet-gender">
+                        <option value="">All Genders</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                        </div>
+                <div class="filter-group">
+                    <label for="pet-locality">Location</label>
+                    <select id="pet-locality">
+                        <option value="">All Localities</option>
+                    </select>
+                </div>
+                <button class="search-button" onclick="searchPets()">
+                    <i class="fas fa-search"></i>
+                    Find Matches
+                </button>
+                </div>
+            <div id="pet-grid" class="pet-grid">
+                <!-- Pet cards will be dynamically inserted here -->
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <h2>Contact Us</h2>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                                </div>
+                <div class="form-group">
+                    <label for="service">Service</label>
+                    <select id="service" name="service" required>
+                        <option value="">Select a service</option>
+                        <option value="mating">Mating Services</option>
+                        <option value="sitting">Pet Sitting</option>
+                        <option value="walking">Dog Walking</option>
+                        <option value="vet">Vet Consultation</option>
+                    </select>
+                            </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+                        </div>
+                <button type="submit" class="submit-button">Send Message</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Mission Statement Section -->
+    <section class="mission-statement">
+        <div class="container">
+            <h2>Our Mission</h2>
+            <div class="mission-content">
+                <p>At PawsCare, our mission is to create a comprehensive platform that connects pet owners for responsible breeding and reliable pet sitting services. We strive to foster a community where animal lovers can find ideal matches for their pets and trustworthy sitters to care for their furry companions. While we facilitate these connections, we emphasize the importance of user responsibility in researching and understanding potential mates or sitters. Our goal is to empower pet owners with the tools and resources they need to make informed decisions, ultimately contributing to the well-being and happiness of pets and their human families.</p>
+                
+                <div class="disclaimer">
+                    <h3>Disclaimer</h3>
+                    <p>Users of PawsCare are solely responsible for thoroughly researching and vetting potential breeding partners and pet sitters. We strongly encourage all users to exercise due diligence, conduct background checks, and have a comprehensive understanding of the other party before engaging in any breeding or pet sitting arrangements. PawsCare is not liable for any outcomes resulting from these interactions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>PawsCare</h3>
+                <p>Professional dog care services for your beloved pets</p>
+                        </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <p>Email: info@pawscare.com</p>
+                <p>Phone: (123) 456-7890</p>
+                        </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                                </div>
+                                </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 PawsCare. All rights reserved.</p>
+                            </div>
+    </footer>
+
+    <!-- Pet Sitting Modal -->
+    <div id="petSittingModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="hidePetSittingModal()">&times;</span>
+            <div class="pet-sitting-tabs">
+                <button class="pet-sitting-tab active" onclick="showPetSittingTab('browse')">Browse Sitters</button>
+                <button class="pet-sitting-tab" onclick="showPetSittingTab('register')">Register as Sitter</button>
+                        </div>
+
+            <!-- Browse Sitters Section -->
+            <div id="browseSitters" class="pet-sitting-section active">
+                <h2>Find a Pet Sitter</h2>
+                <div class="sitter-filters">
+                    <div class="filter-group">
+                        <label for="sitterLocality">Locality</label>
+                        <select id="sitterLocality">
+                            <option value="">Select Locality</option>
+                            <option value="downtown">Downtown</option>
+                            <option value="suburb">Suburb</option>
+                            <option value="north">North Area</option>
+                            <option value="south">South Area</option>
+                    </select>
+                        </div>
+                    <div class="filter-group">
+                        <label for="petType">Pet Type</label>
+                        <select id="petType">
+                            <option value="">All Pets</option>
+                            <option value="dog">Dogs</option>
+                            <option value="cat">Cats</option>
+                            <option value="bird">Birds</option>
+                            <option value="other">Other</option>
+                    </select>
+                </div>
+                    <button class="search-button" onclick="searchSitters()">
+                        <i class="fas fa-search"></i> Find Sitters
+                            </button>
+                        </div>
+
+                <div class="sitters-grid" id="sittersGrid">
+                    <!-- Sitters will be dynamically added here -->
+                    </div>
+                                </div>
+
+            <!-- Register as Sitter Section -->
+            <div id="registerSitter" class="pet-sitting-section">
+                <h2>Register as a Pet Sitter</h2>
+                <form id="sitterRegistrationForm" onsubmit="registerAsSitter(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="sitterName">Full Name</label>
+                            <input type="text" id="sitterName" required>
+                                </div>
+                        <div class="form-group">
+                            <label for="sitterPhone">Phone Number</label>
+                            <input type="tel" id="sitterPhone" required>
+                            </div>
+                        </div>
+                    <div class="form-group">
+                        <label for="sitterEmail">Email</label>
+                        <input type="email" id="sitterEmail" required>
+                        </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="sitterLocality">Your Locality</label>
+                            <select id="sitterLocality" required>
+                                <option value="">Select Locality</option>
+                                <option value="downtown">Downtown</option>
+                                <option value="suburb">Suburb</option>
+                                <option value="north">North Area</option>
+                                <option value="south">South Area</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="sitterExperience">Years of Experience</label>
+                            <input type="number" id="sitterExperience" min="0" required>
+                    </div>
+                </div>
+                    <div class="form-group">
+                        <label>Pet Types You Can Handle</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" value="dog"> Dogs</label>
+                            <label><input type="checkbox" value="cat"> Cats</label>
+                            <label><input type="checkbox" value="bird"> Birds</label>
+                            <label><input type="checkbox" value="other"> Other</label>
+            </div>
+        </div>
+                    <div class="form-group">
+                        <label for="sitterBio">About You</label>
+                        <textarea id="sitterBio" rows="4" required></textarea>
+            </div>
+                    <div class="form-group">
+                        <label for="sitterPhoto">Profile Photo</label>
+                        <input type="file" id="sitterPhoto" accept="image/*">
+            </div>
+                    <button type="submit" class="submit-button">Register as Sitter</button>
+            </form>
+        </div>
+            </div>
+            </div>
+
+    <!-- Pet Walks Modal -->
+    <div id="petWalksModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="hidePetWalksModal()">&times;</span>
+            <div class="pet-walks-tabs">
+                <button class="pet-walks-tab active" onclick="showPetWalksTab('browse')">Browse Walkers</button>
+                <button class="pet-walks-tab" onclick="showPetWalksTab('register')">Register as Walker</button>
+                </div>
+
+            <!-- Browse Walkers Section -->
+            <div id="browseWalkers" class="pet-walks-section active">
+                <h2>Find a Pet Walker</h2>
+                <div class="walker-filters">
+                    <div class="filter-group">
+                        <label for="walkerLocality">Locality</label>
+                        <select id="walkerLocality">
+                            <option value="">Select Locality</option>
+                            <option value="downtown">Downtown</option>
+                            <option value="suburb">Suburb</option>
+                            <option value="north">North Area</option>
+                            <option value="south">South Area</option>
+                        </select>
+                </div>
+                    <div class="filter-group">
+                        <label for="walkPetType">Pet Type</label>
+                        <select id="walkPetType">
+                            <option value="">All Pets</option>
+                            <option value="dog">Dogs</option>
+                            <option value="cat">Cats</option>
+                            <option value="other">Other</option>
+                        </select>
+                            </div>
+                    <button class="search-button" onclick="searchWalkers()">
+                        <i class="fas fa-search"></i> Find Walkers
+                </button>
+            </div>
+
+                <div class="walkers-grid" id="walkersGrid">
+                    <!-- Walkers will be dynamically added here -->
+        </div>
+    </div>
+
+            <!-- Register as Walker Section -->
+            <div id="registerWalker" class="pet-walks-section">
+                <h2>Register as a Pet Walker</h2>
+                <form id="walkerRegistrationForm" onsubmit="registerAsWalker(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="walkerName">Full Name</label>
+                            <input type="text" id="walkerName" required>
+            </div>
+                        <div class="form-group">
+                            <label for="walkerPhone">Phone Number</label>
+                            <input type="tel" id="walkerPhone" required>
+            </div>
+        </div>
+                    <div class="form-group">
+                        <label for="walkerEmail">Email</label>
+                        <input type="email" id="walkerEmail" required>
+    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="walkerLocality">Your Locality</label>
+                            <select id="walkerLocality" required>
+                                <option value="">Select Locality</option>
+                                <option value="downtown">Downtown</option>
+                                <option value="suburb">Suburb</option>
+                                <option value="north">North Area</option>
+                                <option value="south">South Area</option>
+                            </select>
+            </div>
+                        <div class="form-group">
+                            <label for="walkerExperience">Years of Experience</label>
+                            <input type="number" id="walkerExperience" min="0" required>
+                </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Pet Types You Can Walk</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" value="dog"> Dogs</label>
+                            <label><input type="checkbox" value="cat"> Cats</label>
+                            <label><input type="checkbox" value="other"> Other</label>
+                    </div>
+                </div>
+                    <div class="form-group">
+                        <label for="walkerSchedule">Available Schedule</label>
+                        <div class="checkbox-group schedule-group">
+                            <label><input type="checkbox" value="morning"> Morning</label>
+                            <label><input type="checkbox" value="afternoon"> Afternoon</label>
+                            <label><input type="checkbox" value="evening"> Evening</label>
+                            <label><input type="checkbox" value="weekend"> Weekends</label>
+            </div>
+        </div>
+                    <div class="form-group">
+                        <label for="walkerBio">About You</label>
+                        <textarea id="walkerBio" rows="4" required></textarea>
+    </div>
+                    <div class="form-group">
+                        <label for="walkerPhoto">Profile Photo</label>
+                        <input type="file" id="walkerPhoto" accept="image/*">
+            </div>
+                    <button type="submit" class="submit-button">Register as Walker</button>
+            </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Auth Modal Elements
+        const authModal = document.getElementById('authModal');
+        const authButton = document.getElementById('authButton');
+        const closeModal = document.querySelector('.close-modal');
+        const authTabs = document.querySelectorAll('.auth-tab');
+        const authForms = document.querySelectorAll('.auth-form');
+        const switchToSignup = document.querySelector('.switch-to-signup');
+        const switchToLogin = document.querySelector('.switch-to-login');
+        const loginForm = document.getElementById('loginFormElement');
+        const signupForm = document.getElementById('signupFormElement');
+        const otpForm = document.getElementById('otpFormElement');
+        const resendOtp = document.getElementById('resendOtp');
+
+        // User data storage
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+        let pendingUser = null;
+
+        // Update auth button based on login status
+        function updateAuthButton() {
+            if (currentUser) {
+                authButton.textContent = `Welcome, ${currentUser.name.split(' ')[0]}`;
+                authButton.classList.add('logged-in');
+                
+                // Create logout dropdown if it doesn't exist
+                if (!document.querySelector('.auth-dropdown')) {
+                    const dropdown = document.createElement('div');
+                    dropdown.className = 'auth-dropdown';
+                    
+                    const logoutBtn = document.createElement('button');
+                    logoutBtn.className = 'logout-button';
+                    logoutBtn.textContent = 'Logout';
+                    logoutBtn.onclick = logoutUser;
+                    
+                    dropdown.appendChild(logoutBtn);
+                    authButton.parentNode.appendChild(dropdown);
+                    
+                    // Show dropdown on auth button click when logged in
+                    authButton.onclick = function(e) {
+                        e.stopPropagation();
+                        dropdown.classList.toggle('show');
+                    };
+                    
+                    // Hide dropdown when clicking elsewhere
+                    document.addEventListener('click', function() {
+                        dropdown.classList.remove('show');
+                    });
+                }
+                
+                updateNavbar(); // Update navbar elements
+            } else {
+                authButton.textContent = 'Login';
+                authButton.classList.remove('logged-in');
+                
+                // Remove dropdown if it exists
+                const dropdown = document.querySelector('.auth-dropdown');
+                if (dropdown) {
+                    dropdown.remove();
+                }
+                
+                // Reset auth button click to show login modal
+                authButton.onclick = showModal;
+                
+                updateNavbar(); // Update navbar elements
+            }
+        }
+
+        // Logout function
+        function logoutUser() {
+            localStorage.removeItem('currentUser');
+            currentUser = null;
+            updateAuthButton();
+            alert('Logged out successfully!');
+        }
+
+        // Show modal
+        function showModal() {
+            authModal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Hide modal
+        function hideModal() {
+            authModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Switch between auth forms
+        function switchForm(formId) {
+            authForms.forEach(form => {
+                form.classList.remove('active');
+                if (form.id === formId) {
+                    form.classList.add('active');
+                }
+            });
+        }
+
+        // Generate random OTP
+        function generateOTP() {
+            return Math.floor(100000 + Math.random() * 900000).toString();
+        }
+
+        // Handle login
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            const user = users.find(u => u.email === email && u.password === password);
+            if (user) {
+                currentUser = user;
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                updateAuthButton();
+                hideModal();
+                alert('Login successful!');
+                } else {
+                alert('Invalid credentials');
+            }
+        });
+
+        // Handle signup
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const phone = document.getElementById('signupPhone').value;
+            const password = document.getElementById('signupPassword').value;
+
+            // Check if user already exists
+            if (users.some(u => u.email === email)) {
+                alert('Email already registered');
+                return;
+            }
+
+            pendingUser = { name, email, phone, password };
+            const otp = generateOTP();
+            localStorage.setItem('pendingOTP', otp);
+            
+            // In a real app, send OTP to email/phone
+            alert(`OTP sent to ${email}. For demo purposes, your OTP is: ${otp}`);
+            
+            switchForm('otpForm');
+        });
+
+        // Handle OTP verification
+        otpForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const otp = document.getElementById('otp').value;
+            const storedOTP = localStorage.getItem('pendingOTP');
+
+            if (otp === storedOTP) {
+                users.push(pendingUser);
+                localStorage.setItem('users', JSON.stringify(users));
+                currentUser = pendingUser;
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                updateAuthButton();
+                hideModal();
+                alert('Account created successfully!');
+            } else {
+                alert('Invalid OTP');
+            }
+        });
+
+        // Event Listeners
+        authButton.addEventListener('click', function(e) {
+            if (!currentUser) {
+                showModal();
+            }
+        });
+
+        closeModal.addEventListener('click', hideModal);
+
+        window.addEventListener('click', (e) => {
+            if (e.target === authModal) {
+                hideModal();
+            }
+        });
+
+        authTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                authTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                switchForm(tab.dataset.tab + 'Form');
+            });
+        });
+
+        switchToSignup.addEventListener('click', (e) => {
+            e.preventDefault();
+            authTabs[1].click();
+        });
+
+        switchToLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            authTabs[0].click();
+        });
+
+        resendOtp.addEventListener('click', (e) => {
+            e.preventDefault();
+            const otp = generateOTP();
+            localStorage.setItem('pendingOTP', otp);
+            alert(`New OTP sent. For demo purposes, your OTP is: ${otp}`);
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateAuthButton();
+            renderPets();
+            updateFilterOptions();
+            populateDropdowns();
+            populatePetLocalityOptions();
+            
+            // Populate search breed and locality dropdowns
+            populateSearchBreedOptions();
+            populateSearchLocalityOptions();
+            
+            // Add event listeners for search filters
+            document.getElementById('pet-type').addEventListener('change', updateSearchBreedOptions);
+            document.getElementById('pet-breed').addEventListener('change', searchPets);
+            document.getElementById('pet-gender').addEventListener('change', searchPets);
+            document.getElementById('pet-locality').addEventListener('change', searchPets);
+        });
+
+        // Pet Profile Management
+        const petProfileModal = document.getElementById('petProfileModal');
+        const petProfileForm = document.getElementById('petProfileForm');
+        const petGrid = document.getElementById('pet-grid');
+        const filterType = document.getElementById('pet-type');
+        const filterBreed = document.getElementById('pet-breed');
+        const filterGender = document.getElementById('pet-gender');
+        const filterLocality = document.getElementById('pet-locality');
+
+        // Pet data storage
+        let pets = JSON.parse(localStorage.getItem('pets')) || [];
+
+        // Show pet profile modal
+        function showPetProfileModal() {
+            if (!currentUser) {
+                alert('Please login to register your pet for mating services');
+                showModal(); // Show the login modal instead
+                return;
+            }
+            petProfileModal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            
+            // Initialize breed options if pet type already selected
+            if (document.getElementById('petType').value) {
+                updatePetBreedOptions();
+            }
+            
+            // Populate locality dropdown
+            populatePetLocalityOptions();
+        }
+
+        // Hide pet profile modal
+        function hidePetProfileModal() {
+            petProfileModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            petProfileForm.reset(); // Reset form when closing
+        }
+
+        // Add event listener to close modal
+        const closePetProfileModal = petProfileModal.querySelector('.close-modal');
+        closePetProfileModal.addEventListener('click', hidePetProfileModal);
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === petProfileModal) {
+                hidePetProfileModal();
+            }
+        });
+
+        // Allow scrolling within modal content
+        const modalContent = petProfileModal.querySelector('.modal-content');
+        modalContent.style.maxHeight = '80vh';
+        modalContent.style.overflowY = 'auto';
+
+        // Handle pet profile form submission
+        petProfileForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const petData = {
+                id: Date.now().toString(),
+                ownerId: currentUser.email,
+                name: document.getElementById('petName').value,
+                type: document.getElementById('petType').value,
+                breed: document.getElementById('petBreed').value,
+                age: document.getElementById('petAge').value,
+                gender: document.getElementById('petGender').value,
+                locality: document.getElementById('petLocality').value,
+                vaccination: document.getElementById('petVaccination').value,
+                image: null
+            };
+
+            // Handle image upload
+            const imageFile = document.getElementById('petImage').files[0];
+            if (imageFile) {
+                petData.image = URL.createObjectURL(imageFile);
+            }
+
+            pets.push(petData);
+            localStorage.setItem('pets', JSON.stringify(pets));
+            
+            // Update UI
+            renderPets();
+            updateFilterOptions();
+            hidePetProfileModal();
+            
+            alert('Pet profile added successfully!');
+        });
+
+        // Render pets in the grid
+        function renderPets(filteredPets = pets) {
+            petGrid.innerHTML = '';
+            
+            filteredPets.forEach(pet => {
+                const petCard = document.createElement('div');
+                petCard.className = 'pet-card';
+                petCard.innerHTML = `
+                    <div class="pet-image">
+                        ${pet.image ? `<img src="${pet.image}" alt="${pet.name}">` : 
+                            `<i class="fas fa-paw"></i>`}
+            </div>
+                    <div class="pet-info">
+                        <h3>${pet.name}</h3>
+                        <p><strong>Type:</strong> ${pet.type}</p>
+                        <p><strong>Breed:</strong> ${pet.breed}</p>
+                        <p><strong>Age:</strong> ${pet.age} years</p>
+                        <p><strong>Gender:</strong> ${pet.gender}</p>
+                        <p><strong>Locality:</strong> ${pet.locality}</p>
+                        <p><strong>Vaccination:</strong> ${pet.vaccination}</p>
+                </div>
+                    <button class="contact-button" onclick="contactOwner('${pet.id}')">
+                            Contact Owner
+                        </button>
+                `;
+                petGrid.appendChild(petCard);
+            });
+        }
+
+        // Filter pets
+        function filterPets() {
+            let filteredPets = pets;
+            
+            if (filterType.value) {
+                filteredPets = filteredPets.filter(pet => pet.type === filterType.value);
+            }
+            
+            if (filterBreed.value) {
+                filteredPets = filteredPets.filter(pet => pet.breed === filterBreed.value);
+            }
+            
+            if (filterGender.value) {
+                filteredPets = filteredPets.filter(pet => pet.gender === filterGender.value);
+            }
+            
+            if (filterLocality.value) {
+                filteredPets = filteredPets.filter(pet => pet.locality === filterLocality.value);
+            }
+            
+            renderPets(filteredPets);
+        }
+
+        // Update filter options
+        function updateFilterOptions() {
+            // Update breed options
+            const breeds = [...new Set(pets.map(pet => pet.breed))];
+            filterBreed.innerHTML = '<option value="">All Breeds</option>';
+            breeds.forEach(breed => {
+                filterBreed.innerHTML += `<option value="${breed}">${breed}</option>`;
+            });
+
+            // Update locality options
+            const localities = [...new Set(pets.map(pet => pet.locality))];
+            filterLocality.innerHTML = '<option value="">All Localities</option>';
+            localities.forEach(locality => {
+                filterLocality.innerHTML += `<option value="${locality}">${locality}</option>`;
+            });
+        }
+
+        // Contact pet owner
+        function contactOwner(petId) {
+            const pet = pets.find(p => p.id === petId);
+            if (pet) {
+                alert(`Contact the owner of ${pet.name} through our messaging system!`);
+            }
+        }
+
+        // Add "Add Pet" button to logged-in user's navbar
+        function updateNavbar() {
+            // Remove the "Add Pet" button functionality
+            const existingAddPetButton = document.querySelector('.add-pet-button');
+            if (existingAddPetButton) {
+                existingAddPetButton.remove();
+            }
+        }
+
+        // Populate breed options based on pet type
+        function updatePetBreedOptions() {
+            const petType = document.getElementById('petType').value;
+            const breedSelect = document.getElementById('petBreed');
+            
+            // Clear current options
+            breedSelect.innerHTML = '<option value="">Select Breed</option>';
+            
+            if (petType === 'dog') {
+                const dogBreeds = [
+                    "Affenpinscher", "Afghan Hound", "Airedale Terrier", "Akita", "Alaskan Malamute",
+                    "American Bulldog", "American Pit Bull Terrier", "Australian Cattle Dog", "Australian Shepherd",
+                    "Basenji", "Basset Hound", "Beagle", "Bernese Mountain Dog", "Bichon Frise",
+                    "Border Collie", "Boston Terrier", "Boxer", "Bulldog", "Bull Terrier",
+                    "Chihuahua", "Chow Chow", "Cocker Spaniel", "Collie", "Dachshund",
+                    "Dalmatian", "Doberman Pinscher", "English Mastiff", "French Bulldog",
+                    "German Shepherd", "Golden Retriever", "Great Dane", "Great Pyrenees",
+                    "Greyhound", "Havanese", "Husky", "Indian Spitz", "Jack Russell Terrier",
+                    "Labrador Retriever", "Lhasa Apso", "Maltese", "Miniature Pinscher",
+                    "Newfoundland", "Pekingese", "Pembroke Welsh Corgi", "Pomeranian",
+                    "Poodle", "Pug", "Rottweiler", "Saint Bernard", "Samoyed",
+                    "Schnauzer", "Shetland Sheepdog", "Shiba Inu", "Shih Tzu",
+                    "Siberian Husky", "Tibetan Mastiff", "Tibetan Terrier", "Yorkshire Terrier"
+                ];
+                
+                dogBreeds.sort().forEach(breed => {
+                    const option = document.createElement('option');
+                    option.value = breed;
+                    option.textContent = breed;
+                    breedSelect.appendChild(option);
+                });
+            } else if (petType === 'cat') {
+                const catBreeds = [
+                    "Abyssinian", "American Bobtail", "American Shorthair", "Bengal", "Birman",
+                    "Bombay", "British Shorthair", "Burmese", "Calico", "Chartreux",
+                    "Himalayan", "Maine Coon", "Manx", "Norwegian Forest Cat", "Persian",
+                    "Ragdoll", "Russian Blue", "Scottish Fold", "Siamese", "Siberian",
+                    "Sphynx", "Tabby", "Tonkinese", "Turkish Angora", "Turkish Van"
+                ];
+                
+                catBreeds.sort().forEach(breed => {
+                    const option = document.createElement('option');
+                    option.value = breed;
+                    option.textContent = breed;
+                    breedSelect.appendChild(option);
+                });
+            }
+        }
+
+        // Populate localities dropdown
+        function populatePetLocalityOptions() {
+            const localitySelect = document.getElementById('petLocality');
+            
+            // Clear current options
+            localitySelect.innerHTML = '<option value="">Select Locality</option>';
+            
+            const localitiesAroundDarjeeling = [
+                // Darjeeling District
+                "Darjeeling Town", "Kurseong", "Kalimpong", "Mirik", "Siliguri",
+                "Ghoom", "Sonada", "Sukna", "Tindharia", "Rangbull",
+                
+                // Nearby Areas in West Bengal
+                "Jalpaiguri", "Alipurduar", "Cooch Behar", "Malbazar", "Mainaguri",
+                "Birpara", "Madarihat", "Falakata", "Dhupguri", "New Mal",
+                
+                // Sikkim Areas (Within 150km)
+                "Gangtok", "Namchi", "Pelling", "Ravangla", "Jorethang",
+                "Rangpo", "Singtam", "Mangan", "Yuksom", "Lachung",
+                
+                // Nepal Border Areas
+                "Pashupatinagar", "Ilam", "Bhadrapur", "Birtamod", "Damak",
+                
+                // Tea Estate Areas
+                "Happy Valley Tea Estate", "Makaibari", "Castleton", "Goodricke", "Margaret's Hope",
+                "Avongrove", "Goomtee", "Jungpana", "Seeyok", "Chamong",
+                
+                // Hill Stations & Tourist Areas
+                "Tiger Hill", "Batasia Loop", "Lebong", "Takdah", "Rangli Rangliot",
+                "Senchal", "Dooteriah", "Jorebunglow", "Tukvar", "Bloomfield"
+            ];
+            
+            localitiesAroundDarjeeling.sort().forEach(locality => {
+                const option = document.createElement('option');
+                option.value = locality;
+                option.textContent = locality;
+                localitySelect.appendChild(option);
+            });
+        }
+
+        // Populate search breed options based on selected pet type
+        function updateSearchBreedOptions() {
+            const petType = document.getElementById('pet-type').value;
+            populateSearchBreedOptions(petType);
+        }
+
+        // Populate breed dropdown in search section
+        function populateSearchBreedOptions(petType = '') {
+            const breedSelect = document.getElementById('pet-breed');
+            
+            // Clear current options
+            breedSelect.innerHTML = '<option value="">All Breeds</option>';
+            
+            if (petType === '' || petType === 'dog') {
+                const dogBreeds = [
+                    "Affenpinscher", "Afghan Hound", "Airedale Terrier", "Akita", "Alaskan Malamute",
+                    "American Bulldog", "American Pit Bull Terrier", "Australian Cattle Dog", "Australian Shepherd",
+                    "Basenji", "Basset Hound", "Beagle", "Bernese Mountain Dog", "Bichon Frise",
+                    "Border Collie", "Boston Terrier", "Boxer", "Bulldog", "Bull Terrier",
+                    "Chihuahua", "Chow Chow", "Cocker Spaniel", "Collie", "Dachshund",
+                    "Dalmatian", "Doberman Pinscher", "English Mastiff", "French Bulldog",
+                    "German Shepherd", "Golden Retriever", "Great Dane", "Great Pyrenees",
+                    "Greyhound", "Havanese", "Husky", "Indian Spitz", "Jack Russell Terrier",
+                    "Labrador Retriever", "Lhasa Apso", "Maltese", "Miniature Pinscher",
+                    "Newfoundland", "Pekingese", "Pembroke Welsh Corgi", "Pomeranian",
+                    "Poodle", "Pug", "Rottweiler", "Saint Bernard", "Samoyed",
+                    "Schnauzer", "Shetland Sheepdog", "Shiba Inu", "Shih Tzu",
+                    "Siberian Husky", "Tibetan Mastiff", "Tibetan Terrier", "Yorkshire Terrier"
+                ];
+                
+                dogBreeds.sort().forEach(breed => {
+                    const option = document.createElement('option');
+                    option.value = breed.toLowerCase();
+                    option.textContent = breed;
+                    breedSelect.appendChild(option);
+                });
+            }
+            
+            if (petType === 'cat') {
+                const catBreeds = [
+                    "Abyssinian", "American Bobtail", "American Shorthair", "Bengal", "Birman",
+                    "Bombay", "British Shorthair", "Burmese", "Calico", "Chartreux",
+                    "Himalayan", "Maine Coon", "Manx", "Norwegian Forest Cat", "Persian",
+                    "Ragdoll", "Russian Blue", "Scottish Fold", "Siamese", "Siberian",
+                    "Sphynx", "Tabby", "Tonkinese", "Turkish Angora", "Turkish Van"
+                ];
+                
+                catBreeds.sort().forEach(breed => {
+                    const option = document.createElement('option');
+                    option.value = breed.toLowerCase();
+                    option.textContent = breed;
+                    breedSelect.appendChild(option);
+                });
+            }
+        }
+
+        // Populate locality dropdown in search section
+        function populateSearchLocalityOptions() {
+            const localitySelect = document.getElementById('pet-locality');
+            
+            // Clear current options
+            localitySelect.innerHTML = '<option value="">All Localities</option>';
+            
+            const localitiesAroundDarjeeling = [
+                // Darjeeling District
+                "Darjeeling Town", "Kurseong", "Kalimpong", "Mirik", "Siliguri",
+                "Ghoom", "Sonada", "Sukna", "Tindharia", "Rangbull",
+                
+                // Nearby Areas in West Bengal
+                "Jalpaiguri", "Alipurduar", "Cooch Behar", "Malbazar", "Mainaguri",
+                "Birpara", "Madarihat", "Falakata", "Dhupguri", "New Mal",
+                
+                // Sikkim Areas (Within 150km)
+                "Gangtok", "Namchi", "Pelling", "Ravangla", "Jorethang",
+                "Rangpo", "Singtam", "Mangan", "Yuksom", "Lachung",
+                
+                // Nepal Border Areas
+                "Pashupatinagar", "Ilam", "Bhadrapur", "Birtamod", "Damak",
+                
+                // Tea Estate Areas
+                "Happy Valley Tea Estate", "Makaibari", "Castleton", "Goodricke", "Margaret's Hope",
+                "Avongrove", "Goomtee", "Jungpana", "Seeyok", "Chamong",
+                
+                // Hill Stations & Tourist Areas
+                "Tiger Hill", "Batasia Loop", "Lebong", "Takdah", "Rangli Rangliot",
+                "Senchal", "Dooteriah", "Jorebunglow", "Tukvar", "Bloomfield"
+            ];
+            
+            localitiesAroundDarjeeling.sort().forEach(locality => {
+                const option = document.createElement('option');
+                option.value = locality.toLowerCase();
+                option.textContent = locality;
+                localitySelect.appendChild(option);
+            });
+        }
+
+        // Modify searchPets function to properly filter based on breed and locality
+        function searchPets() {
+            const type = document.getElementById('pet-type').value;
+            const breed = document.getElementById('pet-breed').value;
+            const gender = document.getElementById('pet-gender').value;
+            const locality = document.getElementById('pet-locality').value;
+            
+            let filteredPets = pets;
+            
+            if (type) {
+                filteredPets = filteredPets.filter(pet => pet.type === type);
+            }
+            
+            if (breed) {
+                filteredPets = filteredPets.filter(pet => pet.breed.toLowerCase() === breed.toLowerCase());
+            }
+            
+            if (gender) {
+                filteredPets = filteredPets.filter(pet => pet.gender === gender);
+            }
+            
+            if (locality) {
+                filteredPets = filteredPets.filter(pet => pet.locality.toLowerCase() === locality.toLowerCase());
+            }
+            
+            renderPets(filteredPets);
+            
+            // Highlight matching pets
+            const cards = document.querySelectorAll('.pet-card');
+            cards.forEach(card => {
+                const petInfo = card.querySelector('.pet-info');
+                const petBreed = petInfo.querySelector('p:nth-child(3)').textContent.split(':')[1].trim();
+                const petGender = petInfo.querySelector('p:nth-child(5)').textContent.split(':')[1].trim();
+                
+                if ((breed && petBreed.toLowerCase() === breed.toLowerCase()) && 
+                    (gender && petGender.toLowerCase() === gender.toLowerCase())) {
+                    card.classList.add('match-highlight');
+                } else {
+                    card.classList.remove('match-highlight');
+                }
+            });
+        }
+
+        // Pet Sitting Modal Functions
+        function showPetSittingModal() {
+            document.getElementById('petSittingModal').style.display = 'block';
+        }
+
+        function hidePetSittingModal() {
+            document.getElementById('petSittingModal').style.display = 'none';
+        }
+
+        function showPetSittingTab(tabName) {
+            // Hide all sections
+            document.querySelectorAll('.pet-sitting-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.querySelectorAll('.pet-sitting-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(tabName === 'browse' ? 'browseSitters' : 'registerSitter').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Sample sitter data (in a real app, this would come from a database)
+        const sitters = [
+            {
+                name: "John Doe",
+                locality: "downtown",
+                experience: 5,
+                petTypes: ["dog", "cat"],
+                rating: 4.8,
+                photo: "path/to/john.jpg",
+                bio: "Experienced pet sitter with love for all animals."
+            },
+            // Add more sample sitters as needed
+        ];
+
+        function searchSitters() {
+            const locality = document.getElementById('sitterLocality').value;
+            const petType = document.getElementById('petType').value;
+            
+            // Filter sitters based on criteria
+            const filteredSitters = sitters.filter(sitter => {
+                return (!locality || sitter.locality === locality) &&
+                       (!petType || sitter.petTypes.includes(petType));
+            });
+
+            // Display filtered sitters
+            displaySitters(filteredSitters);
+        }
+
+        function displaySitters(sittersList) {
+            const grid = document.getElementById('sittersGrid');
+            grid.innerHTML = '';
+
+            if (sittersList.length === 0) {
+                grid.innerHTML = '<div class="no-matches">No sitters found matching your criteria</div>';
+                return;
+            }
+
+            sittersList.forEach(sitter => {
+                const sitterCard = document.createElement('div');
+                sitterCard.className = 'sitter-card';
+                sitterCard.innerHTML = `
+                    <div class="sitter-image">
+                        <img src="${sitter.photo}" alt="${sitter.name}" onerror="this.src='path/to/default-avatar.jpg'">
+                    </div>
+                    <div class="sitter-info">
+                        <h3>${sitter.name}</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> ${sitter.locality}</p>
+                        <p><i class="fas fa-star"></i> ${sitter.rating}/5.0</p>
+                        <p><i class="fas fa-clock"></i> ${sitter.experience} years experience</p>
+                        <p>${sitter.bio}</p>
+                        <button onclick="contactSitter('${sitter.name}')" class="contact-button">Contact Sitter</button>
+                    </div>
+                `;
+                grid.appendChild(sitterCard);
+            });
+        }
+
+        function registerAsSitter(event) {
+            event.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('sitterName').value;
+            const phone = document.getElementById('sitterPhone').value;
+            const email = document.getElementById('sitterEmail').value;
+            const locality = document.getElementById('sitterLocality').value;
+            const experience = document.getElementById('sitterExperience').value;
+            const bio = document.getElementById('sitterBio').value;
+            
+            // Get selected pet types
+            const petTypes = Array.from(document.querySelectorAll('input[type="checkbox"]:checked'))
+                                .map(checkbox => checkbox.value);
+
+            // In a real app, you would send this data to a server
+            alert('Thank you for registering as a pet sitter! We will review your application and contact you soon.');
+            hidePetSittingModal();
+        }
+
+        function contactSitter(sitterName) {
+            // In a real app, this would open a chat or show contact information
+            alert(`Contact information for ${sitterName} will be shared after verification.`);
+        }
+
+        // When clicking outside the modal, close it
+        window.onclick = function(event) {
+            if (event.target === document.getElementById('petSittingModal')) {
+                hidePetSittingModal();
+            }
+        }
+
+        // Pet Walks Modal Functions
+        function showPetWalksModal() {
+            document.getElementById('petWalksModal').style.display = 'block';
+        }
+
+        function hidePetWalksModal() {
+            document.getElementById('petWalksModal').style.display = 'none';
+        }
+
+        function showPetWalksTab(tabName) {
+            // Hide all sections
+            document.querySelectorAll('.pet-walks-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.querySelectorAll('.pet-walks-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(tabName === 'browse' ? 'browseWalkers' : 'registerWalker').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Sample walker data (in a real app, this would come from a database)
+        const walkers = [
+            {
+                name: "Jane Smith",
+                locality: "downtown",
+                experience: 3,
+                petTypes: ["dog", "cat"],
+                schedule: ["morning", "evening"],
+                rating: 4.9,
+                photo: "images/default-avatar.jpg",
+                bio: "Professional dog walker with a passion for pet care and exercise."
+            },
+            // Add more sample walkers as needed
+        ];
+
+        function searchWalkers() {
+            const locality = document.getElementById('walkerLocality').value;
+            const petType = document.getElementById('walkPetType').value;
+            
+            // Filter walkers based on criteria
+            const filteredWalkers = walkers.filter(walker => {
+                return (!locality || walker.locality === locality) &&
+                       (!petType || walker.petTypes.includes(petType));
+            });
+
+            // Display filtered walkers
+            displayWalkers(filteredWalkers);
+        }
+
+        function displayWalkers(walkersList) {
+            const grid = document.getElementById('walkersGrid');
+            grid.innerHTML = '';
+
+            if (walkersList.length === 0) {
+                grid.innerHTML = '<div class="no-matches">No walkers found matching your criteria</div>';
+                return;
+            }
+
+            walkersList.forEach(walker => {
+                const walkerCard = document.createElement('div');
+                walkerCard.className = 'walker-card';
+                walkerCard.innerHTML = `
+                    <div class="walker-image">
+                        <img src="${walker.photo}" alt="${walker.name}" onerror="this.src='images/default-avatar.jpg'">
+                    </div>
+                    <div class="walker-info">
+                        <h3>${walker.name}</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> ${walker.locality}</p>
+                        <p><i class="fas fa-star"></i> ${walker.rating}/5.0</p>
+                        <p><i class="fas fa-clock"></i> ${walker.experience} years experience</p>
+                        <p><i class="fas fa-calendar"></i> Available: ${walker.schedule.join(', ')}</p>
+                        <p>${walker.bio}</p>
+                        <button onclick="contactWalker('${walker.name}')" class="contact-button">Contact Walker</button>
+                    </div>
+                `;
+                grid.appendChild(walkerCard);
+            });
+        }
+
+        function registerAsWalker(event) {
+            event.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('walkerName').value;
+            const phone = document.getElementById('walkerPhone').value;
+            const email = document.getElementById('walkerEmail').value;
+            const locality = document.getElementById('walkerLocality').value;
+            const experience = document.getElementById('walkerExperience').value;
+            const bio = document.getElementById('walkerBio').value;
+            
+            // Get selected pet types and schedule
+            const petTypes = Array.from(document.querySelectorAll('input[type="checkbox"][value="dog"], input[type="checkbox"][value="cat"], input[type="checkbox"][value="other"]:checked'))
+                                .map(checkbox => checkbox.value);
+            const schedule = Array.from(document.querySelectorAll('.schedule-group input[type="checkbox"]:checked'))
+                                .map(checkbox => checkbox.value);
+
+            // In a real app, you would send this data to a server
+            alert('Thank you for registering as a pet walker! We will review your application and contact you soon.');
+            hidePetWalksModal();
+        }
+
+        function contactWalker(walkerName) {
+            // In a real app, this would open a chat or show contact information
+            alert(`Contact information for ${walkerName} will be shared after verification.`);
+        }
+
+        // When clicking outside the modal, close it
+        window.onclick = function(event) {
+            if (event.target === document.getElementById('petWalksModal')) {
+                hidePetWalksModal();
+            }
+        }
+
+        // Printify Integration
+        const PRINTIFY_API_KEY = 'YOUR_PRINTIFY_API_KEY'; // You'll need to replace this with your actual API key
+        let currentProduct = null;
+
+        function openPrintifyDesigner(productType) {
+            document.getElementById('printifyModal').style.display = 'block';
+            if (productType !== 'all') {
+                selectProduct(productType);
+            }
+        }
+
+        function selectProduct(productType) {
+            currentProduct = productType;
+            // Update UI to show selected product
+            document.querySelectorAll('.merch-option').forEach(option => {
+                option.classList.remove('selected');
+                if (option.querySelector('img').alt.toLowerCase().includes(productType)) {
+                    option.classList.add('selected');
+                }
+            });
+            
+            // Update preview
+            updatePreview();
+        }
+
+        function closePrintifyModal() {
+            document.getElementById('printifyModal').style.display = 'none';
+            currentProduct = null;
+            // Reset form
+            document.getElementById('petPhoto').value = '';
+            document.getElementById('customText').value = '';
+            document.getElementById('productColor').value = 'white';
+            document.getElementById('productSize').value = 'm';
+            document.getElementById('designPreview').innerHTML = '';
+        }
+
+        function updatePreview() {
+            if (!currentProduct) {
+                alert('Please select a product type first!');
+                return;
+            }
+
+            const preview = document.getElementById('designPreview');
+            const petPhoto = document.getElementById('petPhoto').files[0];
+            const customText = document.getElementById('customText').value;
+            const color = document.getElementById('productColor').value;
+            
+            if (petPhoto) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.innerHTML = `
+                        <div class="product-preview ${currentProduct}" style="background-color: ${color};">
+                            <img src="${e.target.result}" alt="Preview" style="max-width: 200px;">
+                            <p style="font-family: ${document.getElementById('textFont').value};">${customText}</p>
+                        </div>
+                    `;
+                };
+                reader.readAsDataURL(petPhoto);
+            } else {
+                preview.innerHTML = `
+                    <div class="product-preview ${currentProduct}" style="background-color: ${color};">
+                        <p class="no-image">Upload a pet photo to see preview</p>
+                        <p style="font-family: ${document.getElementById('textFont').value};">${customText}</p>
+                    </div>
+                `;
+            }
+        }
+
+        function addToCart() {
+            if (!currentProduct) {
+                alert('Please select a product type first!');
+                return;
+            }
+
+            if (!document.getElementById('petPhoto').files[0]) {
+                alert('Please upload a pet photo!');
+                return;
+            }
+
+            // Integrate with Printify API to add the customized product to cart
+            const productData = {
+                type: currentProduct,
+                color: document.getElementById('productColor').value,
+                size: document.getElementById('productSize').value,
+                customText: document.getElementById('customText').value,
+                // Add other necessary product data
+            };
+
+            // Make API call to Printify
+            fetch('https://api.printify.com/v1/shops/{shop_id}/products.json', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${PRINTIFY_API_KEY}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(productData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Product added to cart successfully!');
+                closePrintifyModal();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was an error adding the product to cart. Please try again.');
+            });
+        }
+
+        // Event Listeners
+        document.getElementById('petPhoto').addEventListener('change', updatePreview);
+        document.getElementById('customText').addEventListener('input', updatePreview);
+        document.getElementById('productColor').addEventListener('change', updatePreview);
+        document.getElementById('textFont').addEventListener('change', updatePreview);
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                if (event.target.id === 'printifyModal') {
+                    closePrintifyModal();
+                } else if (event.target.id === 'petSittingModal') {
+                    hidePetSittingModal();
+                } else if (event.target.id === 'petWalksModal') {
+                    hidePetWalksModal();
+                } else if (event.target.id === 'authModal') {
+                    hideModal();
+                }
+            }
+        };
+
+        // Add this to your existing JavaScript
+        document.querySelectorAll('.merch-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const product = this.dataset.product;
+                selectProduct(product);
+                
+                // Remove selected class from all options
+                document.querySelectorAll('.merch-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Add selected class to clicked option
+                this.classList.add('selected');
+            });
+        });
+
+        function selectProduct(product) {
+            // Your existing product selection logic
+            console.log(`Selected product: ${product}`);
+            // Update preview or handle the selection
+        }
+    </script>
+</body>
+</html> 
