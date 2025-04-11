@@ -1,0 +1,54 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\UNITY\\Dice_Game\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6D63868C-C675-774C-0312-A2D2C68D114C}|Assembly-CSharp.csproj|d:\\unity\\dice_game\\assets\\gameassets\\scripts\\diceroll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D63868C-C675-774C-0312-A2D2C68D114C}|Assembly-CSharp.csproj|solutionrelative:assets\\gameassets\\scripts\\diceroll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6D63868C-C675-774C-0312-A2D2C68D114C}|Assembly-CSharp.csproj|d:\\unity\\dice_game\\assets\\gameassets\\scripts\\score.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D63868C-C675-774C-0312-A2D2C68D114C}|Assembly-CSharp.csproj|solutionrelative:assets\\gameassets\\scripts\\score.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Score.cs",
+              "DocumentMoniker": "D:\\UNITY\\Dice_Game\\Assets\\GameAssets\\scripts\\Score.cs",
+              "RelativeDocumentMoniker": "Assets\\GameAssets\\scripts\\Score.cs",
+              "ToolTip": "D:\\UNITY\\Dice_Game\\Assets\\GameAssets\\scripts\\Score.cs",
+              "RelativeToolTip": "Assets\\GameAssets\\scripts\\Score.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-02T16:22:07.947Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DiceRoll.cs",
+              "DocumentMoniker": "D:\\UNITY\\Dice_Game\\Assets\\GameAssets\\scripts\\DiceRoll.cs",
+              "RelativeDocumentMoniker": "Assets\\GameAssets\\scripts\\DiceRoll.cs",
+              "ToolTip": "D:\\UNITY\\Dice_Game\\Assets\\GameAssets\\scripts\\DiceRoll.cs",
+              "RelativeToolTip": "Assets\\GameAssets\\scripts\\DiceRoll.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-02T14:53:18.431Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
