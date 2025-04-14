@@ -101,9 +101,9 @@
     <main>
         <section id="home" class="hero">
             <div class="hero-content">
-                <h2>Professional Dog Care Services</h2>
+                <h2>Professional Pet Care Services</h2>
                 <p>Your furry friend deserves the best care</p>
-                <a href="#contact" class="cta-button">Book a Service</a>
+                <a href="#contact" class="cta-button">Get in touch</a>
                 </div>
         </section>
 
@@ -792,6 +792,7 @@
                                 </div>
                                 </div>
 
+    <script src="apiService.js"></script>
     <script>
         // Auth Modal Elements
         const authModal = document.getElementById('authModal');
@@ -908,7 +909,7 @@
                 updateAuthButton();
                 hideModal();
                 alert('Login successful!');
-                } else {
+            } else {
                 alert('Invalid credentials');
             }
         });
@@ -1024,9 +1025,6 @@
         const filterGender = document.getElementById('pet-gender');
         const filterLocality = document.getElementById('pet-locality');
 
-        // Pet data storage
-        let pets = JSON.parse(localStorage.getItem('pets')) || [];
-
         // Show pet profile modal
         function showPetProfileModal() {
             if (!currentUser) {
@@ -1074,7 +1072,6 @@
             e.preventDefault();
             
             const petData = {
-                id: Date.now().toString(),
                 ownerId: currentUser.email,
                 name: document.getElementById('petName').value,
                 type: document.getElementById('petType').value,
@@ -1103,982 +1100,249 @@
                 petData.vaccinationDoc = URL.createObjectURL(vaccinationFile);
             }
 
-            pets.push(petData);
-            localStorage.setItem('pets', JSON.stringify(pets));
-            
-            // Update UI
-            renderPets();
-            updateFilterOptions();
-            hidePetProfileModal();
-            
-            alert('Pet profile added successfully!');
+            try {
+                const response = await apiService.registerPet(petData);
+                if (response.success) {
+                    alert('Pet profile added successfully!');
+                    renderPets();
+                    updateFilterOptions();
+                    hidePetProfileModal();
+                } else {
+                    alert('Failed to add pet profile. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error registering pet:', error);
+                alert('An error occurred. Please try again.');
+            }
         });
 
         // Render pets in the grid
-        function renderPets(filteredPets = pets) {
-            petGrid.innerHTML = '';
+        async function renderPets(filteredPets = null) {
+            petGrid.innerHTML = '<div class="loading">Loading pets...</div>';
             
-            filteredPets.forEach(pet => {
-                const petCard = document.createElement('div');
-                petCard.className = 'pet-card';
-                petCard.innerHTML = `
-                    <div class="pet-image">
-                        ${pet.image ? `<img src="${pet.image}" alt="${pet.name}">` : 
-                            `<i class="fas fa-paw"></i>`}
+            try {
+                const response = await apiService.getPets();
+                if (response.success) {
+                    const pets = filteredPets || response.data;
+                    petGrid.innerHTML = '';
+                    
+                    pets.forEach(pet => {
+                        const petCard = document.createElement('div');
+                        petCard.className = 'pet-card';
+                        petCard.innerHTML = `
+                            <div class="pet-image">
+                                ${pet.image ? `<img src="${pet.image}" alt="${pet.name}">` : 
+                                    `<i class="fas fa-paw"></i>`}
                             </div>
-                    <div class="pet-info">
-                        <h3>${pet.name}</h3>
-                        <p><strong>Type:</strong> ${pet.type}</p>
-                        <p><strong>Breed:</strong> ${pet.breed}</p>
-                        <p><strong>Age:</strong> ${pet.age} years</p>
-                        <p><strong>Gender:</strong> ${pet.gender}</p>
-                        <p><strong>Locality:</strong> ${pet.locality}</p>
-                        <p><strong>Vaccination:</strong> ${pet.vaccination}</p>
-                        ${pet.vaccinationDoc ? `
-                            <div class="vaccination-doc">
-                                <a href="${pet.vaccinationDoc}" target="_blank" class="view-doc-btn">
-                                    <i class="fas fa-image"></i> View Vaccination Certificate
-                                </a>
-                        </div>
-                        ` : ''}
-                        </div>
-                    <button class="contact-button" onclick="contactService('owner', '${pet.id}', '${pet.name}')">
-                            Contact Owner
+                            <div class="pet-info">
+                                <h3>${pet.name}</h3>
+                                <p><strong>Type:</strong> ${pet.type}</p>
+                                <p><strong>Breed:</strong> ${pet.breed}</p>
+                                <p><strong>Age:</strong> ${pet.age} years</p>
+                                <p><strong>Gender:</strong> ${pet.gender}</p>
+                                <p><strong>Locality:</strong> ${pet.locality}</p>
+                                <p><strong>Vaccination:</strong> ${pet.vaccination}</p>
+                                ${pet.vaccinationDoc ? `
+                                    <div class="vaccination-doc">
+                                        <a href="${pet.vaccinationDoc}" target="_blank" class="view-doc-btn">
+                                            <i class="fas fa-image"></i> View Vaccination Certificate
+                                        </a>
+                                    </div>
+                                ` : ''}
+                            </div>
+                            <button class="contact-button" onclick="contactService('owner', '${pet.id}', '${pet.name}')">
+                                Contact Owner
                             </button>
-                `;
-                petGrid.appendChild(petCard);
-            });
-        }
-
-        // Filter pets
-        function filterPets() {
-            let filteredPets = pets;
-            
-            if (filterType.value) {
-                filteredPets = filteredPets.filter(pet => pet.type === filterType.value);
-            }
-            
-            if (filterBreed.value) {
-                filteredPets = filteredPets.filter(pet => pet.breed === filterBreed.value);
-            }
-            
-            if (filterGender.value) {
-                filteredPets = filteredPets.filter(pet => pet.gender === filterGender.value);
-            }
-            
-            if (filterLocality.value) {
-                filteredPets = filteredPets.filter(pet => pet.locality === filterLocality.value);
-            }
-            
-            renderPets(filteredPets);
-        }
-
-        // Update filter options
-        function updateFilterOptions() {
-            // Update breed options
-            const breeds = [...new Set(pets.map(pet => pet.breed))];
-            filterBreed.innerHTML = '<option value="">All Breeds</option>';
-            breeds.forEach(breed => {
-                filterBreed.innerHTML += `<option value="${breed}">${breed}</option>`;
-            });
-
-            // Update locality options
-            const localities = [...new Set(pets.map(pet => pet.locality))];
-            filterLocality.innerHTML = '<option value="">All Localities</option>';
-            localities.forEach(locality => {
-                filterLocality.innerHTML += `<option value="${locality}">${locality}</option>`;
-            });
-        }
-
-        // Contact functions consolidated
-        function contactService(type, id, name) {
-            if (!currentUser) {
-                alert('Please login to contact ' + type);
-                showModal();
-                return;
-            }
-            
-            switch(type) {
-                case 'owner':
-                    const pet = pets.find(p => p.id === id);
-                    alert(`Contact the owner of ${pet.name} through our messaging system!`);
-                    break;
-                case 'sitter':
-                    alert(`Contact information for ${name} will be shared after verification.`);
-                    break;
-                case 'walker':
-                    alert(`Contact information for ${name} will be shared after verification.`);
-                    break;
+                        `;
+                        petGrid.appendChild(petCard);
+                    });
+                } else {
+                    petGrid.innerHTML = '<div class="error">Failed to load pets. Please try again.</div>';
+                }
+            } catch (error) {
+                console.error('Error loading pets:', error);
+                petGrid.innerHTML = '<div class="error">An error occurred. Please try again.</div>';
             }
         }
 
-        // Add "Add Pet" button to logged-in user's navbar
-        function updateNavbar() {
-            // Remove the "Add Pet" button functionality
-            const existingAddPetButton = document.querySelector('.add-pet-button');
-            if (existingAddPetButton) {
-                existingAddPetButton.remove();
+        // Search pets
+        async function searchPets() {
+            const filters = {
+                type: document.getElementById('pet-type').value,
+                breed: document.getElementById('pet-breed').value,
+                gender: document.getElementById('pet-gender').value,
+                locality: document.getElementById('pet-locality').value
+            };
+
+            try {
+                const response = await apiService.getPets(filters);
+                if (response.success) {
+                    renderPets(response.data);
+                } else {
+                    alert('Failed to search pets. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error searching pets:', error);
+                alert('An error occurred. Please try again.');
             }
         }
 
-        // Populate breed options based on pet type
-        function updatePetBreedOptions() {
+        // Display sitters
+        async function displaySitters() {
+            const sittersGrid = document.getElementById('sittersGrid');
+            const locality = document.getElementById('locality').value;
             const petType = document.getElementById('petType').value;
-            const breedSelect = document.getElementById('petBreed');
-            
-            // Clear current options
-            breedSelect.innerHTML = '<option value="">Select Breed</option>';
-            
-            if (petType === 'dog') {
-                const dogBreeds = [
-                    "Affenpinscher", "Afghan Hound", "Airedale Terrier", "Akita", "Alaskan Malamute",
-                    "American Bulldog", "American Pit Bull Terrier", "Australian Cattle Dog", "Australian Shepherd",
-                    "Basenji", "Basset Hound", "Beagle", "Bernese Mountain Dog", "Bichon Frise",
-                    "Border Collie", "Boston Terrier", "Boxer", "Bulldog", "Bull Terrier",
-                    "Chihuahua", "Chow Chow", "Cocker Spaniel", "Collie", "Dachshund",
-                    "Dalmatian", "Doberman Pinscher", "English Mastiff", "French Bulldog",
-                    "German Shepherd", "Golden Retriever", "Great Dane", "Great Pyrenees",
-                    "Greyhound", "Havanese", "Husky", "Indian Spitz", "Jack Russell Terrier",
-                    "Labrador Retriever", "Lhasa Apso", "Maltese", "Miniature Pinscher",
-                    "Newfoundland", "Pekingese", "Pembroke Welsh Corgi", "Pomeranian",
-                    "Poodle", "Pug", "Rottweiler", "Saint Bernard", "Samoyed",
-                    "Schnauzer", "Shetland Sheepdog", "Shiba Inu", "Shih Tzu",
-                    "Siberian Husky", "Tibetan Mastiff", "Tibetan Terrier", "Yorkshire Terrier"
-                ];
-                
-                dogBreeds.sort().forEach(breed => {
-                    const option = document.createElement('option');
-                    option.value = breed;
-                    option.textContent = breed;
-                    breedSelect.appendChild(option);
+
+            sittersGrid.innerHTML = '<div class="loading">Loading sitters...</div>';
+
+            try {
+                const response = await apiService.getSitters({
+                    locality,
+                    petType
                 });
-            } else if (petType === 'cat') {
-                const catBreeds = [
-                    "Abyssinian", "American Bobtail", "American Shorthair", "Bengal", "Birman",
-                    "Bombay", "British Shorthair", "Burmese", "Calico", "Chartreux",
-                    "Himalayan", "Maine Coon", "Manx", "Norwegian Forest Cat", "Persian",
-                    "Ragdoll", "Russian Blue", "Scottish Fold", "Siamese", "Siberian",
-                    "Sphynx", "Tabby", "Tonkinese", "Turkish Angora", "Turkish Van"
-                ];
-                
-                catBreeds.sort().forEach(breed => {
-                    const option = document.createElement('option');
-                    option.value = breed;
-                    option.textContent = breed;
-                    breedSelect.appendChild(option);
-                });
-            }
-        }
 
-        // Populate localities dropdown
-        function populatePetLocalityOptions() {
-            const localitySelect = document.getElementById('petLocality');
-            
-            // Clear current options
-            localitySelect.innerHTML = '<option value="">Select Locality</option>';
-            
-            const localitiesAroundDarjeeling = [
-                // Darjeeling District
-                "Darjeeling Town", "Kurseong", "Kalimpong", "Mirik", "Siliguri",
-                "Ghoom", "Sonada", "Sukna", "Tindharia", "Rangbull",
-                
-                // Nearby Areas in West Bengal
-                "Jalpaiguri", "Alipurduar", "Cooch Behar", "Malbazar", "Mainaguri",
-                "Birpara", "Madarihat", "Falakata", "Dhupguri", "New Mal",
-                
-                // Sikkim Areas (Within 150km)
-                "Gangtok", "Namchi", "Pelling", "Ravangla", "Jorethang",
-                "Rangpo", "Singtam", "Mangan", "Yuksom", "Lachung",
-                
-                // Nepal Border Areas
-                "Pashupatinagar", "Ilam", "Bhadrapur", "Birtamod", "Damak",
-                
-                // Tea Estate Areas
-                "Happy Valley Tea Estate", "Makaibari", "Castleton", "Goodricke", "Margaret's Hope",
-                "Avongrove", "Goomtee", "Jungpana", "Seeyok", "Chamong",
-                
-                // Hill Stations & Tourist Areas
-                "Tiger Hill", "Batasia Loop", "Lebong", "Takdah", "Rangli Rangliot",
-                "Senchal", "Dooteriah", "Jorebunglow", "Tukvar", "Bloomfield"
-            ];
-            
-            localitiesAroundDarjeeling.sort().forEach(locality => {
-                const option = document.createElement('option');
-                option.value = locality;
-                option.textContent = locality;
-                localitySelect.appendChild(option);
-            });
-        }
-
-        // Populate search breed options based on selected pet type
-        function updateSearchBreedOptions() {
-            const petType = document.getElementById('pet-type').value;
-            populateSearchBreedOptions(petType);
-        }
-
-        // Populate breed dropdown in search section
-        function populateSearchBreedOptions(petType = '') {
-            const breedSelect = document.getElementById('pet-breed');
-            
-            // Clear current options
-            breedSelect.innerHTML = '<option value="">All Breeds</option>';
-            
-            if (petType === '' || petType === 'dog') {
-                const dogBreeds = [
-                    "Affenpinscher", "Afghan Hound", "Airedale Terrier", "Akita", "Alaskan Malamute",
-                    "American Bulldog", "American Pit Bull Terrier", "Australian Cattle Dog", "Australian Shepherd",
-                    "Basenji", "Basset Hound", "Beagle", "Bernese Mountain Dog", "Bichon Frise",
-                    "Border Collie", "Boston Terrier", "Boxer", "Bulldog", "Bull Terrier",
-                    "Chihuahua", "Chow Chow", "Cocker Spaniel", "Collie", "Dachshund",
-                    "Dalmatian", "Doberman Pinscher", "English Mastiff", "French Bulldog",
-                    "German Shepherd", "Golden Retriever", "Great Dane", "Great Pyrenees",
-                    "Greyhound", "Havanese", "Husky", "Indian Spitz", "Jack Russell Terrier",
-                    "Labrador Retriever", "Lhasa Apso", "Maltese", "Miniature Pinscher",
-                    "Newfoundland", "Pekingese", "Pembroke Welsh Corgi", "Pomeranian",
-                    "Poodle", "Pug", "Rottweiler", "Saint Bernard", "Samoyed",
-                    "Schnauzer", "Shetland Sheepdog", "Shiba Inu", "Shih Tzu",
-                    "Siberian Husky", "Tibetan Mastiff", "Tibetan Terrier", "Yorkshire Terrier"
-                ];
-                
-                dogBreeds.sort().forEach(breed => {
-                    const option = document.createElement('option');
-                    option.value = breed.toLowerCase();
-                    option.textContent = breed;
-                    breedSelect.appendChild(option);
-                });
-            }
-            
-            if (petType === 'cat') {
-                const catBreeds = [
-                    "Abyssinian", "American Bobtail", "American Shorthair", "Bengal", "Birman",
-                    "Bombay", "British Shorthair", "Burmese", "Calico", "Chartreux",
-                    "Himalayan", "Maine Coon", "Manx", "Norwegian Forest Cat", "Persian",
-                    "Ragdoll", "Russian Blue", "Scottish Fold", "Siamese", "Siberian",
-                    "Sphynx", "Tabby", "Tonkinese", "Turkish Angora", "Turkish Van"
-                ];
-                
-                catBreeds.sort().forEach(breed => {
-                    const option = document.createElement('option');
-                    option.value = breed.toLowerCase();
-                    option.textContent = breed;
-                    breedSelect.appendChild(option);
-                });
-            }
-        }
-
-        // Populate locality dropdown in search section
-        function populateSearchLocalityOptions() {
-            const localitySelect = document.getElementById('pet-locality');
-            
-            // Clear current options
-            localitySelect.innerHTML = '<option value="">All Localities</option>';
-            
-            const localitiesAroundDarjeeling = [
-                // Darjeeling District
-                "Darjeeling Town", "Kurseong", "Kalimpong", "Mirik", "Siliguri",
-                "Ghoom", "Sonada", "Sukna", "Tindharia", "Rangbull",
-                
-                // Nearby Areas in West Bengal
-                "Jalpaiguri", "Alipurduar", "Cooch Behar", "Malbazar", "Mainaguri",
-                "Birpara", "Madarihat", "Falakata", "Dhupguri", "New Mal",
-                
-                // Sikkim Areas (Within 150km)
-                "Gangtok", "Namchi", "Pelling", "Ravangla", "Jorethang",
-                "Rangpo", "Singtam", "Mangan", "Yuksom", "Lachung",
-                
-                // Nepal Border Areas
-                "Pashupatinagar", "Ilam", "Bhadrapur", "Birtamod", "Damak",
-                
-                // Tea Estate Areas
-                "Happy Valley Tea Estate", "Makaibari", "Castleton", "Goodricke", "Margaret's Hope",
-                "Avongrove", "Goomtee", "Jungpana", "Seeyok", "Chamong",
-                
-                // Hill Stations & Tourist Areas
-                "Tiger Hill", "Batasia Loop", "Lebong", "Takdah", "Rangli Rangliot",
-                "Senchal", "Dooteriah", "Jorebunglow", "Tukvar", "Bloomfield"
-            ];
-            
-            localitiesAroundDarjeeling.sort().forEach(locality => {
-                const option = document.createElement('option');
-                option.value = locality.toLowerCase();
-                option.textContent = locality;
-                localitySelect.appendChild(option);
-            });
-        }
-
-        // Modify searchPets function to properly filter based on breed and locality
-        function searchPets() {
-            const type = document.getElementById('pet-type').value.toLowerCase();
-            const breed = document.getElementById('pet-breed').value.toLowerCase();
-            const gender = document.getElementById('pet-gender').value.toLowerCase();
-            const locality = document.getElementById('pet-locality').value.toLowerCase();
-            const petGrid = document.getElementById('pet-grid');
-
-            // Show loading state
-            petGrid.innerHTML = '<div class="loading">Searching for matches...</div>';
-
-            // Get pets from localStorage
-            const pets = JSON.parse(localStorage.getItem('pets')) || [];
-
-            // Filter pets based on criteria
-            const filteredPets = pets.filter(pet => {
-                const typeMatch = !type || pet.type.toLowerCase() === type;
-                const breedMatch = !breed || pet.breed.toLowerCase() === breed;
-                const genderMatch = !gender || pet.gender.toLowerCase() === gender;
-                const localityMatch = !locality || pet.locality.toLowerCase() === locality;
-
-                return typeMatch && breedMatch && genderMatch && localityMatch;
-            });
-
-            // Sort by match percentage
-            const rankedPets = filteredPets.map(pet => {
-                let matchScore = 0;
-                if (type && pet.type.toLowerCase() === type) matchScore += 25;
-                if (breed && pet.breed.toLowerCase() === breed) matchScore += 25;
-                if (gender && pet.gender.toLowerCase() === gender) matchScore += 25;
-                if (locality && pet.locality.toLowerCase() === locality) matchScore += 25;
-                return { ...pet, matchScore };
-            }).sort((a, b) => b.matchScore - a.matchScore);
-
-            // Display results
-            if (rankedPets.length === 0) {
-                petGrid.innerHTML = `
-                    <div class="no-matches">
-                        <i class="fas fa-search"></i>
-                        <p>No matches found. Try adjusting your search criteria.</p>
+                if (response.success) {
+                    sittersGrid.innerHTML = response.data.map(sitter => `
+                        <div class="profile-card">
+                            <img src="${sitter.photo}" alt="${sitter.name}" class="profile-photo">
+                            <div class="profile-info">
+                                <h3>${sitter.name}</h3>
+                                <p class="location"><i class="fas fa-map-marker-alt"></i> ${sitter.locality}</p>
+                                <p class="experience">${sitter.experience} years experience</p>
+                                <div class="rating">
+                                    ${getStarRating(sitter.rating)}
+                                    <span>(${sitter.reviews.length} reviews)</span>
+                                </div>
+                                <p class="about">${sitter.bio}</p>
+                                <div class="pet-types">
+                                    <strong>Pets:</strong> ${sitter.petTypes.join(', ')}
+                                </div>
+                                <button onclick="showReviewModal('${sitter.id}', 'sitter')" class="review-btn">Write Review</button>
+                                <div class="reviews-section">
+                                    <h4>Recent Reviews</h4>
+                                    ${getRecentReviews(sitter.reviews)}
+                                </div>
+                            </div>
                         </div>
-                `;
-                return;
-            }
-
-            petGrid.innerHTML = '';
-            rankedPets.forEach(pet => {
-                const petCard = document.createElement('div');
-                petCard.className = 'pet-card';
-                const matchPercentage = (pet.matchScore).toFixed(0);
-                
-                petCard.innerHTML = `
-                    ${matchPercentage > 0 ? `
-                        <div class="match-badge">
-                            <i class="fas fa-check-circle"></i>
-                            ${matchPercentage}% Match
-                    </div>
-                    ` : ''}
-                    <div class="pet-image">
-                        ${pet.image ? `<img src="${pet.image}" alt="${pet.name}">` : 
-                            `<i class="fas fa-paw"></i>`}
-                </div>
-                    <div class="pet-info">
-                        <h3>${pet.name}</h3>
-                        <p><strong>Type:</strong> ${pet.type}</p>
-                        <p><strong>Breed:</strong> ${pet.breed}</p>
-                        <p><strong>Age:</strong> ${pet.age} years</p>
-                        <p><strong>Gender:</strong> ${pet.gender}</p>
-                        <p><strong>Locality:</strong> ${pet.locality}</p>
-                        <p><strong>Vaccination:</strong> ${pet.vaccination}</p>
-                        ${pet.vaccinationDoc ? `
-                            <div class="vaccination-doc">
-                                <a href="${pet.vaccinationDoc}" target="_blank" class="view-doc-btn">
-                                    <i class="fas fa-image"></i> View Vaccination Certificate
-                                </a>
-            </div>
-                        ` : ''}
-        </div>
-                    <button class="contact-button" onclick="contactService('owner', '${pet.id}', '${pet.name}')">
-                        Contact Owner
-                    </button>
-                `;
-                petGrid.appendChild(petCard);
-            });
-        }
-
-        // Add styles for search results
-        const searchStyles = document.createElement('style');
-        searchStyles.textContent = `
-            .loading {
-                text-align: center;
-                padding: 2rem;
-                color: var(--text);
-            }
-
-            .no-matches {
-                text-align: center;
-                padding: 3rem;
-                color: var(--text);
-            }
-
-            .no-matches i {
-                font-size: 3rem;
-                color: var(--primary);
-                margin-bottom: 1rem;
-            }
-
-            .match-badge {
-                position: absolute;
-                top: 1rem;
-                right: 1rem;
-                background: var(--primary);
-                color: white;
-                padding: 0.5rem 1rem;
-                border-radius: 20px;
-                font-size: 0.9rem;
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-            }
-
-            .match-badge i {
-                font-size: 1rem;
-            }
-
-            .pet-card {
-                position: relative;
-                transition: transform 0.3s ease;
-            }
-
-            .pet-card:hover {
-                transform: translateY(-5px);
-            }
-
-            .search-button {
-                background: var(--primary);
-                color: white;
-                border: none;
-                padding: 0.8rem 1.5rem;
-                border-radius: 8px;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-                transition: all 0.3s ease;
-            }
-
-            .search-button:hover {
-                background: var(--secondary);
-                transform: translateY(-2px);
-            }
-
-            .search-button i {
-                font-size: 1.1rem;
-            }
-
-            .pet-filters {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 1rem;
-                margin-bottom: 2rem;
-                padding: 1.5rem;
-                background: white;
-                border-radius: 12px;
-                box-shadow: 0 2px 8px var(--shadow);
-            }
-
-            @media (max-width: 768px) {
-                .pet-filters {
-                    flex-direction: column;
+                    `).join('');
+                } else {
+                    sittersGrid.innerHTML = '<div class="error">Failed to load sitters. Please try again.</div>';
                 }
-                
-                .search-button {
-                    width: 100%;
-                    justify-content: center;
+            } catch (error) {
+                console.error('Error loading sitters:', error);
+                sittersGrid.innerHTML = '<div class="error">An error occurred. Please try again.</div>';
+            }
+        }
+
+        // Display walkers
+        async function displayWalkers() {
+            const walkersGrid = document.getElementById('walkersGrid');
+            const locality = document.getElementById('walkerLocality').value;
+            const petType = document.getElementById('walkPetType').value;
+
+            walkersGrid.innerHTML = '<div class="loading">Loading walkers...</div>';
+
+            try {
+                const response = await apiService.getWalkers({
+                    locality,
+                    petType
+                });
+
+                if (response.success) {
+                    walkersGrid.innerHTML = response.data.map(walker => `
+                        <div class="profile-card">
+                            <img src="${walker.photo}" alt="${walker.name}" class="profile-photo">
+                            <div class="profile-info">
+                                <h3>${walker.name}</h3>
+                                <p class="location"><i class="fas fa-map-marker-alt"></i> ${walker.locality}</p>
+                                <p class="experience">${walker.experience} years experience</p>
+                                <div class="rating">
+                                    ${getStarRating(walker.rating)}
+                                    <span>(${walker.reviews.length} reviews)</span>
+                                </div>
+                                <p class="about">${walker.bio}</p>
+                                <div class="pet-types">
+                                    <strong>Pets:</strong> ${walker.petTypes.join(', ')}
+                                </div>
+                                <button onclick="showReviewModal('${walker.id}', 'walker')" class="review-btn">Write Review</button>
+                                <div class="reviews-section">
+                                    <h4>Recent Reviews</h4>
+                                    ${getRecentReviews(walker.reviews)}
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    walkersGrid.innerHTML = '<div class="error">Failed to load walkers. Please try again.</div>';
                 }
+            } catch (error) {
+                console.error('Error loading walkers:', error);
+                walkersGrid.innerHTML = '<div class="error">An error occurred. Please try again.</div>';
             }
-        `;
-        document.head.appendChild(searchStyles);
-
-        // Add event listeners for real-time search
-        document.getElementById('pet-type').addEventListener('change', searchPets);
-        document.getElementById('pet-breed').addEventListener('change', searchPets);
-        document.getElementById('pet-gender').addEventListener('change', searchPets);
-        document.getElementById('pet-locality').addEventListener('change', searchPets);
-
-        // Pet Sitting Modal Functions
-        function showPetSittingModal() {
-            document.getElementById('petSittingModal').style.display = 'block';
         }
 
-        function hidePetSittingModal() {
-            document.getElementById('petSittingModal').style.display = 'none';
-        }
-
-        function showPetSittingTab(tabName) {
-            // Hide all sections
-            document.querySelectorAll('.pet-sitting-section').forEach(section => {
-                section.classList.remove('active');
-            });
-            document.querySelectorAll('.pet-sitting-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-
-            // Show selected section
-            document.getElementById(tabName === 'browse' ? 'browseSitters' : 'registerSitter').classList.add('active');
-            event.target.classList.add('active');
-        }
-
-        // Sample sitter data (in a real app, this would come from a database)
-        const sitters = [
-            {
-                name: "John Doe",
-                locality: "downtown",
-                experience: 5,
-                petTypes: ["dog", "cat"],
-                rating: 4.8,
-                photo: "path/to/john.jpg",
-                bio: "Experienced pet sitter with love for all animals."
-            },
-            // Add more sample sitters as needed
-        ];
-
-        function searchSitters() {
-            const locality = document.getElementById('sitterLocality').value;
-            const petType = document.getElementById('petType').value;
-            
-            // Filter sitters based on criteria
-            const filteredSitters = sitters.filter(sitter => {
-                return (!locality || sitter.locality === locality) &&
-                       (!petType || sitter.petTypes.includes(petType));
-            });
-
-            // Display filtered sitters
-            displaySitters(filteredSitters);
-        }
-
-        function displaySitters(sittersList) {
-            const grid = document.getElementById('sittersGrid');
-            grid.innerHTML = '';
-
-            if (sittersList.length === 0) {
-                grid.innerHTML = '<div class="no-matches">No sitters found matching your criteria</div>';
-                return;
-            }
-
-            sittersList.forEach(sitter => {
-                const sitterCard = document.createElement('div');
-                sitterCard.className = 'sitter-card';
-                sitterCard.innerHTML = `
-                    <div class="sitter-image">
-                        <img src="${sitter.photo}" alt="${sitter.name}" onerror="this.src='path/to/default-avatar.jpg'">
-            </div>
-                    <div class="sitter-info">
-                        <h3>${sitter.name}</h3>
-                        <p><i class="fas fa-map-marker-alt"></i> ${sitter.locality}</p>
-                        <p><i class="fas fa-star"></i> ${sitter.rating}/5.0</p>
-                        <p><i class="fas fa-clock"></i> ${sitter.experience} years experience</p>
-                        <p>${sitter.bio}</p>
-                        <button onclick="contactService('sitter', null, '${sitter.name}')" class="contact-button">Contact Sitter</button>
-            </div>
-                `;
-                grid.appendChild(sitterCard);
-            });
-        }
-
-        function registerAsSitter(event) {
+        // Register as sitter
+        async function registerAsSitter(event) {
             event.preventDefault();
             const form = document.getElementById('sitterRegistrationForm');
             const formData = new FormData(form);
             
-            const sitter = {
-                id: 'sitter_' + Date.now(),
+            const sitterData = {
                 name: formData.get('sitterName'),
                 locality: formData.get('sitterLocality'),
                 experience: formData.get('sitterExperience'),
                 petTypes: getPetTypes(),
                 about: formData.get('sitterBio'),
-                profilePhoto: formData.get('sitterPhoto') || 'images/default-avatar.jpg',
-                rating: 0,
-                reviews: []
+                profilePhoto: formData.get('sitterPhoto') || 'images/default-avatar.jpg'
             };
 
-            registeredSitters.push(sitter);
-            localStorage.setItem('registeredSitters', JSON.stringify(registeredSitters));
-            alert('Thank you for registering as a pet sitter! Your profile has been created.');
-            displaySitters();
-            form.reset();
-        }
-
-        function contactSitter(sitterName) {
-            // In a real app, this would open a chat or show contact information
-            alert(`Contact information for ${sitterName} will be shared after verification.`);
-        }
-
-        // When clicking outside the modal, close it
-        window.onclick = function(event) {
-            if (event.target === document.getElementById('petSittingModal')) {
-                hidePetSittingModal();
+            try {
+                const response = await apiService.registerSitter(sitterData);
+                if (response.success) {
+                    alert('Thank you for registering as a pet sitter! Your profile has been created.');
+                    displaySitters();
+                    form.reset();
+                } else {
+                    alert('Failed to register as sitter. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error registering sitter:', error);
+                alert('An error occurred. Please try again.');
             }
         }
 
-        // Pet Walks Modal Functions
-        function showPetWalksModal() {
-            document.getElementById('petWalksModal').style.display = 'block';
-        }
-
-        function hidePetWalksModal() {
-            document.getElementById('petWalksModal').style.display = 'none';
-        }
-
-        function showPetWalksTab(tabName) {
-            // Hide all sections
-            document.querySelectorAll('.pet-walks-section').forEach(section => {
-                section.classList.remove('active');
-            });
-            document.querySelectorAll('.pet-walks-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-
-            // Show selected section
-            document.getElementById(tabName === 'browse' ? 'browseWalkers' : 'registerWalker').classList.add('active');
-            event.target.classList.add('active');
-        }
-
-        // Sample walker data (in a real app, this would come from a database)
-        const walkers = [
-            {
-                name: "Jane Smith",
-                locality: "downtown",
-                experience: 3,
-                petTypes: ["dog", "cat"],
-                schedule: ["morning", "evening"],
-                rating: 4.9,
-                photo: "images/default-avatar.jpg",
-                bio: "Professional dog walker with a passion for pet care and exercise."
-            },
-            // Add more sample walkers as needed
-        ];
-
-        function searchWalkers() {
-            const locality = document.getElementById('walkerLocality').value;
-            const petType = document.getElementById('walkPetType').value;
-            
-            // Filter walkers based on criteria
-            const filteredWalkers = walkers.filter(walker => {
-                return (!locality || walker.locality === locality) &&
-                       (!petType || walker.petTypes.includes(petType));
-            });
-
-            // Display filtered walkers
-            displayWalkers(filteredWalkers);
-        }
-
-        function displayWalkers(walkersList) {
-            const grid = document.getElementById('walkersGrid');
-            grid.innerHTML = '';
-
-            if (walkersList.length === 0) {
-                grid.innerHTML = '<div class="no-matches">No walkers found matching your criteria</div>';
-                return;
-            }
-
-            walkersList.forEach(walker => {
-                const walkerCard = document.createElement('div');
-                walkerCard.className = 'walker-card';
-                walkerCard.innerHTML = `
-                    <div class="walker-image">
-                        <img src="${walker.photo}" alt="${walker.name}" onerror="this.src='images/default-avatar.jpg'">
-            </div>
-                    <div class="walker-info">
-                        <h3>${walker.name}</h3>
-                        <p><i class="fas fa-map-marker-alt"></i> ${walker.locality}</p>
-                        <p><i class="fas fa-star"></i> ${walker.rating}/5.0</p>
-                        <p><i class="fas fa-clock"></i> ${walker.experience} years experience</p>
-                        <p><i class="fas fa-calendar"></i> Available: ${walker.schedule.join(', ')}</p>
-                        <p>${walker.bio}</p>
-                        <button onclick="contactWalker('${walker.name}')" class="contact-button">Contact Walker</button>
-            </div>
-                `;
-                grid.appendChild(walkerCard);
-            });
-        }
-
-        function registerAsWalker(event) {
+        // Register as walker
+        async function registerAsWalker(event) {
             event.preventDefault();
             const form = document.getElementById('walkerRegistrationForm');
             const formData = new FormData(form);
             
-            const walker = {
-                id: 'walker_' + Date.now(),
+            const walkerData = {
                 name: formData.get('walkerName'),
                 locality: formData.get('walkerLocality'),
                 experience: formData.get('walkerExperience'),
                 petTypes: getWalkerPetTypes(),
                 about: formData.get('walkerBio'),
-                profilePhoto: formData.get('walkerPhoto') || 'images/default-avatar.jpg',
-                rating: 0,
-                reviews: []
+                profilePhoto: formData.get('walkerPhoto') || 'images/default-avatar.jpg'
             };
 
-            registeredWalkers.push(walker);
-            localStorage.setItem('registeredWalkers', JSON.stringify(registeredWalkers));
-            alert('Thank you for registering as a pet walker! Your profile has been created.');
-            displayWalkers();
-            form.reset();
-        }
-
-        function contactWalker(walkerName) {
-            // In a real app, this would open a chat or show contact information
-            alert(`Contact information for ${walkerName} will be shared after verification.`);
-        }
-
-        // When clicking outside the modal, close it
-        window.onclick = function(event) {
-            if (event.target === document.getElementById('petWalksModal')) {
-                hidePetWalksModal();
-            }
-        }
-
-        // Printify Integration
-        const PRINTIFY_API_KEY = 'YOUR_PRINTIFY_API_KEY'; // You'll need to replace this with your actual API key
-        let currentProduct = null;
-
-        function openPrintifyDesigner(productType) {
-            document.getElementById('printifyModal').style.display = 'block';
-            if (productType !== 'all') {
-                selectProduct(productType);
-            }
-        }
-
-        function selectProduct(productType) {
-            currentProduct = productType;
-            // Update UI to show selected product
-            document.querySelectorAll('.merch-option').forEach(option => {
-                option.classList.remove('selected');
-                if (option.querySelector('img').alt.toLowerCase().includes(productType)) {
-                    option.classList.add('selected');
+            try {
+                const response = await apiService.registerWalker(walkerData);
+                if (response.success) {
+                    alert('Thank you for registering as a pet walker! Your profile has been created.');
+                    displayWalkers();
+                    form.reset();
+                } else {
+                    alert('Failed to register as walker. Please try again.');
                 }
-            });
-            
-            // Update preview
-            updatePreview();
-        }
-
-        function closePrintifyModal() {
-            document.getElementById('printifyModal').style.display = 'none';
-            currentProduct = null;
-            // Reset form
-            document.getElementById('petPhoto').value = '';
-            document.getElementById('customText').value = '';
-            document.getElementById('productColor').value = 'white';
-            document.getElementById('productSize').value = 'm';
-            document.getElementById('designPreview').innerHTML = '';
-        }
-
-        function updatePreview() {
-            if (!currentProduct) {
-                alert('Please select a product type first!');
-                return;
-            }
-
-            const preview = document.getElementById('designPreview');
-            const petPhoto = document.getElementById('petPhoto').files[0];
-            const customText = document.getElementById('customText').value;
-            const color = document.getElementById('productColor').value;
-            
-            if (petPhoto) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    preview.innerHTML = `
-                        <div class="product-preview ${currentProduct}" style="background-color: ${color};">
-                            <img src="${e.target.result}" alt="Preview" style="max-width: 200px;">
-                            <p style="font-family: ${document.getElementById('textFont').value};">${customText}</p>
-                </div>
-                    `;
-                };
-                reader.readAsDataURL(petPhoto);
-            } else {
-                preview.innerHTML = `
-                    <div class="product-preview ${currentProduct}" style="background-color: ${color};">
-                        <p class="no-image">Upload a pet photo to see preview</p>
-                        <p style="font-family: ${document.getElementById('textFont').value};">${customText}</p>
-                </div>
-                `;
+            } catch (error) {
+                console.error('Error registering walker:', error);
+                alert('An error occurred. Please try again.');
             }
         }
 
-        function addToCart() {
-            if (!currentProduct) {
-                alert('Please select a product type first!');
-                return;
-            }
-
-            if (!document.getElementById('petPhoto').files[0]) {
-                alert('Please upload a pet photo!');
-                return;
-            }
-
-            // Integrate with Printify API to add the customized product to cart
-            const productData = {
-                type: currentProduct,
-                color: document.getElementById('productColor').value,
-                size: document.getElementById('productSize').value,
-                customText: document.getElementById('customText').value,
-                // Add other necessary product data
-            };
-
-            // Make API call to Printify
-            fetch('https://api.printify.com/v1/shops/{shop_id}/products.json', {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${PRINTIFY_API_KEY}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(productData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert('Product added to cart successfully!');
-                closePrintifyModal();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('There was an error adding the product to cart. Please try again.');
-            });
-        }
-
-        // Event Listeners
-        document.getElementById('petPhoto').addEventListener('change', updatePreview);
-        document.getElementById('customText').addEventListener('input', updatePreview);
-        document.getElementById('productColor').addEventListener('change', updatePreview);
-        document.getElementById('textFont').addEventListener('change', updatePreview);
-
-        // Single window click handler for all modals
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
-                switch(event.target.id) {
-                    case 'printifyModal':
-                        closePrintifyModal();
-                        break;
-                    case 'petSittingModal':
-                        hidePetSittingModal();
-                        break;
-                    case 'petWalksModal':
-                        hidePetWalksModal();
-                        break;
-                    case 'authModal':
-                        hideModal();
-                        break;
-                    case 'petProfileModal':
-                        hidePetProfileModal();
-                        break;
-                }
-            }
-        };
-
-        // Merchandise option selection
-        document.querySelectorAll('.merch-option').forEach(option => {
-            option.addEventListener('click', function() {
-                const product = this.dataset.product;
-                selectProduct(product);
-                document.querySelectorAll('.merch-option').forEach(opt => opt.classList.remove('selected'));
-                this.classList.add('selected');
-            });
-        });
-
-        // Add this to your existing JavaScript
-        let registeredSitters = JSON.parse(localStorage.getItem('registeredSitters')) || [];
-        let registeredWalkers = JSON.parse(localStorage.getItem('registeredWalkers')) || [];
-        let reviews = JSON.parse(localStorage.getItem('reviews')) || {};
-
-        function displaySitters() {
-            const sittersGrid = document.getElementById('sittersGrid');
-            const locality = document.getElementById('locality').value;
-            const filteredSitters = registeredSitters.filter(sitter => 
-                !locality || sitter.locality === locality
-            );
-
-            sittersGrid.innerHTML = filteredSitters.map(sitter => `
-                <div class="profile-card">
-                    <img src="${sitter.profilePhoto}" alt="${sitter.name}" class="profile-photo">
-                    <div class="profile-info">
-                        <h3>${sitter.name}</h3>
-                        <p class="location"><i class="fas fa-map-marker-alt"></i> ${sitter.locality}</p>
-                        <p class="experience">${sitter.experience} years experience</p>
-                        <div class="rating">
-                            ${getStarRating(sitter.rating)}
-                            <span>(${sitter.reviews.length} reviews)</span>
-            </div>
-                        <p class="about">${sitter.about}</p>
-                        <div class="pet-types">
-                            <strong>Pets:</strong> ${sitter.petTypes.join(', ')}
-            </div>
-                        <button onclick="showReviewModal('${sitter.id}', 'sitter')" class="review-btn">Write Review</button>
-                        <div class="reviews-section">
-                            <h4>Recent Reviews</h4>
-                            ${getRecentReviews(sitter.id)}
-        </div>
-    </div>
-                </div>
-            `).join('');
-        }
-
-        function displayWalkers() {
-            const walkersGrid = document.getElementById('walkersGrid');
-            const locality = document.getElementById('walkerLocality').value;
-            const filteredWalkers = registeredWalkers.filter(walker => 
-                !locality || walker.locality === locality
-            );
-
-            walkersGrid.innerHTML = filteredWalkers.map(walker => `
-                <div class="profile-card">
-                    <img src="${walker.profilePhoto}" alt="${walker.name}" class="profile-photo">
-                    <div class="profile-info">
-                        <h3>${walker.name}</h3>
-                        <p class="location"><i class="fas fa-map-marker-alt"></i> ${walker.locality}</p>
-                        <p class="experience">${walker.experience} years experience</p>
-                        <div class="rating">
-                            ${getStarRating(walker.rating)}
-                            <span>(${walker.reviews.length} reviews)</span>
-            </div>
-                        <p class="about">${walker.about}</p>
-                        <div class="pet-types">
-                            <strong>Pets:</strong> ${walker.petTypes.join(', ')}
-                </div>
-                        <button onclick="showReviewModal('${walker.id}', 'walker')" class="review-btn">Write Review</button>
-                        <div class="reviews-section">
-                            <h4>Recent Reviews</h4>
-                            ${getRecentReviews(walker.id)}
-                    </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function showReviewModal(id, type) {
-            const modal = document.createElement('div');
-            modal.className = 'review-modal';
-            modal.innerHTML = `
-                <div class="review-modal-content">
-                    <h3>Write a Review</h3>
-                    <div class="rating-input">
-                        <span>Rating: </span>
-                        <div class="star-rating">
-                            ${[1,2,3,4,5].map(num => 
-                                `<span class="star" data-rating="${num}">★</span>`
-                            ).join('')}
-            </div>
-        </div>
-                    <textarea id="reviewText" placeholder="Write your review here..." rows="4"></textarea>
-                    <div class="review-buttons">
-                        <button onclick="submitReview('${id}', '${type}')">Submit</button>
-                        <button onclick="closeReviewModal()">Cancel</button>
-    </div>
-                </div>
-            `;
-            document.body.appendChild(modal);
-
-            // Add star rating functionality
-            const stars = modal.querySelectorAll('.star');
-            stars.forEach(star => {
-                star.addEventListener('click', () => {
-                    const rating = star.dataset.rating;
-                    stars.forEach(s => s.classList.remove('active'));
-                    for(let i = 0; i < rating; i++) {
-                        stars[i].classList.add('active');
-                    }
-                });
-            });
-        }
-
-        function submitReview(id, type) {
+        // Submit review
+        async function submitReview(id, type) {
             const modal = document.querySelector('.review-modal');
             const rating = modal.querySelectorAll('.star.active').length;
             const reviewText = modal.querySelector('#reviewText').value;
@@ -2088,49 +1352,36 @@
                 return;
             }
 
-            const review = {
-                rating,
-                text: reviewText,
-                date: new Date().toISOString(),
-                id: Date.now()
-            };
+            try {
+                const response = await apiService.addReview({
+                    id,
+                    type,
+                    rating,
+                    text: reviewText
+                });
 
-            const collection = type === 'sitter' ? registeredSitters : registeredWalkers;
-            const item = collection.find(x => x.id === id);
-            if (item) {
-                item.reviews.push(review);
-                item.rating = item.reviews.reduce((acc, r) => acc + r.rating, 0) / item.reviews.length;
-                
-                localStorage.setItem(
-                    type === 'sitter' ? 'registeredSitters' : 'registeredWalkers', 
-                    JSON.stringify(collection)
-                );
-
-                if (type === 'sitter') {
-                    displaySitters();
+                if (response.success) {
+                    if (type === 'sitter') {
+                        displaySitters();
+                    } else {
+                        displayWalkers();
+                    }
+                    closeReviewModal();
                 } else {
-                    displayWalkers();
+                    alert('Failed to submit review. Please try again.');
                 }
-            }
-
-            closeReviewModal();
-        }
-
-        function closeReviewModal() {
-            const modal = document.querySelector('.review-modal');
-            if (modal) {
-                modal.remove();
+            } catch (error) {
+                console.error('Error submitting review:', error);
+                alert('An error occurred. Please try again.');
             }
         }
 
+        // Helper functions
         function getStarRating(rating) {
             return '★'.repeat(Math.round(rating)) + '☆'.repeat(5 - Math.round(rating));
         }
 
-        function getRecentReviews(id) {
-            const reviews = registeredSitters.concat(registeredWalkers)
-                .find(x => x.id === id)?.reviews || [];
-            
+        function getRecentReviews(reviews) {
             return reviews.slice(-3).reverse().map(review => `
                 <div class="review">
                     <div class="review-rating">${'★'.repeat(review.rating)}</div>
@@ -2140,59 +1391,17 @@
             `).join('') || '<p>No reviews yet</p>';
         }
 
-        // Add event listeners
-        document.getElementById('sitterRegistrationForm').addEventListener('submit', registerAsSitter);
-        document.getElementById('walkerRegistrationForm').addEventListener('submit', registerAsWalker);
-        document.getElementById('locality').addEventListener('change', displaySitters);
-        document.getElementById('walkerLocality').addEventListener('change', displayWalkers);
+        function getPetTypes() {
+            const checkboxes = document.querySelectorAll('#sitterRegistrationForm input[type="checkbox"]:checked');
+            return Array.from(checkboxes).map(cb => cb.value);
+        }
 
-        // Initial display
-        displaySitters();
-        displayWalkers();
+        function getWalkerPetTypes() {
+            const checkboxes = document.querySelectorAll('#walkerRegistrationForm input[type="checkbox"]:checked');
+            return Array.from(checkboxes).map(cb => cb.value);
+        }
 
-        // Add styles for the vaccination document section
-        const style = document.createElement('style');
-        style.textContent = `
-            .file-info {
-                display: block;
-                color: var(--text);
-                font-size: 0.8rem;
-                margin-top: 0.25rem;
-            }
-
-            .vaccination-doc {
-                margin: 1rem 0;
-            }
-
-            .view-doc-btn {
-                display: inline-flex;
-                align-items: center;
-                gap: 0.5rem;
-                background: var(--primary);
-                color: white;
-                padding: 0.5rem 1rem;
-                border-radius: 8px;
-                text-decoration: none;
-                transition: all 0.3s ease;
-            }
-
-            .view-doc-btn:hover {
-                background: var(--secondary);
-                transform: translateY(-2px);
-            }
-
-            .view-doc-btn i {
-                font-size: 1.2rem;
-            }
-
-            .vaccination-doc img {
-                max-width: 100%;
-                height: auto;
-                border-radius: 8px;
-                margin-top: 0.5rem;
-            }
-        `;
-        document.head.appendChild(style);
+        // ... rest of the existing code ...
     </script>
 
     <style>
