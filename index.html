@@ -126,9 +126,9 @@
                     <p>Professional pet walkers to keep your pets active and healthy. Browse walkers or register as one!</p>
                 </div>
                 <div class="service-card" onclick="openPrintifyDesigner('all')">
-                    <i class="fas fa-tshirt"></i>
-                    <h3>Pet Merchandise</h3>
-                    <p>Create unique merchandise featuring your beloved pets! Custom t-shirts, mugs, hoodies and more.</p>
+                    <i class="fas fa-paint-brush"></i>
+                    <h3>Support Us</h3>
+                    <p>Get beautiful handmade paintings and caricatures of your beloved pets created by our talented artists!</p>
                     <div class="coming-soon-wrapper">
                         <span class="coming-soon-text">Coming Soon!</span>
                         <div class="paw-prints">
@@ -141,72 +141,90 @@
             </div>
         </section>
 
-        <!-- Pet Merchandise Modal -->
+        <!-- Support Us Modal -->
         <div id="printifyModal" class="modal">
             <div class="modal-content scrollable">
-                <span class="close-modal" onclick="closePrintifyModal()">&times;</span>
-                <div id="printifyDesigner">
-                    <div class="design-options">
-                        <h3>Create Custom Pet Merchandise</h3>
-                        <p class="design-description">Transform your pet photos into beautiful custom merchandise</p>
-                        <div class="merchandise-options">
-                            <div class="merch-option" data-product="tshirt">
-                                <svg class="merch-icon" width="100" height="100">
-                                    <use href="images/merchandise-icons.svg#tshirt-icon"/>
-                                </svg>
-                                <h4>Custom T-Shirt</h4>
-                                </div>
-                            <div class="merch-option" data-product="mug">
-                                <svg class="merch-icon" width="100" height="100">
-                                    <use href="images/merchandise-icons.svg#mug-icon"/>
-                                </svg>
-                                <h4>Pet Mug</h4>
+                <span class="close" onclick="closeModal('printifyModal')">&times;</span>
+                <div class="design-options">
+                    <h3>Custom Pet Artwork</h3>
+                    <p class="design-description">Transform your beloved pet's photos into stunning handmade artwork created by our talented artists</p>
+                    
+                    <div class="artwork-options">
+                        <div class="art-option">
+                            <div class="art-preview">
+                                <i class="fas fa-paint-brush"></i>
+                                <h4>Handmade Paintings</h4>
+                                <p>Beautiful, custom paintings of your pet in various styles and mediums</p>
+                                <ul class="art-details">
+                                    <li>Multiple size options available</li>
+                                    <li>Choice of watercolor, acrylic, or oil</li>
+                                    <li>Includes digital proof approval</li>
+                                    <li>2-3 weeks completion time</li>
+                                </ul>
                             </div>
-                            <div class="merch-option" data-product="hoodie">
-                                <svg class="merch-icon" width="100" height="100">
-                                    <use href="images/merchandise-icons.svg#hoodie-icon"/>
-                                </svg>
-                                <h4>Pet Hoodie</h4>
+                        </div>
+                        
+                        <div class="art-option">
+                            <div class="art-preview">
+                                <i class="fas fa-pencil-alt"></i>
+                                <h4>Pet Caricatures</h4>
+                                <p>Fun and playful caricature drawings that capture your pet's personality</p>
+                                <ul class="art-details">
+                                    <li>Digital or traditional medium</li>
+                                    <li>Various styles available</li>
+                                    <li>Perfect for gifts</li>
+                                    <li>1-2 weeks completion time</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                        <div class="upload-section">
-                            <label for="petPhoto">Upload Pet Photo:</label>
-                            <input type="file" id="petPhoto" accept="image/*">
-                </div>
-                        <div class="customization-options">
-                            <div class="color-picker">
-                                <label>Product Color:</label>
-                                <select id="productColor">
-                                    <option value="white">White</option>
-                                    <option value="black">Black</option>
-                                    <option value="navy">Navy</option>
-                                    <option value="gray">Gray</option>
+                    
+                    <div class="order-section">
+                        <h4>Request Your Custom Artwork</h4>
+                        <form id="artworkOrderForm">
+                            <div class="form-group">
+                                <label for="artworkType">Select Artwork Type:</label>
+                                <select id="artworkType" required>
+                                    <option value="">Choose an option</option>
+                                    <option value="painting">Handmade Painting</option>
+                                    <option value="caricature">Pet Caricature</option>
                                 </select>
-                </div>
-                            <div class="size-picker">
-                                <label>Size:</label>
-                                <select id="productSize">
-                                    <option value="s">Small</option>
-                                    <option value="m">Medium</option>
-                                    <option value="l">Large</option>
-                                    <option value="xl">X-Large</option>
-                                </select>
-            </div>
-                            <div class="text-customization">
-                                <label>Add Custom Text:</label>
-                                <input type="text" id="customText" placeholder="Enter your text here">
-                                <select id="textFont">
-                                    <option value="arial">Arial</option>
-                                    <option value="times">Times New Roman</option>
-                                    <option value="comic">Comic Sans</option>
-                                </select>
-        </div>
-                                </div>
-                        <div class="preview-section">
-                            <h4>Preview</h4>
-                            <div id="designPreview"></div>
                             </div>
-                        <button class="primary-button" onclick="addToCart()">Add to Cart</button>
+                            
+                            <div class="form-group">
+                                <label for="artworkSize">Size:</label>
+                                <select id="artworkSize" required>
+                                    <option value="">Choose a size</option>
+                                    <option value="small">Small (8x10")</option>
+                                    <option value="medium">Medium (11x14")</option>
+                                    <option value="large">Large (16x20")</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="artworkMedium">Medium:</label>
+                                <select id="artworkMedium" required>
+                                    <option value="">Choose a medium</option>
+                                    <option value="watercolor">Watercolor</option>
+                                    <option value="acrylic">Acrylic</option>
+                                    <option value="oil">Oil Paint</option>
+                                    <option value="digital">Digital</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="petPhoto">Upload Pet Photo:</label>
+                                <input type="file" id="petPhoto" accept="image/*" required>
+                                <span class="file-info">Please provide a clear, high-quality photo of your pet</span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="specialInstructions">Special Instructions:</label>
+                                <textarea id="specialInstructions" rows="4" placeholder="Any specific details or requests for the artist?"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">Submit Request</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -1401,7 +1419,142 @@
             return Array.from(checkboxes).map(cb => cb.value);
         }
 
-        // ... rest of the existing code ...
+        // Modal Functions
+        function showPetSittingModal() {
+            if (!currentUser) {
+                alert('Please login to access pet sitting services');
+                showModal();
+                return;
+            }
+            const modal = document.getElementById('petSittingModal');
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hidePetSittingModal() {
+            const modal = document.getElementById('petSittingModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function showPetWalksModal() {
+            if (!currentUser) {
+                alert('Please login to access pet walking services');
+                showModal();
+                return;
+            }
+            const modal = document.getElementById('petWalksModal');
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hidePetWalksModal() {
+            const modal = document.getElementById('petWalksModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function openPrintifyDesigner(productType) {
+            if (!currentUser) {
+                alert('Please login to access merchandise customization');
+                showModal();
+                return;
+            }
+            const modal = document.getElementById('printifyModal');
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            
+            if (productType !== 'all') {
+                // Pre-select the product type if specified
+                const merchOption = document.querySelector(`.merch-option[data-product="${productType}"]`);
+                if (merchOption) {
+                    merchOption.click();
+                }
+            }
+        }
+
+        function closePrintifyModal() {
+            const modal = document.getElementById('printifyModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modals when clicking outside
+        window.addEventListener('click', (e) => {
+            const modals = [
+                document.getElementById('petProfileModal'),
+                document.getElementById('petSittingModal'),
+                document.getElementById('petWalksModal'),
+                document.getElementById('printifyModal')
+            ];
+            
+            modals.forEach(modal => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+
+        // Add close button functionality to all modals
+        document.querySelectorAll('.close-modal').forEach(closeBtn => {
+            closeBtn.addEventListener('click', function() {
+                const modal = this.closest('.modal');
+                if (modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+
+        // Pet Sitting Tab Functions
+        function showPetSittingTab(tab) {
+            // Update tab buttons
+            document.querySelectorAll('.pet-sitting-tab').forEach(t => {
+                t.classList.remove('active');
+            });
+            document.querySelector(`.pet-sitting-tab[onclick*="${tab}"]`).classList.add('active');
+            
+            // Update sections
+            document.querySelectorAll('.pet-sitting-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            if (tab === 'browse') {
+                document.getElementById('browseSitters').classList.add('active');
+                displaySitters(); // Load sitters when tab is shown
+            } else {
+                document.getElementById('registerSitter').classList.add('active');
+            }
+        }
+
+        // Pet Walks Tab Functions
+        function showPetWalksTab(tab) {
+            // Update tab buttons
+            document.querySelectorAll('.pet-walks-tab').forEach(t => {
+                t.classList.remove('active');
+            });
+            document.querySelector(`.pet-walks-tab[onclick*="${tab}"]`).classList.add('active');
+            
+            // Update sections
+            document.querySelectorAll('.pet-walks-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            if (tab === 'browse') {
+                document.getElementById('browseWalkers').classList.add('active');
+                displayWalkers(); // Load walkers when tab is shown
+            } else {
+                document.getElementById('registerWalker').classList.add('active');
+            }
+        }
+
+        // Initialize tabs when modals are opened
+        document.getElementById('petSittingModal').addEventListener('show', function() {
+            showPetSittingTab('browse');
+        });
+
+        document.getElementById('petWalksModal').addEventListener('show', function() {
+            showPetWalksTab('browse');
+        });
     </script>
 
     <style>

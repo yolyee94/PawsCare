@@ -46,6 +46,35 @@ class ApiService {
                     reviews: []
                 },
                 // Add more mock walkers as needed
+            ],
+            contacts: [
+                {
+                    id: 'c1',
+                    name: 'Alice Johnson',
+                    email: 'alice@example.com',
+                    service: 'mating',
+                    message: 'Looking for a Labrador mate for my female dog.',
+                    date: '2024-04-10T10:30:00Z',
+                    status: 'pending'
+                },
+                {
+                    id: 'c2',
+                    name: 'Bob Wilson',
+                    email: 'bob@example.com',
+                    service: 'sitting',
+                    message: 'Need a pet sitter for my two cats next weekend.',
+                    date: '2024-04-11T15:45:00Z',
+                    status: 'responded'
+                },
+                {
+                    id: 'c3',
+                    name: 'Carol Davis',
+                    email: 'carol@example.com',
+                    service: 'walking',
+                    message: 'Looking for a dog walker in the evenings.',
+                    date: '2024-04-12T09:15:00Z',
+                    status: 'pending'
+                }
             ]
         };
     }
@@ -188,6 +217,70 @@ class ApiService {
         return {
             success: false,
             error: 'Item not found'
+        };
+    }
+
+    async submitContactForm(contactData) {
+        // Simulate API delay
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        const newContact = {
+            id: 'c' + Date.now().toString(),
+            ...contactData,
+            date: new Date().toISOString(),
+            status: 'pending'
+        };
+        
+        this.mockData.contacts.push(newContact);
+        
+        return {
+            success: true,
+            data: newContact
+        };
+    }
+
+    async getContactMessages(filters = {}) {
+        // Simulate API delay
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        let contacts = [...this.mockData.contacts];
+        
+        // Apply filters
+        if (filters.status) {
+            contacts = contacts.filter(contact => contact.status === filters.status);
+        }
+        if (filters.service) {
+            contacts = contacts.filter(contact => contact.service === filters.service);
+        }
+        if (filters.dateFrom) {
+            contacts = contacts.filter(contact => new Date(contact.date) >= new Date(filters.dateFrom));
+        }
+        if (filters.dateTo) {
+            contacts = contacts.filter(contact => new Date(contact.date) <= new Date(filters.dateTo));
+        }
+        
+        return {
+            success: true,
+            data: contacts
+        };
+    }
+
+    async updateContactStatus(id, status) {
+        // Simulate API delay
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        const contact = this.mockData.contacts.find(c => c.id === id);
+        if (contact) {
+            contact.status = status;
+            return {
+                success: true,
+                data: contact
+            };
+        }
+        
+        return {
+            success: false,
+            error: 'Contact message not found'
         };
     }
 }
