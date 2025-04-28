@@ -1,8 +1,24 @@
 // API Service for PawsCare
 class ApiService {
     constructor() {
-        this.baseUrl = 'https://api.pawscare.com'; // Replace with your friend's API URL
+        this.baseUrl = 'http://localhost:3000/api'; // Updated base URL to match your server
         this.mockData = {
+            users: [
+                {
+                    id: '1',
+                    name: 'John Doe',
+                    email: 'john@example.com',
+                    password: 'password123',
+                    phone: '1234567890'
+                },
+                {
+                    id: '2',
+                    name: 'Jane Smith',
+                    email: 'jane@example.com',
+                    password: 'password123',
+                    phone: '0987654321'
+                }
+            ],
             pets: [
                 {
                     id: '1',
@@ -79,208 +95,310 @@ class ApiService {
         };
     }
 
-    // Mock API calls - Replace these with actual API calls when available
+    // Updated API calls to use the correct endpoints
     async getPets(filters = {}) {
-        // Simulate API delay
-        await new Promise(resolve => setTimeout(resolve, 500));
-        
-        let pets = [...this.mockData.pets];
-        
-        // Apply filters
-        if (filters.type) {
-            pets = pets.filter(pet => pet.type === filters.type);
+        const queryParams = new URLSearchParams();
+        if (filters.type) queryParams.append('type', filters.type);
+        if (filters.breed) queryParams.append('breed', filters.breed);
+        if (filters.gender) queryParams.append('gender', filters.gender);
+        if (filters.locality) queryParams.append('locality', filters.locality);
+        const url = `${this.baseUrl}/petmates?${queryParams.toString()}`;
+        try {
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            if (!response.ok) {
+                throw new Error(`Response status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            return {
+                success: true,
+                data: data
+            };
+        } catch (error) {
+            console.error('Error fetching pets:', error);
+            // Fallback to mock data if API fails
+            return this.getMockPets(filters);
         }
-        if (filters.breed) {
-            pets = pets.filter(pet => pet.breed === filters.breed);
-        }
-        if (filters.gender) {
-            pets = pets.filter(pet => pet.gender === filters.gender);
-        }
-        if (filters.locality) {
-            pets = pets.filter(pet => pet.locality === filters.locality);
-        }
-        
-        return {
-            success: true,
-            data: pets
-        };
     }
 
     async getSitters(filters = {}) {
-        await new Promise(resolve => setTimeout(resolve, 500));
-        
-        let sitters = [...this.mockData.sitters];
-        
-        if (filters.locality) {
-            sitters = sitters.filter(sitter => sitter.locality === filters.locality);
+        try {
+            const queryParams = new URLSearchParams();
+            if (filters.locality) queryParams.append('locality', filters.locality);
+            if (filters.petType) queryParams.append('petType', filters.petType);
+            
+            const response = await fetch(`${this.baseUrl}/sitter?${queryParams.toString()}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            if (!response.ok) {
+                throw new Error(`Response status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            return {
+                success: true,
+                data: data
+            };
+        } catch (error) {
+            console.error('Error fetching sitters:', error);
+            // Fallback to mock data
+            return this.getMockSitters(filters);
         }
-        if (filters.petType) {
-            sitters = sitters.filter(sitter => sitter.petTypes.includes(filters.petType));
-        }
-        
-        return {
-            success: true,
-            data: sitters
-        };
     }
 
     async getWalkers(filters = {}) {
-        await new Promise(resolve => setTimeout(resolve, 500));
-        
-        let walkers = [...this.mockData.walkers];
-        
-        if (filters.locality) {
-            walkers = walkers.filter(walker => walker.locality === filters.locality);
+        try {
+            const queryParams = new URLSearchParams();
+            if (filters.locality) queryParams.append('locality', filters.locality);
+            if (filters.petType) queryParams.append('petType', filters.petType);
+
+            const response = await fetch(`${this.baseUrl}/walker?${queryParams.toString()}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            if (!response.ok) {
+                throw new Error(`Response status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            return {
+                success: true,
+                data: data
+            };
+        } catch (error) {
+            console.error('Error fetching walkers:', error);
+            // Fallback to mock data
+            return this.getMockWalkers(filters);
         }
-        if (filters.petType) {
-            walkers = walkers.filter(walker => walker.petTypes.includes(filters.petType));
-        }
-        
-        return {
-            success: true,
-            data: walkers
-        };
     }
 
     async registerPet(petData) {
-        await new Promise(resolve => setTimeout(resolve, 500));
-        
-        const newPet = {
-            id: Date.now().toString(),
-            ...petData
-        };
-        
-        this.mockData.pets.push(newPet);
-        
-        return {
-            success: true,
-            data: newPet
-        };
+        try {
+            const response = await fetch(`${this.baseUrl}/petmates`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(petData)
+            });
+            
+            if (!response.ok) {
+                throw new Error(`Response status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            return {
+                success: true,
+                data: data
+            };
+        } catch (error) {
+            console.error('Error registering pet:', error);
+            return {
+                success: false,
+                error: error.message
+            };
+        }
     }
 
     async registerSitter(sitterData) {
-        await new Promise(resolve => setTimeout(resolve, 500));
-        
-        const newSitter = {
-            id: 's' + Date.now().toString(),
-            ...sitterData
-        };
-        
-        this.mockData.sitters.push(newSitter);
-        
-        return {
-            success: true,
-            data: newSitter
-        };
+        try {
+            const response = await fetch(`${this.baseUrl}/sitter`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(sitterData)
+            });
+            
+            if (!response.ok) {
+                throw new Error(`Response status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            return {
+                success: true,
+                data: data
+            };
+        } catch (error) {
+            console.error('Error registering sitter:', error);
+            return {
+                success: false,
+                error: error.message
+            };
+        }
     }
 
     async registerWalker(walkerData) {
-        await new Promise(resolve => setTimeout(resolve, 500));
-        
-        const newWalker = {
-            id: 'w' + Date.now().toString(),
-            ...walkerData
-        };
-        
-        this.mockData.walkers.push(newWalker);
-        
-        return {
-            success: true,
-            data: newWalker
-        };
-    }
-
-    async addReview(reviewData) {
-        await new Promise(resolve => setTimeout(resolve, 500));
-        
-        const { id, type, rating, text } = reviewData;
-        const collection = type === 'sitter' ? this.mockData.sitters : this.mockData.walkers;
-        const item = collection.find(x => x.id === id);
-        
-        if (item) {
-            const review = {
-                rating,
-                text,
-                date: new Date().toISOString(),
-                id: Date.now().toString()
-            };
+        try {
+            const response = await fetch(`${this.baseUrl}/walker`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(walkerData)
+            });
             
-            item.reviews.push(review);
-            item.rating = item.reviews.reduce((acc, r) => acc + r.rating, 0) / item.reviews.length;
+            if (!response.ok) {
+                throw new Error(`Response status: ${response.status}`);
+            }
             
+            const data = await response.json();
             return {
                 success: true,
-                data: review
+                data: data
+            };
+        } catch (error) {
+            console.error('Error registering walker:', error);
+            return {
+                success: false,
+                error: error.message
             };
         }
-        
-        return {
-            success: false,
-            error: 'Item not found'
-        };
     }
 
     async submitContactForm(contactData) {
-        // Simulate API delay
-        await new Promise(resolve => setTimeout(resolve, 500));
         
-        const newContact = {
-            id: 'c' + Date.now().toString(),
-            ...contactData,
-            date: new Date().toISOString(),
-            status: 'pending'
-        };
-        
-        this.mockData.contacts.push(newContact);
-        
-        return {
-            success: true,
-            data: newContact
-        };
-    }
-
-    async getContactMessages(filters = {}) {
-        // Simulate API delay
-        await new Promise(resolve => setTimeout(resolve, 500));
-        
-        let contacts = [...this.mockData.contacts];
-        
-        // Apply filters
-        if (filters.status) {
-            contacts = contacts.filter(contact => contact.status === filters.status);
-        }
-        if (filters.service) {
-            contacts = contacts.filter(contact => contact.service === filters.service);
-        }
-        if (filters.dateFrom) {
-            contacts = contacts.filter(contact => new Date(contact.date) >= new Date(filters.dateFrom));
-        }
-        if (filters.dateTo) {
-            contacts = contacts.filter(contact => new Date(contact.date) <= new Date(filters.dateTo));
-        }
-        
-        return {
-            success: true,
-            data: contacts
-        };
-    }
-
-    async updateContactStatus(id, status) {
-        // Simulate API delay
-        await new Promise(resolve => setTimeout(resolve, 500));
-        
-        const contact = this.mockData.contacts.find(c => c.id === id);
-        if (contact) {
-            contact.status = status;
+        try {
+            const response = await fetch(`${this.baseUrl}/contacts`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(contactData)
+            });
+            
+            if (!response.ok) {
+                throw new Error(`Response status: ${response.status}`);
+            }
+            
+            const data = await response.json();
             return {
                 success: true,
-                data: contact
+                data: data
+            };
+        } catch (error) {
+            console.error('Error submitting contact form:', error);
+            return {
+                success: false,
+                error: error.message
+            };
+        }
+    }
+
+
+    async saveUser(userData) {
+        try {
+            const response = await fetch(`${this.baseUrl}/user`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userData)
+            });
+            
+            if (!response.ok) {
+                throw new Error(`Response status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            return {
+                success: true,
+                data: data
+            };
+        } catch (error) {
+            console.error('Error saving user:', error);
+            return {
+                success: false,
+                error: error.message
+            };
+        }
+    }
+
+    async getUser(userData) {
+        try {
+            const response = await fetch(`${this.baseUrl}/user/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userData)
+            });
+            
+            if (!response.ok) {
+                throw new Error(`Response status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            return {
+                success: true,
+                data: data
+            };
+        } catch (error) {
+            console.error('Error getting user:', error);
+            // Fallback to mock data
+            return this.getMockUser(userData);
+        }
+    }
+
+    // Helper methods for mock data fallback
+    getMockPets(filters) {
+        let pets = [...this.mockData.pets];
+        // Apply filters
+        if (filters.type) pets = pets.filter(pet => pet.type === filters.type);
+        if (filters.breed) pets = pets.filter(pet => pet.breed === filters.breed);
+        if (filters.gender) pets = pets.filter(pet => pet.gender === filters.gender);
+        if (filters.locality) pets = pets.filter(pet => pet.locality === filters.locality);
+        return { success: true, data: pets };
+    }
+
+    getMockSitters(filters) {
+        let sitters = [...this.mockData.sitters];
+        if (filters.locality) sitters = sitters.filter(sitter => sitter.locality === filters.locality);
+        if (filters.petType) sitters = sitters.filter(sitter => sitter.petTypes.includes(filters.petType));
+        return { success: true, data: sitters };
+    }
+
+    getMockWalkers(filters) {
+        let walkers = [...this.mockData.walkers];
+        if (filters.locality) walkers = walkers.filter(walker => walker.locality === filters.locality);
+        if (filters.petType) walkers = walkers.filter(walker => walker.petTypes.includes(filters.petType));
+        return { success: true, data: walkers };
+    }
+
+    // Helper method for mock user authentication
+    getMockUser(userData) {
+        const user = this.mockData.users.find(u => 
+            u.email === userData.email && u.password === userData.password
+        );
+        
+        if (user) {
+            return {
+                success: true,
+                data: {
+                    id: user.id,
+                    name: user.name,
+                    email: user.email,
+                    phone: user.phone
+                }
             };
         }
         
         return {
             success: false,
-            error: 'Contact message not found'
+            error: 'Invalid credentials'
         };
     }
 }

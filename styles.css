@@ -1276,6 +1276,7 @@ footer {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
+    z-index: 1;
 }
 
 .search-button:hover {

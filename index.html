@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body>
     <img src="images/pi7rqj85T.gif" alt="Decorative left" class="decorative-left">
     <img src="images/pc7rqMoLi.gif" alt="Decorative right" class="decorative-right">
@@ -17,8 +19,8 @@
             <div class="auth-tabs">
                 <button class="auth-tab active" data-tab="login">Login</button>
                 <button class="auth-tab" data-tab="signup">Sign Up</button>
-                                </div>
-            
+            </div>
+
             <!-- Login Form -->
             <div id="loginForm" class="auth-form active">
                 <h2>Login</h2>
@@ -26,15 +28,15 @@
                     <div class="form-group">
                         <label for="loginEmail">Email</label>
                         <input type="email" id="loginEmail" required>
-                            </div>
+                    </div>
                     <div class="form-group">
                         <label for="loginPassword">Password</label>
                         <input type="password" id="loginPassword" required>
-                        </div>
+                    </div>
                     <button type="submit" class="submit-button">Login</button>
                 </form>
                 <p class="auth-switch">Don't have an account? <a href="#" class="switch-to-signup">Sign Up</a></p>
-                    </div>
+            </div>
 
             <!-- Sign Up Form -->
             <div id="signupForm" class="auth-form">
@@ -43,23 +45,23 @@
                     <div class="form-group">
                         <label for="signupName">Full Name</label>
                         <input type="text" id="signupName" required>
-                </div>
+                    </div>
                     <div class="form-group">
                         <label for="signupEmail">Email</label>
                         <input type="email" id="signupEmail" required>
-                </div>
+                    </div>
                     <div class="form-group">
                         <label for="signupPhone">Phone Number</label>
                         <input type="tel" id="signupPhone" required>
-            </div>
+                    </div>
                     <div class="form-group">
                         <label for="signupPassword">Password</label>
                         <input type="password" id="signupPassword" required>
-        </div>
+                    </div>
                     <button type="submit" class="submit-button">Sign Up</button>
                 </form>
                 <p class="auth-switch">Already have an account? <a href="#" class="switch-to-login">Login</a></p>
-        </div>
+            </div>
 
             <!-- OTP Verification Form -->
             <div id="otpForm" class="auth-form">
@@ -69,20 +71,20 @@
                     <div class="form-group">
                         <label for="otp">Enter OTP</label>
                         <input type="text" id="otp" maxlength="6" required>
-            </div>
+                    </div>
                     <button type="submit" class="submit-button">Verify</button>
                 </form>
                 <p class="resend-otp">Didn't receive OTP? <a href="#" id="resendOtp">Resend</a></p>
-                        </div>
-                    </div>
-                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Add Auth Button to Navbar -->
     <header>
         <nav class="navbar">
             <div class="logo">
                 <h1>PawsCare</h1>
-                        </div>
+            </div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#services">Services</a></li>
@@ -94,7 +96,7 @@
                 <span></span>
                 <span></span>
                 <span></span>
-                    </div>
+            </div>
         </nav>
     </header>
 
@@ -104,7 +106,7 @@
                 <h2>Professional Pet Care Services</h2>
                 <p>Your furry friend deserves the best care</p>
                 <a href="#contact" class="cta-button">Get in touch</a>
-                </div>
+            </div>
         </section>
 
         <section id="services" class="services">
@@ -114,21 +116,24 @@
                     <i class="fas fa-heart"></i>
                     <h3>Mating Services</h3>
                     <p>Professional breeding services with certified partners</p>
-                        </div>
+                </div>
                 <div class="service-card" onclick="showPetSittingModal()">
                     <i class="fas fa-home"></i>
                     <h3>Pet Sitting</h3>
-                    <p>Professional pet sitters to take care of your pets when you're away. Browse sitters or register as one!</p>
-                    </div>
+                    <p>Professional pet sitters to take care of your pets when you're away. Browse sitters or register
+                        as one!</p>
+                </div>
                 <div class="service-card" onclick="showPetWalksModal()">
                     <i class="fas fa-walking"></i>
                     <h3>Pet Walks</h3>
-                    <p>Professional pet walkers to keep your pets active and healthy. Browse walkers or register as one!</p>
+                    <p>Professional pet walkers to keep your pets active and healthy. Browse walkers or register as one!
+                    </p>
                 </div>
                 <div class="service-card" onclick="openPrintifyDesigner('all')">
                     <i class="fas fa-paint-brush"></i>
                     <h3>Support Us</h3>
-                    <p>Get beautiful handmade paintings and caricatures of your beloved pets created by our talented artists!</p>
+                    <p>Get beautiful handmade paintings and caricatures of your beloved pets created by our talented
+                        artists!</p>
                     <div class="coming-soon-wrapper">
                         <span class="coming-soon-text">Coming Soon!</span>
                         <div class="paw-prints">
@@ -147,8 +152,9 @@
                 <span class="close" onclick="closeModal('printifyModal')">&times;</span>
                 <div class="design-options">
                     <h3>Custom Pet Artwork</h3>
-                    <p class="design-description">Transform your beloved pet's photos into stunning handmade artwork created by our talented artists</p>
-                    
+                    <p class="design-description">Transform your beloved pet's photos into stunning handmade artwork
+                        created by our talented artists</p>
+
                     <div class="artwork-options">
                         <div class="art-option">
                             <div class="art-preview">
@@ -163,7 +169,7 @@
                                 </ul>
                             </div>
                         </div>
-                        
+
                         <div class="art-option">
                             <div class="art-preview">
                                 <i class="fas fa-pencil-alt"></i>
@@ -178,7 +184,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="order-section">
                         <h4>Request Your Custom Artwork</h4>
                         <form id="artworkOrderForm">
@@ -190,7 +196,7 @@
                                     <option value="caricature">Pet Caricature</option>
                                 </select>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="artworkSize">Size:</label>
                                 <select id="artworkSize" required>
@@ -200,7 +206,7 @@
                                     <option value="large">Large (16x20")</option>
                                 </select>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="artworkMedium">Medium:</label>
                                 <select id="artworkMedium" required>
@@ -211,18 +217,19 @@
                                     <option value="digital">Digital</option>
                                 </select>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="petPhoto">Upload Pet Photo:</label>
                                 <input type="file" id="petPhoto" accept="image/*" required>
                                 <span class="file-info">Please provide a clear, high-quality photo of your pet</span>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="specialInstructions">Special Instructions:</label>
-                                <textarea id="specialInstructions" rows="4" placeholder="Any specific details or requests for the artist?"></textarea>
+                                <textarea id="specialInstructions" rows="4"
+                                    placeholder="Any specific details or requests for the artist?"></textarea>
                             </div>
-                            
+
                             <button type="submit" class="btn btn-primary">Submit Request</button>
                         </form>
                     </div>
@@ -240,44 +247,67 @@
                         <div class="form-group">
                             <label for="petName">Pet Name</label>
                             <input type="text" id="petName" required>
-                                </div>
+                        </div>
                         <div class="form-group">
                             <label for="petType">Pet Type</label>
                             <select id="petType" required onchange="updatePetBreedOptions()">
-                                <option value="">Select Type</option>
+                                <option value="">All Type</option>
                                 <option value="dog">Dog</option>
                                 <option value="cat">Cat</option>
                             </select>
-                            </div>
                         </div>
+                    </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="petBreed">Breed</label>
                             <select id="petBreed" required>
-                    <option value="">Select Breed</option>
-                </select>
-                    </div>
+                                <option value="">All Breed</option>
+                                <!-- Dog Breeds -->
+                                <option value="labrador">Labrador Retriever</option>
+                                <option value="germanshepherd">German Shepherd</option>
+                                <option value="goldenretriever">Golden Retriever</option>
+                                <option value="beagle">Beagle</option>
+                                <option value="bulldog">Bulldog</option>
+                                <!-- Cat Breeds -->
+                                <option value="persian">Persian Cat</option>
+                                <option value="siamese">Siamese Cat</option>
+                                <option value="mainecoon">Maine Coon</option>
+                                <option value="ragdoll">Ragdoll</option>
+                                <option value="bengal">Bengal Cat</option>
+                            </select>
+                        </div>
                         <div class="form-group">
                             <label for="petAge">Age (years)</label>
                             <input type="number" id="petAge" min="0" max="30" required>
-                                </div>
-                            </div>
+                        </div>
+                    </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="petGender">Gender</label>
                             <select id="petGender" required>
-                    <option value="">Select Gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                </select>
+                                <option value="">All Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="petLocality">Locality</label>
                             <select id="petLocality" required>
-                                <option value="">Select Locality</option>
-                </select>
-            </div>
+                                <option value="">All Locality</option>
+                                <option value="darjeeling">Darjeeling Town</option>
+                                <option value="kurseong">Kurseong</option>
+                                <option value="kalimpong">Kalimpong</option>
+                                <option value="mirik">Mirik</option>
+                                <option value="siliguri">Siliguri</option>
+                                <option value="ghoom">Ghoom</option>
+                                <option value="sonada">Sonada</option>
+                                <option value="sukna">Sukna</option>
+                                <option value="tindharia">Tindharia</option>
+                                <option value="rangbull">Rangbull</option>
+                                <!-- Add more as needed -->
+                            </select>
                         </div>
+                    </div>
                     <div class="form-group">
                         <label for="petVaccination">Vaccination Status</label>
                         <select id="petVaccination" required>
@@ -290,16 +320,17 @@
                     <div class="form-group">
                         <label for="vaccinationDoc">Vaccination Document (JPG)</label>
                         <input type="file" id="vaccinationDoc" accept=".jpg,.jpeg" required>
-                        <small class="file-info">Please upload vaccination certificate in JPG format (Max size: 5MB)</small>
-                </div>
+                        <small class="file-info">Please upload vaccination certificate in JPG format (Max size:
+                            5MB)</small>
+                    </div>
                     <div class="form-group">
                         <label for="petImage">Pet Photo</label>
-                        <input type="file" id="petImage" accept="image/*">
-                        </div>
+                        <input type="file" id="petImage" name="petImage" accept="image/*">
+                    </div>
                     <button type="submit" class="submit-button">Save Pet Profile</button>
                 </form>
-                    </div>
-                </div>
+            </div>
+        </div>
 
         <!-- Pet Browsing Section -->
         <section class="pet-browsing" id="find-mate">
@@ -312,13 +343,25 @@
                         <option value="dog">Dog</option>
                         <option value="cat">Cat</option>
                     </select>
-                        </div>
+                </div>
                 <div class="filter-group">
                     <label for="pet-breed">Breed</label>
                     <select id="pet-breed">
-                        <option value="">All Breeds</option>
+                        <option value="">All Breed</option>
+                        <!-- Dog Breeds -->
+                        <option value="labrador">Labrador Retriever</option>
+                        <option value="germanshepherd">German Shepherd</option>
+                        <option value="goldenretriever">Golden Retriever</option>
+                        <option value="beagle">Beagle</option>
+                        <option value="bulldog">Bulldog</option>
+                        <!-- Cat Breeds -->
+                        <option value="persian">Persian Cat</option>
+                        <option value="siamese">Siamese Cat</option>
+                        <option value="mainecoon">Maine Coon</option>
+                        <option value="ragdoll">Ragdoll</option>
+                        <option value="bengal">Bengal Cat</option>
                     </select>
-                    </div>
+                </div>
                 <div class="filter-group">
                     <label for="pet-gender">Gender</label>
                     <select id="pet-gender">
@@ -330,22 +373,32 @@
                 <div class="filter-group">
                     <label for="pet-locality">Location</label>
                     <select id="pet-locality">
-                        <option value="">All Localities</option>
+                        <option value="">All Locality</option>
+                        <option value="darjeeling">Darjeeling Town</option>
+                        <option value="kurseong">Kurseong</option>
+                        <option value="kalimpong">Kalimpong</option>
+                        <option value="mirik">Mirik</option>
+                        <option value="siliguri">Siliguri</option>
+                        <option value="ghoom">Ghoom</option>
+                        <option value="sonada">Sonada</option>
+                        <option value="sukna">Sukna</option>
+                        <option value="tindharia">Tindharia</option>
+                        <option value="rangbull">Rangbull</option>
                     </select>
                 </div>
                 <button class="search-button" onclick="searchPets()">
                     <i class="fas fa-search"></i>
                     Find Matches
-                            </button>
-                        </div>
+                </button>
+            </div>
             <div id="pet-grid" class="pet-grid">
                 <!-- Pet cards will be dynamically inserted here -->
-                    </div>
+            </div>
         </section>
 
         <section id="contact" class="contact">
             <h2>Contact Us</h2>
-            <form class="contact-form">
+            <form class="contact-form" onsubmit="submitContactFormHandler(event)">
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" required>
@@ -353,7 +406,7 @@
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" required>
-            </div>
+                </div>
                 <div class="form-group">
                     <label for="service">Service</label>
                     <select id="service" name="service" required>
@@ -363,11 +416,11 @@
                         <option value="walking">Dog Walking</option>
                         <option value="vet">Vet Consultation</option>
                     </select>
-        </div>
+                </div>
                 <div class="form-group">
                     <label for="message">Message</label>
                     <textarea id="message" name="message" required></textarea>
-                        </div>
+                </div>
                 <button type="submit" class="submit-button">Send Message</button>
             </form>
         </section>
@@ -378,14 +431,24 @@
         <div class="container">
             <h2>Our Mission</h2>
             <div class="mission-content">
-                <p>At PawsCare, our mission is to create a comprehensive platform that connects pet owners for responsible breeding and reliable pet sitting services. We strive to foster a community where animal lovers can find ideal matches for their pets and trustworthy sitters to care for their furry companions. While we facilitate these connections, we emphasize the importance of user responsibility in researching and understanding potential mates or sitters. Our goal is to empower pet owners with the tools and resources they need to make informed decisions, ultimately contributing to the well-being and happiness of pets and their human families.</p>
-                
+                <p>At PawsCare, our mission is to create a comprehensive platform that connects pet owners for
+                    responsible breeding and reliable pet sitting services. We strive to foster a community where animal
+                    lovers can find ideal matches for their pets and trustworthy sitters to care for their furry
+                    companions. While we facilitate these connections, we emphasize the importance of user
+                    responsibility in researching and understanding potential mates or sitters. Our goal is to empower
+                    pet owners with the tools and resources they need to make informed decisions, ultimately
+                    contributing to the well-being and happiness of pets and their human families.</p>
+
                 <div class="disclaimer">
                     <h3>Disclaimer</h3>
-                    <p>Users of PawsCare are solely responsible for thoroughly researching and vetting potential breeding partners and pet sitters. We strongly encourage all users to exercise due diligence, conduct background checks, and have a comprehensive understanding of the other party before engaging in any breeding or pet sitting arrangements. PawsCare is not liable for any outcomes resulting from these interactions.</p>
-                                </div>
-                            </div>
-                        </div>
+                    <p>Users of PawsCare are solely responsible for thoroughly researching and vetting potential
+                        breeding partners and pet sitters. We strongly encourage all users to exercise due diligence,
+                        conduct background checks, and have a comprehensive understanding of the other party before
+                        engaging in any breeding or pet sitting arrangements. PawsCare is not liable for any outcomes
+                        resulting from these interactions.</p>
+                </div>
+            </div>
+        </div>
     </section>
 
     <footer>
@@ -393,24 +456,24 @@
             <div class="footer-section">
                 <h3>PawsCare</h3>
                 <p>Professional dog care services for your beloved pets</p>
-                    </div>
+            </div>
             <div class="footer-section">
                 <h3>Contact Info</h3>
                 <p>Email: pawscare777@gmail.com</p>
                 <p>Phone: 8945936499</p>
-                                </div>
+            </div>
             <div class="footer-section">
                 <h3>Follow Us</h3>
                 <div class="social-links">
                     <a href="#"><i class="fab fa-facebook"></i></a>
                     <a href="#"><i class="fab fa-instagram"></i></a>
                     <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                    </div>
+                </div>
+            </div>
+        </div>
         <div class="footer-bottom">
             <p>&copy; 2024 PawsCare. All rights reserved.</p>
-                                </div>
+        </div>
     </footer>
 
     <!-- Pet Sitting Modal -->
@@ -420,7 +483,7 @@
             <div class="pet-sitting-tabs">
                 <button class="pet-sitting-tab active" onclick="showPetSittingTab('browse')">Browse Sitters</button>
                 <button class="pet-sitting-tab" onclick="showPetSittingTab('register')">Register as Sitter</button>
-                            </div>
+            </div>
 
             <!-- Browse Sitters Section -->
             <div id="browseSitters" class="pet-sitting-section active">
@@ -442,7 +505,7 @@
                                 <option value="sukna">Sukna</option>
                                 <option value="tindharia">Tindharia</option>
                                 <option value="rangbull">Rangbull</option>
-                                
+
                                 <!-- Nearby Areas in West Bengal -->
                                 <option value="jalpaiguri">Jalpaiguri</option>
                                 <option value="alipurduar">Alipurduar</option>
@@ -454,7 +517,7 @@
                                 <option value="falakata">Falakata</option>
                                 <option value="dhupguri">Dhupguri</option>
                                 <option value="newmal">New Mal</option>
-                                
+
                                 <!-- Sikkim Areas -->
                                 <option value="gangtok">Gangtok</option>
                                 <option value="namchi">Namchi</option>
@@ -466,14 +529,14 @@
                                 <option value="mangan">Mangan</option>
                                 <option value="yuksom">Yuksom</option>
                                 <option value="lachung">Lachung</option>
-                                
+
                                 <!-- Nepal Border Areas -->
                                 <option value="pashupatinagar">Pashupatinagar</option>
                                 <option value="ilam">Ilam</option>
                                 <option value="bhadrapur">Bhadrapur</option>
                                 <option value="birtamod">Birtamod</option>
                                 <option value="damak">Damak</option>
-                                
+
                                 <!-- Tea Estate Areas -->
                                 <option value="happyvalley">Happy Valley Tea Estate</option>
                                 <option value="makaibari">Makaibari</option>
@@ -485,7 +548,7 @@
                                 <option value="jungpana">Jungpana</option>
                                 <option value="seeyok">Seeyok</option>
                                 <option value="chamong">Chamong</option>
-                                
+
                                 <!-- Hill Stations & Tourist Areas -->
                                 <option value="tigerhill">Tiger Hill</option>
                                 <option value="batasialoop">Batasia Loop</option>
@@ -508,7 +571,7 @@
                                 <option value="bird">Birds</option>
                                 <option value="other">Other</option>
                             </select>
-                                </div>
+                        </div>
                         <button class="find-sitters-btn" onclick="findSitters()">
                             Find Sitters
                         </button>
@@ -517,8 +580,8 @@
 
                 <div class="sitters-grid" id="sittersGrid">
                     <!-- Sitters will be dynamically added here -->
+                </div>
             </div>
-        </div>
 
             <!-- Register as Sitter Section -->
             <div id="registerSitter" class="pet-sitting-section">
@@ -527,21 +590,21 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="sitterName">Full Name</label>
-                            <input type="text" id="sitterName" required>
-                                </div>
+                            <input type="text" id="sitterName" name="sitterName" required>
+                        </div>
                         <div class="form-group">
                             <label for="sitterPhone">Phone Number</label>
-                            <input type="tel" id="sitterPhone" required>
-                            </div>
+                            <input type="tel" id="sitterPhone" name="sitterPhone" required>
                         </div>
+                    </div>
                     <div class="form-group">
                         <label for="sitterEmail">Email</label>
-                        <input type="email" id="sitterEmail" required>
+                        <input type="email" id="sitterEmail" name="sitterEmail" required>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="sitterLocality">Your Locality</label>
-                            <select id="sitterLocality" required>
+                            <select id="sitterLocality" name="sitterLocality" required>
                                 <option value="">Select Locality</option>
                                 <!-- Darjeeling District -->
                                 <option value="darjeeling">Darjeeling Town</option>
@@ -554,7 +617,7 @@
                                 <option value="sukna">Sukna</option>
                                 <option value="tindharia">Tindharia</option>
                                 <option value="rangbull">Rangbull</option>
-                                
+
                                 <!-- Nearby Areas in West Bengal -->
                                 <option value="jalpaiguri">Jalpaiguri</option>
                                 <option value="alipurduar">Alipurduar</option>
@@ -566,7 +629,7 @@
                                 <option value="falakata">Falakata</option>
                                 <option value="dhupguri">Dhupguri</option>
                                 <option value="newmal">New Mal</option>
-                                
+
                                 <!-- Sikkim Areas -->
                                 <option value="gangtok">Gangtok</option>
                                 <option value="namchi">Namchi</option>
@@ -578,14 +641,14 @@
                                 <option value="mangan">Mangan</option>
                                 <option value="yuksom">Yuksom</option>
                                 <option value="lachung">Lachung</option>
-                                
+
                                 <!-- Nepal Border Areas -->
                                 <option value="pashupatinagar">Pashupatinagar</option>
                                 <option value="ilam">Ilam</option>
                                 <option value="bhadrapur">Bhadrapur</option>
                                 <option value="birtamod">Birtamod</option>
                                 <option value="damak">Damak</option>
-                                
+
                                 <!-- Tea Estate Areas -->
                                 <option value="happyvalley">Happy Valley Tea Estate</option>
                                 <option value="makaibari">Makaibari</option>
@@ -597,7 +660,7 @@
                                 <option value="jungpana">Jungpana</option>
                                 <option value="seeyok">Seeyok</option>
                                 <option value="chamong">Chamong</option>
-                                
+
                                 <!-- Hill Stations & Tourist Areas -->
                                 <option value="tigerhill">Tiger Hill</option>
                                 <option value="batasialoop">Batasia Loop</option>
@@ -610,34 +673,34 @@
                                 <option value="tukvar">Tukvar</option>
                                 <option value="bloomfield">Bloomfield</option>
                             </select>
-                                </div>
+                        </div>
                         <div class="form-group">
                             <label for="sitterExperience">Years of Experience</label>
-                            <input type="number" id="sitterExperience" min="0" required>
-                            </div>
+                            <input type="number" id="sitterExperience" name="sitterExperience" min="0" required>
                         </div>
+                    </div>
                     <div class="form-group">
                         <label>Pet Types You Can Handle</label>
                         <div class="checkbox-group">
-                            <label><input type="checkbox" value="dog"> Dogs</label>
-                            <label><input type="checkbox" value="cat"> Cats</label>
-                            <label><input type="checkbox" value="bird"> Birds</label>
-                            <label><input type="checkbox" value="other"> Other</label>
+                            <label><input type="checkbox" name="petTypes" value="dog"> Dogs</label>
+                            <label><input type="checkbox" name="petTypes" value="cat"> Cats</label>
+                            <label><input type="checkbox" name="petTypes" value="bird"> Birds</label>
+                            <label><input type="checkbox" name="petTypes" value="other"> Other</label>
+                        </div>
                     </div>
-                                </div>
                     <div class="form-group">
                         <label for="sitterBio">About You</label>
-                        <textarea id="sitterBio" rows="4" required></textarea>
-                            </div>
+                        <textarea id="sitterBio" name="sitterBio" rows="4" required></textarea>
+                    </div>
                     <div class="form-group">
                         <label for="sitterPhoto">Profile Photo</label>
-                        <input type="file" id="sitterPhoto" accept="image/*">
-                        </div>
-                    <button type="submit" class="submit-button">Register as Sitter</button>
-            </form>
+                        <input type="file" id="sitterPhoto" name="sitterPhoto" accept="image/*">
                     </div>
-                </div>
+                    <button type="submit" class="submit-button">Register as Sitter</button>
+                </form>
             </div>
+        </div>
+    </div>
 
     <!-- Pet Walks Modal -->
     <div id="petWalksModal" class="modal">
@@ -646,7 +709,7 @@
             <div class="pet-walks-tabs">
                 <button class="pet-walks-tab active" onclick="showPetWalksTab('browse')">Browse Walkers</button>
                 <button class="pet-walks-tab" onclick="showPetWalksTab('register')">Register as Walker</button>
-        </div>
+            </div>
 
             <!-- Browse Walkers Section -->
             <div id="browseWalkers" class="pet-walks-section active">
@@ -659,16 +722,16 @@
                                 <option value="">Select Locality</option>
                                 <!-- Darjeeling District -->
                                 <option value="darjeeling">Darjeeling Town</option>
-                        <option value="kurseong">Kurseong</option>
+                                <option value="kurseong">Kurseong</option>
                                 <option value="kalimpong">Kalimpong</option>
                                 <option value="mirik">Mirik</option>
-                        <option value="siliguri">Siliguri</option>
+                                <option value="siliguri">Siliguri</option>
                                 <option value="ghoom">Ghoom</option>
                                 <option value="sonada">Sonada</option>
                                 <option value="sukna">Sukna</option>
                                 <option value="tindharia">Tindharia</option>
                                 <option value="rangbull">Rangbull</option>
-                                
+
                                 <!-- Nearby Areas in West Bengal -->
                                 <option value="jalpaiguri">Jalpaiguri</option>
                                 <option value="alipurduar">Alipurduar</option>
@@ -680,7 +743,7 @@
                                 <option value="falakata">Falakata</option>
                                 <option value="dhupguri">Dhupguri</option>
                                 <option value="newmal">New Mal</option>
-                                
+
                                 <!-- Sikkim Areas -->
                                 <option value="gangtok">Gangtok</option>
                                 <option value="namchi">Namchi</option>
@@ -692,14 +755,14 @@
                                 <option value="mangan">Mangan</option>
                                 <option value="yuksom">Yuksom</option>
                                 <option value="lachung">Lachung</option>
-                                
+
                                 <!-- Nepal Border Areas -->
                                 <option value="pashupatinagar">Pashupatinagar</option>
                                 <option value="ilam">Ilam</option>
                                 <option value="bhadrapur">Bhadrapur</option>
                                 <option value="birtamod">Birtamod</option>
                                 <option value="damak">Damak</option>
-                                
+
                                 <!-- Tea Estate Areas -->
                                 <option value="happyvalley">Happy Valley Tea Estate</option>
                                 <option value="makaibari">Makaibari</option>
@@ -711,7 +774,7 @@
                                 <option value="jungpana">Jungpana</option>
                                 <option value="seeyok">Seeyok</option>
                                 <option value="chamong">Chamong</option>
-                                
+
                                 <!-- Hill Stations & Tourist Areas -->
                                 <option value="tigerhill">Tiger Hill</option>
                                 <option value="batasialoop">Batasia Loop</option>
@@ -723,8 +786,8 @@
                                 <option value="jorebunglow">Jorebunglow</option>
                                 <option value="tukvar">Tukvar</option>
                                 <option value="bloomfield">Bloomfield</option>
-                    </select>
-                </div>
+                            </select>
+                        </div>
                         <div class="filter-group">
                             <label for="walkPetType">Pet Type</label>
                             <select id="walkPetType" name="walkPetType">
@@ -734,16 +797,16 @@
                                 <option value="other">Other</option>
                             </select>
                         </div>
-                        <button class="find-walkers-btn" onclick="searchWalkers()">
+                        <button class="find-walkers-btn" onclick="findWalkers()">
                             Find Walkers
-                </button>
+                        </button>
+                    </div>
                 </div>
-            </div>
 
                 <div class="walkers-grid" id="walkersGrid">
                     <!-- Walkers will be dynamically added here -->
+                </div>
             </div>
-        </div>
 
             <!-- Register as Walker Section -->
             <div id="registerWalker" class="pet-walks-section">
@@ -752,63 +815,116 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="walkerName">Full Name</label>
-                            <input type="text" id="walkerName" required>
-                                </div>
+                            <input type="text" id="walkerName" name="walkerName" required>
+                        </div>
                         <div class="form-group">
                             <label for="walkerPhone">Phone Number</label>
-                            <input type="tel" id="walkerPhone" required>
-                                </div>
-                            </div>
+                            <input type="tel" id="walkerPhone" name="walkerPhone" required>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="walkerEmail">Email</label>
-                        <input type="email" id="walkerEmail" required>
-                        </div>
+                        <input type="email" id="walkerEmail" name="walkerEmail" required>
+                    </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="walkerLocality">Your Locality</label>
-                            <select id="walkerLocality" required>
+                            <select id="walkerLocality" name="walkerLocality" required>
                                 <option value="">Select Locality</option>
-                                <option value="downtown">Downtown</option>
-                                <option value="suburb">Suburb</option>
-                                <option value="north">North Area</option>
-                                <option value="south">South Area</option>
+                                <!-- Darjeeling District -->
+                                <option value="darjeeling">Darjeeling Town</option>
+                                <option value="kurseong">Kurseong</option>
+                                <option value="kalimpong">Kalimpong</option>
+                                <option value="mirik">Mirik</option>
+                                <option value="siliguri">Siliguri</option>
+                                <option value="ghoom">Ghoom</option>
+                                <option value="sonada">Sonada</option>
+                                <option value="sukna">Sukna</option>
+                                <option value="tindharia">Tindharia</option>
+                                <option value="rangbull">Rangbull</option>
+
+                                <!-- Nearby Areas in West Bengal -->
+                                <option value="jalpaiguri">Jalpaiguri</option>
+                                <option value="alipurduar">Alipurduar</option>
+                                <option value="coochbehar">Cooch Behar</option>
+                                <option value="malbazar">Malbazar</option>
+                                <option value="mainaguri">Mainaguri</option>
+                                <option value="birpara">Birpara</option>
+                                <option value="madarihat">Madarihat</option>
+                                <option value="falakata">Falakata</option>
+                                <option value="dhupguri">Dhupguri</option>
+                                <option value="newmal">New Mal</option>
+
+                                <!-- Sikkim Areas -->
+                                <option value="gangtok">Gangtok</option>
+                                <option value="namchi">Namchi</option>
+                                <option value="pelling">Pelling</option>
+                                <option value="ravangla">Ravangla</option>
+                                <option value="jorethang">Jorethang</option>
+                                <option value="rangpo">Rangpo</option>
+                                <option value="singtam">Singtam</option>
+                                <option value="mangan">Mangan</option>
+                                <option value="yuksom">Yuksom</option>
+                                <option value="lachung">Lachung</option>
+
+                                <!-- Nepal Border Areas -->
+                                <option value="pashupatinagar">Pashupatinagar</option>
+                                <option value="ilam">Ilam</option>
+                                <option value="bhadrapur">Bhadrapur</option>
+                                <option value="birtamod">Birtamod</option>
+                                <option value="damak">Damak</option>
+
+                                <!-- Tea Estate Areas -->
+                                <option value="happyvalley">Happy Valley Tea Estate</option>
+                                <option value="makaibari">Makaibari</option>
+                                <option value="castleton">Castleton</option>
+                                <option value="goodricke">Goodricke</option>
+                                <option value="margaretshope">Margaret's Hope</option>
+                                <option value="avongrove">Avongrove</option>
+                                <option value="goomtee">Goomtee</option>
+                                <option value="jungpana">Jungpana</option>
+                                <option value="seeyok">Seeyok</option>
+                                <option value="chamong">Chamong</option>
+
+                                <!-- Hill Stations & Tourist Areas -->
+                                <option value="tigerhill">Tiger Hill</option>
+                                <option value="batasialoop">Batasia Loop</option>
+                                <option value="lebong">Lebong</option>
+                                <option value="takdah">Takdah</option>
+                                <option value="ranglirangliot">Rangli Rangliot</option>
+                                <option value="senchal">Senchal</option>
+                                <option value="dooteriah">Dooteriah</option>
+                                <option value="jorebunglow">Jorebunglow</option>
+                                <option value="tukvar">Tukvar</option>
+                                <option value="bloomfield">Bloomfield</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="walkerExperience">Years of Experience</label>
-                            <input type="number" id="walkerExperience" min="0" required>
+                            <input type="number" id="walkerExperience" name="walkerExperience" min="0" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Pet Types You Can Walk</label>
                         <div class="checkbox-group">
-                            <label><input type="checkbox" value="dog"> Dogs</label>
-                            <label><input type="checkbox" value="cat"> Cats</label>
-                            <label><input type="checkbox" value="other"> Other</label>
-                                </div>
-                                </div>
-                    <div class="form-group">
-                        <label for="walkerSchedule">Available Schedule</label>
-                        <div class="checkbox-group schedule-group">
-                            <label><input type="checkbox" value="morning"> Morning</label>
-                            <label><input type="checkbox" value="afternoon"> Afternoon</label>
-                            <label><input type="checkbox" value="evening"> Evening</label>
-                            <label><input type="checkbox" value="weekend"> Weekends</label>
-                            </div>
+                            <label><input type="checkbox" name="petTypes" value="dog"> Dogs</label>
+                            <label><input type="checkbox" name="petTypes" value="cat"> Cats</label>
+                            <label><input type="checkbox" name="petTypes" value="other"> Other</label>
                         </div>
+                    </div>
                     <div class="form-group">
                         <label for="walkerBio">About You</label>
-                        <textarea id="walkerBio" rows="4" required></textarea>
-                        </div>
+                        <textarea id="walkerBio" name="walkerBio" rows="4" required></textarea>
+                    </div>
                     <div class="form-group">
                         <label for="walkerPhoto">Profile Photo</label>
-                        <input type="file" id="walkerPhoto" accept="image/*">
-                        </div>
-                    <button type="submit" class="submit-button">Register as Walker</button>
-            </form>
+                        <input type="file" id="walkerPhoto" name="walkerPhoto" accept="image/*">
                     </div>
-                                </div>
-                                </div>
+                    <button type="submit" class="submit-button">Register as Walker</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <script src="apiService.js"></script>
     <script>
@@ -835,48 +951,60 @@
             if (currentUser) {
                 authButton.textContent = `Welcome, ${currentUser.name.split(' ')[0]}`;
                 authButton.classList.add('logged-in');
-                
+
                 // Create logout dropdown if it doesn't exist
                 if (!document.querySelector('.auth-dropdown')) {
                     const dropdown = document.createElement('div');
                     dropdown.className = 'auth-dropdown';
-                    
+
                     const logoutBtn = document.createElement('button');
                     logoutBtn.className = 'logout-button';
                     logoutBtn.textContent = 'Logout';
                     logoutBtn.onclick = logoutUser;
-                    
+
                     dropdown.appendChild(logoutBtn);
                     authButton.parentNode.appendChild(dropdown);
-                    
+
                     // Show dropdown on auth button click when logged in
-                    authButton.onclick = function(e) {
+                    authButton.onclick = function (e) {
                         e.stopPropagation();
                         dropdown.classList.toggle('show');
                     };
-                    
+
                     // Hide dropdown when clicking elsewhere
-                    document.addEventListener('click', function() {
+                    document.addEventListener('click', function () {
                         dropdown.classList.remove('show');
                     });
                 }
-                
+
                 updateNavbar(); // Update navbar elements
             } else {
                 authButton.textContent = 'Login';
                 authButton.classList.remove('logged-in');
-                
+
                 // Remove dropdown if it exists
                 const dropdown = document.querySelector('.auth-dropdown');
                 if (dropdown) {
                     dropdown.remove();
                 }
-                
+
                 // Reset auth button click to show login modal
                 authButton.onclick = showModal;
-                
+
                 updateNavbar(); // Update navbar elements
             }
+        }
+
+        // Show modal function
+        function showModal() {
+            authModal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Hide modal function
+        function hideModal() {
+            authModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
         }
 
         // Logout function
@@ -885,18 +1013,6 @@
             currentUser = null;
             updateAuthButton();
             alert('Logged out successfully!');
-        }
-
-        // Show modal
-        function showModal() {
-            authModal.style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        }
-
-        // Hide modal
-        function hideModal() {
-            authModal.style.display = 'none';
-            document.body.style.overflow = 'auto';
         }
 
         // Switch between auth forms
@@ -914,26 +1030,35 @@
             return Math.floor(100000 + Math.random() * 900000).toString();
         }
 
+       
         // Handle login
-        loginForm.addEventListener('submit', (e) => {
+        loginForm.addEventListener('submit', function(e) {
             e.preventDefault();
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
 
-            const user = users.find(u => u.email === email && u.password === password);
-            if (user) {
-                currentUser = user;
-                localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                updateAuthButton();
-                hideModal();
-                alert('Login successful!');
-            } else {
-                alert('Invalid credentials');
-            }
+            apiService.getUser({
+                email: email,
+                password: password
+            }).then(response => {
+                console.log(response)
+                if (response.success) {
+                    currentUser = response.data;
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    updateAuthButton();
+                    hideModal();
+                    alert('Login successful!');
+                } else {
+                    alert('Invalid credentials. Please try again.');
+                }
+            }).catch(error => {
+                console.error('Login error:', error);
+                alert('An error occurred during login. Please try again.');
+            });
         });
 
         // Handle signup
-        signupForm.addEventListener('submit', (e) => {
+        signupForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const name = document.getElementById('signupName').value;
             const email = document.getElementById('signupEmail').value;
@@ -941,19 +1066,36 @@
             const password = document.getElementById('signupPassword').value;
 
             // Check if user already exists
-            if (users.some(u => u.email === email)) {
-                alert('Email already registered');
+            try {
+                const response = await apiService.saveUser({
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    password: password
+                });
+                if (!response.success) {
+                    alert('Email already registered');
+                    return;
+                } else {
+                    alert('Account created successfully');
+                    hideModal();
+                    return;
+                }
+
+                // pendingUser = { name, email, phone, password };
+                // const otp = generateOTP();
+                // localStorage.setItem('pendingOTP', otp);
+
+                // In a real app, send OTP to email/phone
+                // alert(`OTP sent to ${email}. For demo purposes, your OTP is: ${otp}`);
+
+                // switchForm('otpForm');
+            } catch (error) {
+                alert('Error registering user');
                 return;
             }
 
-            pendingUser = { name, email, phone, password };
-            const otp = generateOTP();
-            localStorage.setItem('pendingOTP', otp);
-            
-            // In a real app, send OTP to email/phone
-            alert(`OTP sent to ${email}. For demo purposes, your OTP is: ${otp}`);
-            
-            switchForm('otpForm');
+
         });
 
         // Handle OTP verification
@@ -963,6 +1105,7 @@
             const storedOTP = localStorage.getItem('pendingOTP');
 
             if (otp === storedOTP) {
+                console.log("success otp verififed")
                 users.push(pendingUser);
                 localStorage.setItem('users', JSON.stringify(users));
                 currentUser = pendingUser;
@@ -970,6 +1113,10 @@
                 updateAuthButton();
                 hideModal();
                 alert('Account created successfully!');
+                // Clear the OTP from storage
+                localStorage.removeItem('pendingOTP');
+                // Reset the OTP form
+                otpForm.reset();
             } else {
                 alert('Invalid OTP');
             }
@@ -1022,16 +1169,47 @@
             updateFilterOptions();
             populateDropdowns();
             populatePetLocalityOptions();
-            
+
             // Populate search breed and locality dropdowns
             populateSearchBreedOptions();
             populateSearchLocalityOptions();
-            
+
             // Add event listeners for search filters
-            document.getElementById('pet-type').addEventListener('change', updateSearchBreedOptions);
-            document.getElementById('pet-breed').addEventListener('change', searchPets);
-            document.getElementById('pet-gender').addEventListener('change', searchPets);
-            document.getElementById('pet-locality').addEventListener('change', searchPets);
+            // document.getElementById('pet-type').addEventListener('change', updateSearchBreedOptions);
+            // document.getElementById('pet-breed').addEventListener('change', searchPets);
+            // document.getElementById('pet-gender').addEventListener('change', searchPets);
+            // document.getElementById('pet-locality').addEventListener('change', searchPets);
+
+            // Add event listener for Contact Us form
+            const contactForm = document.querySelector('.contact-form');
+            console.log(contactForm)
+            if (contactForm) {
+                contactForm.addEventListener('submit', async function (e) {
+                    e.preventDefault();
+                    console.log("Contact form handler triggered");
+
+                    // Collect form data
+                    const contactData = {
+                        name: document.getElementById('name').value,
+                        email: document.getElementById('email').value,
+                        service: document.getElementById('service').value,
+                        message: document.getElementById('message').value
+                    };
+
+                    try {
+                        const response = await apiService.submitContactForm(contactData);
+                        if (response.success) {
+                            alert('Message sent successfully!');
+                            contactForm.reset();
+                        } else {
+                            alert(response.error || 'Failed to send message. Please try again.');
+                        }
+                    } catch (error) {
+                        console.error('Error sending contact message:', error);
+                        alert('An error occurred. Please try again.');
+                    }
+                });
+            }
         });
 
         // Pet Profile Management
@@ -1052,12 +1230,12 @@
             }
             petProfileModal.style.display = 'block';
             document.body.style.overflow = 'hidden';
-            
+
             // Initialize breed options if pet type already selected
             if (document.getElementById('petType').value) {
                 updatePetBreedOptions();
             }
-            
+
             // Populate locality dropdown
             populatePetLocalityOptions();
         }
@@ -1088,7 +1266,7 @@
         // Handle pet profile form submission
         petProfileForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
+
             const petData = {
                 ownerId: currentUser.email,
                 name: document.getElementById('petName').value,
@@ -1102,10 +1280,10 @@
                 vaccinationDoc: null
             };
 
-            // Handle image upload
+            // Handle image upload (as base64)
             const imageFile = document.getElementById('petImage').files[0];
             if (imageFile) {
-                petData.image = URL.createObjectURL(imageFile);
+                petData.image = await toBase64(imageFile);
             }
 
             // Handle vaccination PDF
@@ -1115,7 +1293,7 @@
                     alert('Vaccination document must be less than 5MB');
                     return;
                 }
-                petData.vaccinationDoc = URL.createObjectURL(vaccinationFile);
+                petData.vaccinationDoc = await toBase64(vaccinationFile);
             }
 
             try {
@@ -1134,23 +1312,33 @@
             }
         });
 
+        // Helper function to convert file to base64
+        function toBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+
         // Render pets in the grid
         async function renderPets(filteredPets = null) {
             petGrid.innerHTML = '<div class="loading">Loading pets...</div>';
-            
+
             try {
-                const response = await apiService.getPets();
-                if (response.success) {
-                    const pets = filteredPets || response.data;
+                // const response = await apiService.getPets();
+                if (filteredPets) {
+                    const pets = filteredPets;
                     petGrid.innerHTML = '';
-                    
+
                     pets.forEach(pet => {
                         const petCard = document.createElement('div');
                         petCard.className = 'pet-card';
                         petCard.innerHTML = `
                             <div class="pet-image">
-                                ${pet.image ? `<img src="${pet.image}" alt="${pet.name}">` : 
-                                    `<i class="fas fa-paw"></i>`}
+                                ${pet.image ? `<img src="${pet.image}" alt="${pet.name}">` :
+                                `<i class="fas fa-paw"></i>`}
                             </div>
                             <div class="pet-info">
                                 <h3>${pet.name}</h3>
@@ -1304,7 +1492,7 @@
             event.preventDefault();
             const form = document.getElementById('sitterRegistrationForm');
             const formData = new FormData(form);
-            
+
             const sitterData = {
                 name: formData.get('sitterName'),
                 locality: formData.get('sitterLocality'),
@@ -1332,17 +1520,37 @@
         // Register as walker
         async function registerAsWalker(event) {
             event.preventDefault();
+
+            if (!currentUser) {
+                alert('Please login to register as a walker');
+                showModal();
+                return;
+            }
+
             const form = document.getElementById('walkerRegistrationForm');
             const formData = new FormData(form);
-            
+
+            // Get checked pet types
+            const petTypesChecked = Array.from(form.querySelectorAll('input[name="petTypes"]:checked')).map(cb => cb.value);
+
             const walkerData = {
                 name: formData.get('walkerName'),
+                phone: formData.get('walkerPhone'),
+                email: formData.get('walkerEmail'),
                 locality: formData.get('walkerLocality'),
                 experience: formData.get('walkerExperience'),
-                petTypes: getWalkerPetTypes(),
-                about: formData.get('walkerBio'),
-                profilePhoto: formData.get('walkerPhoto') || 'images/default-avatar.jpg'
+                petTypes: petTypesChecked,
+                bio: formData.get('walkerBio'),
+                photo: null
             };
+
+            // Handle photo upload if provided
+            const photoFile = formData.get('walkerPhoto');
+            if (photoFile && photoFile.size > 0) {
+                walkerData.photo = URL.createObjectURL(photoFile);
+            } else {
+                walkerData.photo = 'images/default-avatar.jpg';
+            }
 
             try {
                 const response = await apiService.registerWalker(walkerData);
@@ -1350,6 +1558,7 @@
                     alert('Thank you for registering as a pet walker! Your profile has been created.');
                     displayWalkers();
                     form.reset();
+                    hidePetWalksModal();
                 } else {
                     alert('Failed to register as walker. Please try again.');
                 }
@@ -1364,7 +1573,7 @@
             const modal = document.querySelector('.review-modal');
             const rating = modal.querySelectorAll('.star.active').length;
             const reviewText = modal.querySelector('#reviewText').value;
-            
+
             if (!rating || !reviewText) {
                 alert('Please provide both rating and review text');
                 return;
@@ -1463,7 +1672,7 @@
             const modal = document.getElementById('printifyModal');
             modal.style.display = 'block';
             document.body.style.overflow = 'hidden';
-            
+
             if (productType !== 'all') {
                 // Pre-select the product type if specified
                 const merchOption = document.querySelector(`.merch-option[data-product="${productType}"]`);
@@ -1487,7 +1696,7 @@
                 document.getElementById('petWalksModal'),
                 document.getElementById('printifyModal')
             ];
-            
+
             modals.forEach(modal => {
                 if (e.target === modal) {
                     modal.style.display = 'none';
@@ -1498,7 +1707,7 @@
 
         // Add close button functionality to all modals
         document.querySelectorAll('.close-modal').forEach(closeBtn => {
-            closeBtn.addEventListener('click', function() {
+            closeBtn.addEventListener('click', function () {
                 const modal = this.closest('.modal');
                 if (modal) {
                     modal.style.display = 'none';
@@ -1514,7 +1723,7 @@
                 t.classList.remove('active');
             });
             document.querySelector(`.pet-sitting-tab[onclick*="${tab}"]`).classList.add('active');
-            
+
             // Update sections
             document.querySelectorAll('.pet-sitting-section').forEach(section => {
                 section.classList.remove('active');
@@ -1534,7 +1743,7 @@
                 t.classList.remove('active');
             });
             document.querySelector(`.pet-walks-tab[onclick*="${tab}"]`).classList.add('active');
-            
+
             // Update sections
             document.querySelectorAll('.pet-walks-section').forEach(section => {
                 section.classList.remove('active');
@@ -1548,168 +1757,417 @@
         }
 
         // Initialize tabs when modals are opened
-        document.getElementById('petSittingModal').addEventListener('show', function() {
+        document.getElementById('petSittingModal').addEventListener('show', function () {
             showPetSittingTab('browse');
         });
 
-        document.getElementById('petWalksModal').addEventListener('show', function() {
+        document.getElementById('petWalksModal').addEventListener('show', function () {
             showPetWalksTab('browse');
         });
+
+        async function submitContactFormHandler(event) {
+            event.preventDefault();
+            const contactForm = event.target;
+            const contactData = {
+                name: contactForm.name.value,
+                email: contactForm.email.value,
+                service: contactForm.service.value,
+                message: contactForm.message.value
+            };
+            try {
+                const response = await apiService.submitContactForm(contactData);
+                if (response.success) {
+                    alert('Message sent successfully!');
+                    contactForm.reset();
+                } else {
+                    alert(response.error || 'Failed to send message. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error sending contact message:', error);
+                alert('An error occurred. Please try again.');
+            }
+        }
+
+        async function findSitters() {
+            const locality = document.getElementById('locality').value;
+            const petType = document.getElementById('petType').value;
+            const sittersGrid = document.getElementById('sittersGrid');
+
+            const filters = {
+                locality: locality,
+                petType: petType,
+            }
+
+
+            sittersGrid.innerHTML = '<div class="loading">Loading sitters...</div>';
+
+            try {
+                const response = await apiService.getSitters(filters);
+
+                if (response.success) {
+                    sittersGrid.innerHTML = response.data.map(sitter => `
+                        <div class="profile-card">
+                            <img src="${sitter.photo}" alt="${sitter.name}" class="profile-photo">
+                            <div class="profile-info">
+                                <h3>${sitter.name}</h3>
+                                <p class="location"><i class="fas fa-map-marker-alt"></i> ${sitter.locality}</p>
+                                <p class="experience">${sitter.experience} years experience</p>
+                                <div class="rating">
+                                    ${getStarRating(sitter.rating)}
+                                    <span>(${sitter.reviews.length} reviews)</span>
+                                </div>
+                                <p class="about">${sitter.bio}</p>
+                                <div class="pet-types">
+                                    <strong>Pets:</strong> ${sitter.petTypes.join(', ')}
+                                </div>
+                                <button onclick="showReviewModal('${sitter.id}', 'sitter')" class="review-btn">Write Review</button>
+                                <div class="reviews-section">
+                                    <h4>Recent Reviews</h4>
+                                    ${getRecentReviews(sitter.reviews)}
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    sittersGrid.innerHTML = '<div class="error">Failed to load sitters. Please try again.</div>';
+                }
+            } catch (error) {
+                console.error('Error loading sitters:', error);
+                sittersGrid.innerHTML = '<div class="error">An error occurred. Please try again.</div>';
+            }
+        }
+
+        async function findWalkers() {
+            const locality = document.getElementById('walkerLocality').value;
+            const petType = document.getElementById('walkPetType').value;
+            const walkersGrid = document.getElementById('walkersGrid');
+
+            const filters = {
+                locality: locality,
+                petType: petType,
+            };
+
+            walkersGrid.innerHTML = '<div class="loading">Loading walkers...</div>';
+
+            try {
+                const response = await apiService.getWalkers(filters);
+
+                if (response.success) {
+                    walkersGrid.innerHTML = response.data.map(walker => `
+                        <div class="profile-card">
+                            <img src="${walker.photo}" alt="${walker.name}" class="profile-photo">
+                            <div class="profile-info">
+                                <h3>${walker.name}</h3>
+                                <p class="location"><i class="fas fa-map-marker-alt"></i> ${walker.locality}</p>
+                                <p class="experience">${walker.experience} years experience</p>
+                                <div class="rating">
+                                    ${getStarRating(walker.rating)}
+                                    <span>(${walker.reviews.length} reviews)</span>
+                                </div>
+                                <p class="about">${walker.bio}</p>
+                                <div class="pet-types">
+                                    <strong>Pets:</strong> ${walker.petTypes.join(', ')}
+                                </div>
+                                <button onclick="showReviewModal('${walker.id}', 'walker')" class="review-btn">Write Review</button>
+                                <div class="reviews-section">
+                                    <h4>Recent Reviews</h4>
+                                    ${getRecentReviews(walker.reviews)}
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    walkersGrid.innerHTML = '<div class="error">Failed to load walkers. Please try again.</div>';
+                }
+            } catch (error) {
+                console.error('Error loading walkers:', error);
+                walkersGrid.innerHTML = '<div class="error">An error occurred. Please try again.</div>';
+            }
+        }
+
+        // Update navbar based on login status
+        function updateNavbar() {
+            const navLinks = document.querySelectorAll('.nav-links li');
+            
+            if (currentUser) {
+                // User is logged in - show all navigation items
+                navLinks.forEach(link => {
+                    link.style.display = 'block';
+                });
+                
+                // Update auth button text
+                authButton.textContent = `Welcome, ${currentUser.name.split(' ')[0]}`;
+                authButton.classList.add('logged-in');
+            } else {
+                // User is logged out - show all navigation items
+                navLinks.forEach(link => {
+                    link.style.display = 'block';
+                });
+                
+                // Reset auth button
+                authButton.textContent = 'Login';
+                authButton.classList.remove('logged-in');
+            }
+        }
     </script>
 
     <style>
-    .profile-card {
-        background: var(--light);
-        border-radius: 15px;
-        padding: 1.5rem;
-        box-shadow: 0 4px 12px var(--shadow);
-        display: flex;
-        gap: 1.5rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .profile-photo {
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        object-fit: cover;
-    }
-
-    .profile-info {
-        flex: 1;
-    }
-
-    .profile-info h3 {
-        margin: 0 0 0.5rem;
-        color: var(--dark);
-    }
-
-    .location, .experience {
-        color: var(--text);
-        margin: 0.25rem 0;
-    }
-
-    .rating {
-        color: var(--primary);
-        font-size: 1.2rem;
-        margin: 0.5rem 0;
-    }
-
-    .about {
-        margin: 1rem 0;
-        color: var(--text);
-    }
-
-    .pet-types {
-        margin: 0.5rem 0;
-        color: var(--text);
-    }
-
-    .review-btn {
-        background: var(--primary);
-        color: white;
-        border: none;
-        padding: 0.5rem 1rem;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    .review-btn:hover {
-        background: var(--secondary);
-        transform: translateY(-2px);
-    }
-
-    .reviews-section {
-        margin-top: 1rem;
-        padding-top: 1rem;
-        border-top: 1px solid var(--shadow);
-    }
-
-    .review {
-        background: white;
-        padding: 1rem;
-        border-radius: 8px;
-        margin: 0.5rem 0;
-    }
-
-    .review-rating {
-        color: var(--primary);
-    }
-
-    .review-text {
-        margin: 0.5rem 0;
-        color: var(--text);
-    }
-
-    .review-date {
-        font-size: 0.9rem;
-        color: var(--text);
-        opacity: 0.8;
-    }
-
-    .review-modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 2000;
-    }
-
-    .review-modal-content {
-        background: var(--light);
-        padding: 2rem;
-        border-radius: 15px;
-        width: 90%;
-        max-width: 500px;
-        position: relative;
-        z-index: 2001;
-    }
-
-    .star-rating {
-        display: inline-flex;
-        gap: 0.25rem;
-        font-size: 1.5rem;
-        color: #ccc;
-        cursor: pointer;
-    }
-
-    .star.active {
-        color: var(--primary);
-    }
-
-    #reviewText {
-        width: 100%;
-        margin: 1rem 0;
-        padding: 0.5rem;
-        border: 1px solid var(--shadow);
-        border-radius: 8px;
-        resize: vertical;
-    }
-
-    .review-buttons {
-        display: flex;
-        gap: 1rem;
-        justify-content: flex-end;
-    }
-
-    @media (max-width: 768px) {
         .profile-card {
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
+            background: var(--light);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px var(--shadow);
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
         }
 
         .profile-photo {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
         }
-    }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-info h3 {
+            margin: 0 0 0.5rem;
+            color: var(--dark);
+        }
+
+        .location,
+        .experience {
+            color: var(--text);
+            margin: 0.25rem 0;
+        }
+
+        .rating {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+        }
+
+        .about {
+            margin: 1rem 0;
+            color: var(--text);
+        }
+
+        .pet-types {
+            margin: 0.5rem 0;
+            color: var(--text);
+        }
+
+        .review-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .review-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .reviews-section {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--shadow);
+        }
+
+        .review {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 0.5rem 0;
+        }
+
+        .review-rating {
+            color: var(--primary);
+        }
+
+        .review-text {
+            margin: 0.5rem 0;
+            color: var(--text);
+        }
+
+        .review-date {
+            font-size: 0.9rem;
+            color: var(--text);
+            opacity: 0.8;
+        }
+
+        .review-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .review-modal-content {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            z-index: 2001;
+        }
+
+        .star-rating {
+            display: inline-flex;
+            gap: 0.25rem;
+            font-size: 1.5rem;
+            color: #ccc;
+            cursor: pointer;
+        }
+
+        .star.active {
+            color: var(--primary);
+        }
+
+        #reviewText {
+            width: 100%;
+            margin: 1rem 0;
+            padding: 0.5rem;
+            border: 1px solid var(--shadow);
+            border-radius: 8px;
+            resize: vertical;
+        }
+
+        .review-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        @media (max-width: 768px) {
+            .profile-card {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .profile-photo {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        /* Auth Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .auth-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 16px;
+        }
+
+        .auth-tab.active {
+            border-bottom: 2px solid #4CAF50;
+            color: #4CAF50;
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .submit-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .submit-button:hover {
+            background-color: #45a049;
+        }
+
+        .auth-switch {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .auth-switch a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .auth-switch a:hover {
+            text-decoration: underline;
+        }
     </style>
 </body>
-</html> 
+
+</html>

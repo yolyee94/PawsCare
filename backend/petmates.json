@@ -1,0 +1,128 @@
+[
+  {
+    "petType": "Dog",
+    "breed": "Golden Retriever",
+    "gender": "Male",
+    "location": "Bengaluru, Karnataka, India"
+  },
+  {
+    "petType": "Cat",
+    "breed": "Siamese",
+    "gender": "Female",
+    "location": "Mumbai, Maharashtra, India"
+  },
+  {
+    "petType": "Dog",
+    "breed": "Labrador Retriever",
+    "gender": "Female",
+    "location": "Delhi, Delhi, India"
+  },
+  {
+    "petType": "Cat",
+    "breed": "Persian",
+    "gender": "Male",
+    "location": "Kolkata, West Bengal, India"
+  },
+  {
+    "petType": "Dog",
+    "breed": "German Shepherd",
+    "gender": "Male",
+    "location": "Chennai, Tamil Nadu, India"
+  },
+  {
+    "petType": "Cat",
+    "breed": "Maine Coon",
+    "gender": "Female",
+    "location": "Hyderabad, Telangana, India"
+  },
+  {
+    "petType": "Dog",
+    "breed": "Pug",
+    "gender": "Female",
+    "location": "Pune, Maharashtra, India"
+  },
+  {
+    "petType": "Cat",
+    "breed": "Bengal",
+    "gender": "Male",
+    "location": "Ahmedabad, Gujarat, India"
+  },
+  {
+    "petType": "Dog",
+    "breed": "Beagle",
+    "gender": "Male",
+    "location": "Jaipur, Rajasthan, India"
+  },
+  {
+    "petType": "Cat",
+    "breed": "Russian Blue",
+    "gender": "Female",
+    "location": "Lucknow, Uttar Pradesh, India"
+  },
+  {
+    "petType": "Dog",
+    "breed": "Boxer",
+    "gender": "Female",
+    "location": "Kanpur, Uttar Pradesh, India"
+  },
+  {
+    "petType": "Cat",
+    "breed": "Sphynx",
+    "gender": "Male",
+    "location": "Nagpur, Maharashtra, India"
+  },
+  {
+    "petType": "Dog",
+    "breed": "Rottweiler",
+    "gender": "Male",
+    "location": "Indore, Madhya Pradesh, India"
+  },
+  {
+    "petType": "Cat",
+    "breed": "Scottish Fold",
+    "gender": "Female",
+    "location": "Bhopal, Madhya Pradesh, India"
+  },
+  {
+    "petType": "Dog",
+    "breed": "Dachshund",
+    "gender": "Female",
+    "location": "Patna, Bihar, India"
+  },
+  {
+    "petType": "Cat",
+    "breed": "Ragdoll",
+    "gender": "Male",
+    "location": "Vadodara, Gujarat, India"
+  },
+  {
+    "petType": "Dog",
+    "breed": "Shih Tzu",
+    "gender": "Male",
+    "location": "Ghaziabad, Uttar Pradesh, India"
+  },
+  {
+    "petType": "Cat",
+    "breed": "Burmese",
+    "gender": "Female",
+    "location": "Ludhiana, Punjab, India"
+  },
+  {
+    "petType": "Dog",
+    "breed": "Pomeranian",
+    "gender": "Female",
+    "location": "Agra, Uttar Pradesh, India"
+  },
+  {
+    "petType": "Cat",
+    "breed": "Bombay",
+    "gender": "Male",
+    "location": "Nashik, Maharashtra, India"
+  },
+  {
+	"petType": "Cat",
+    "breed": "Sandeep Sharma Oil",
+    "gender": "Male",
+    "location": "Darjileeng, India 560060"
+  }
+]
