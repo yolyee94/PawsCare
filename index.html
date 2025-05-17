@@ -36,6 +36,44 @@
                     <button type="submit" class="submit-button">Login</button>
                 </form>
                 <p class="auth-switch">Don't have an account? <a href="#" class="switch-to-signup">Sign Up</a></p>
+                <p class="auth-switch"><a href="#" class="switch-to-forgot-password">Forgot Password?</a></p>
+            </div>
+
+            <!-- Forgot Password Form -->
+            <div id="forgotPasswordForm" class="auth-form">
+                <h2>Reset Password</h2>
+                <p class="forgot-password-message">Enter your email address and we'll send you a link to reset your password.</p>
+                <form id="forgotPasswordFormElement">
+                    <div class="form-group">
+                        <label for="forgotEmail">Email</label>
+                        <input type="email" id="forgotEmail" required>
+                    </div>
+                    <button type="submit" class="submit-button">Send Reset Link</button>
+                </form>
+                <p class="auth-switch">Remember your password? <a href="#" class="switch-to-login">Login</a></p>
+            </div>
+
+            <!-- Reset Password Form -->
+            <div id="resetPasswordForm" class="auth-form">
+                <h2>Set New Password</h2>
+                <p class="reset-password-message">Please enter your new password below.</p>
+                <form id="resetPasswordFormElement">
+                    <div class="form-group">
+                        <label for="resetEmail">Email</label>
+                        <input type="email" id="resetEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newPassword">New Password</label>
+                        <input type="password" id="newPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirmPassword" required>
+                    </div>
+                    <input type="hidden" id="resetToken">
+                    <button type="submit" class="submit-button">Reset Password</button>
+                </form>
+                <p class="auth-switch">Remember your password? <a href="#" class="switch-to-login">Login</a></p>
             </div>
 
             <!-- Sign Up Form -->
@@ -936,9 +974,12 @@
         const authForms = document.querySelectorAll('.auth-form');
         const switchToSignup = document.querySelector('.switch-to-signup');
         const switchToLogin = document.querySelector('.switch-to-login');
+        const switchToForgotPassword = document.querySelector('.switch-to-forgot-password');
         const loginForm = document.getElementById('loginFormElement');
         const signupForm = document.getElementById('signupFormElement');
         const otpForm = document.getElementById('otpFormElement');
+        const forgotPasswordForm = document.getElementById('forgotPasswordFormElement');
+        const resetPasswordForm = document.getElementById('resetPasswordFormElement');
         const resendOtp = document.getElementById('resendOtp');
 
         // User data storage
@@ -1122,6 +1163,56 @@
             }
         });
 
+        // Handle forgot password
+        forgotPasswordForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('forgotEmail').value;
+
+            try {
+                const response = await apiService.forgotPassword(email);
+                if (response.success) {
+                    alert('Password reset link has been sent to your email.');
+                    switchForm('loginForm');
+                    forgotPasswordForm.reset();
+                } else {
+                    alert(response.error || 'Failed to send reset link. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error sending reset link:', error);
+                alert('An error occurred. Please try again.');
+            }
+        });
+
+        // Handle reset password
+        resetPasswordForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('resetEmail').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const resetToken = document.getElementById('resetToken').value;
+
+            if (newPassword !== confirmPassword) {
+                alert('Passwords do not match');
+                return;
+            }
+
+            try {
+                const response = await apiService.resetPassword(email, newPassword, resetToken);
+                if (response.success) {
+                    alert('Password has been reset successfully. Please login with your new password.');
+                    switchForm('loginForm');
+                    resetPasswordForm.reset();
+                    // Remove reset token from URL
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                } else {
+                    alert(response.error || 'Failed to reset password. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error resetting password:', error);
+                alert('An error occurred. Please try again.');
+            }
+        });
+
         // Event Listeners
         authButton.addEventListener('click', function(e) {
             if (!currentUser) {
@@ -1155,6 +1246,11 @@
             authTabs[0].click();
         });
 
+        switchToForgotPassword.addEventListener('click', (e) => {
+            e.preventDefault();
+            switchForm('forgotPasswordForm');
+        });
+
         resendOtp.addEventListener('click', (e) => {
             e.preventDefault();
             const otp = generateOTP();
@@ -1169,6 +1265,7 @@
             updateFilterOptions();
             populateDropdowns();
             populatePetLocalityOptions();
+            checkResetToken(); // Check for reset token on page load
 
             // Populate search breed and locality dropdowns
             populateSearchBreedOptions();
@@ -1909,6 +2006,26 @@
                 authButton.classList.remove('logged-in');
             }
         }
+
+        // Check for reset token in URL
+        function checkResetToken() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const token = urlParams.get('resetToken');
+            const email = urlParams.get('email');
+            
+            if (token && email) {
+                document.getElementById('resetToken').value = token;
+                document.getElementById('resetEmail').value = email;
+                showModal();
+                switchForm('resetPasswordForm');
+            }
+        }
+
+        // Function to open reset password form
+        function openResetPasswordForm() {
+            showModal();
+            switchForm('resetPasswordForm');
+        }
     </script>
 
     <style>
@@ -2166,6 +2283,36 @@
 
         .auth-switch a:hover {
             text-decoration: underline;
+        }
+
+        .forgot-password-message {
+            text-align: center;
+            color: var(--text);
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        #forgotPasswordForm .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        #forgotPasswordForm .submit-button {
+            margin-top: 1rem;
+        }
+
+        .reset-password-message {
+            text-align: center;
+            color: var(--text);
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        #resetPasswordForm .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        #resetPasswordForm .submit-button {
+            margin-top: 1rem;
         }
     </style>
 </body>

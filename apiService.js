@@ -401,6 +401,74 @@ class ApiService {
             error: 'Invalid credentials'
         };
     }
+
+    
+    async forgotPassword(email) {
+        console.log("in function "+ email)
+        try {
+            const response = await fetch(`${this.baseUrl}/user/forgot-password`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                return {
+                    success: false,
+                    error: errorData.message || 'An error occurred while processing your request.'
+                };
+            }
+
+            const data = await response.json();
+            return {
+                success: true,
+                message: data.message
+            };
+        } catch (error) {
+            console.error('Error in forgotPassword:', error);
+            return {
+                success: false,
+                error: 'An error occurred while processing your request.'
+            };
+        }
+    }
+
+
+
+    async resetPassword(email, newPassword, resetToken) {
+        try {
+            const response = await fetch(`${this.baseUrl}/user/reset-password`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, newPassword, resetToken })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                return {
+                    success: false,
+                    error: errorData.message || 'An error occurred while resetting your password.'
+                };
+            }
+
+            const data = await response.json();
+            return {
+                success: true,
+                message: data.message
+            };
+        } catch (error) {
+            console.error('Error in resetPassword:', error);
+            return {
+                success: false,
+                error: 'An error occurred while resetting your password.'
+            };
+        }
+    }
 }
 
 // Create a global instance
