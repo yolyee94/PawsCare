@@ -1,7 +1,13 @@
 import express from 'express';
 import User from '../models/Users.js';
+import { OAuth2Client } from 'google-auth-library';
 
 const router = express.Router();
+const client = new OAuth2Client({
+    clientId: '680557439747-ahlqecb6np67qul6d8mflquk4elvrf4g.apps.googleusercontent.com',
+    clientSecret: 'GOCSPX-YourClientSecretHere', // Replace with your actual client secret
+    redirectUri: 'http://localhost:3000/api/users/google-callback'
+});
 
 // POST - Create a new customer
 router.post('/', async (req, res) => {
@@ -179,6 +185,123 @@ router.post('/reset-password', async (req, res) => {
       success: false,
       message: 'An error occurred while resetting your password.' 
     });
+  }
+});
+
+// POST - Google Login
+router.post('/google-login', async (req, res) => {
+  try {
+    const { token } = req.body;
+    if (!token) {
+      return res.status(400).json({ 
+        success: false,
+        message: 'Google token is required.' 
+      });
+    }
+
+    // Verify Google token
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: '680557439747-ahlqecb6np67qul6d8mflquk4elvrf4g.apps.googleusercontent.com'
+    });
+
+    const payload = ticket.getPayload();
+    const { email, name, picture, sub: googleId } = payload;
+
+    // Check if user exists
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      // Create new user if doesn't exist
+      user = new User({
+        email,
+        name,
+        profilePicture: picture,
+        googleId,
+        isGoogleUser: true
+      });
+      await user.save();
+    } else if (!user.googleId) {
+      // Update existing user with Google info
+      user.googleId = googleId;
+      user.isGoogleUser = true;
+      user.profilePicture = picture;
+      await user.save();
+    }
+
+    res.json({
+      success: true,
+      user: {
+        id: user._id,
+        email: user.email,
+        name: user.name,
+        profilePicture: user.profilePicture,
+        isGoogleUser: user.isGoogleUser
+      }
+    });
+  } catch (error) {
+    console.error('Error in google-login:', error);
+    res.status(500).json({ 
+      success: false,
+      message: 'Failed to authenticate with Google.' 
+    });
+  }
+});
+
+// Add Google OAuth callback route
+router.get('/google-callback', async (req, res) => {
+  try {
+    const { code } = req.query;
+    if (!code) {
+      return res.status(400).json({ 
+        success: false,
+        message: 'Authorization code is required.' 
+      });
+    }
+
+    // Exchange code for tokens
+    const { tokens } = await client.getToken(code);
+    client.setCredentials(tokens);
+
+    // Get user info
+    const userInfo = await client.request({
+      url: 'https://www.googleapis.com/oauth2/v3/userinfo'
+    });
+
+    const { email, name, picture, sub: googleId } = userInfo.data;
+
+    // Check if user exists
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      // Create new user if doesn't exist
+      user = new User({
+        email,
+        name,
+        profilePicture: picture,
+        googleId,
+        isGoogleUser: true
+      });
+      await user.save();
+    } else if (!user.googleId) {
+      // Update existing user with Google info
+      user.googleId = googleId;
+      user.isGoogleUser = true;
+      user.profilePicture = picture;
+      await user.save();
+    }
+
+    // Redirect to frontend with user data
+    res.redirect(`http://localhost:3000/auth-success?user=${encodeURIComponent(JSON.stringify({
+      id: user._id,
+      email: user.email,
+      name: user.name,
+      profilePicture: user.profilePicture,
+      isGoogleUser: user.isGoogleUser
+    }))}`);
+  } catch (error) {
+    console.error('Error in google-callback:', error);
+    res.redirect('http://localhost:3000/auth-error');
   }
 });
 

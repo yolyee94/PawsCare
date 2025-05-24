@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: false
+    required: true
   },
   email: {
     type: String,
@@ -16,18 +16,38 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true
+    required: function() {
+      return !this.isGoogleUser; // Password only required for non-Google users
+    }
+  },
+  googleId: {
+    type: String,
+    unique: true,
+    sparse: true
+  },
+  isGoogleUser: {
+    type: Boolean,
+    default: false
+  },
+  profilePicture: {
+    type: String
   },
   resetToken: {
     type: String,
     required: false
   },
   resetTokenExpiry: {
-    type: String,
+    type: Date,
     required: false
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
   }
 }, {
   timestamps: true
 });
 
-export default mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema);
+
+export default User;

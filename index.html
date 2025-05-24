@@ -34,6 +34,12 @@
                         <input type="password" id="loginPassword" required>
                     </div>
                     <button type="submit" class="submit-button">Login</button>
+                    <div class="google-signin-container">
+                        <button type="button" class="google-signin-button" onclick="signInWithGoogle()">
+                            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo">
+                            Sign in with Google
+                        </button>
+                    </div>
                 </form>
                 <p class="auth-switch">Don't have an account? <a href="#" class="switch-to-signup">Sign Up</a></p>
                 <p class="auth-switch"><a href="#" class="switch-to-forgot-password">Forgot Password?</a></p>
@@ -121,7 +127,7 @@
     <header>
         <nav class="navbar">
             <div class="logo">
-                <h1>PawsCare</h1>
+                <h1>KiPaw</h1>
             </div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
@@ -141,7 +147,7 @@
     <main>
         <section id="home" class="hero">
             <div class="hero-content">
-                <h2>Professional Pet Care Services</h2>
+                <h2>Pet Care Services</h2>
                 <p>Your furry friend deserves the best care</p>
                 <a href="#contact" class="cta-button">Get in touch</a>
             </div>
@@ -152,20 +158,18 @@
             <div class="services-grid">
                 <div class="service-card" onclick="showPetProfileModal()">
                     <i class="fas fa-heart"></i>
-                    <h3>Mating Services</h3>
-                    <p>Professional breeding services with certified partners</p>
+                    <h3>Pet Mating Services</h3>
+                    <p>Responsible breeding with dedicated, carefully mathced partners to ensure the health and happiness of your pets</p>
                 </div>
                 <div class="service-card" onclick="showPetSittingModal()">
                     <i class="fas fa-home"></i>
                     <h3>Pet Sitting</h3>
-                    <p>Professional pet sitters to take care of your pets when you're away. Browse sitters or register
-                        as one!</p>
+                    <p>Trusted pet sitters to take care of your pets when you're away. Browse available sitters or sign up to become one!</p>
                 </div>
                 <div class="service-card" onclick="showPetWalksModal()">
                     <i class="fas fa-walking"></i>
                     <h3>Pet Walks</h3>
-                    <p>Professional pet walkers to keep your pets active and healthy. Browse walkers or register as one!
-                    </p>
+                    <p>Professional pet walkers to keep your furry friends happy, healthy and active. Find a walker or sign up to offer your services.</p>
                 </div>
                 <div class="service-card" onclick="openPrintifyDesigner('all')">
                     <i class="fas fa-paint-brush"></i>
@@ -497,7 +501,7 @@
             </div>
             <div class="footer-section">
                 <h3>Contact Info</h3>
-                <p>Email: pawscare777@gmail.com</p>
+                <p>Email: kipaw57@gmail.com</p>
                 <p>Phone: 8945936499</p>
             </div>
             <div class="footer-section">
@@ -965,6 +969,7 @@
     </div>
 
     <script src="apiService.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
         // Auth Modal Elements
         const authModal = document.getElementById('authModal');
@@ -2026,6 +2031,48 @@
             showModal();
             switchForm('resetPasswordForm');
         }
+
+        // Google Sign In Function
+        async function signInWithGoogle() {
+            try {
+                const client = google.accounts.oauth2.initTokenClient({
+                    client_id: '680557439747-ahlqecb6np67qul6d8mflquk4elvrf4g.apps.googleusercontent.com',
+                    scope: 'email profile',
+                    callback: async (response) => {
+                        if (response.access_token) {
+                            try {
+                                const result = await fetch('http://localhost:3000/api/user/google-login', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({ token: response.access_token })
+                                });
+
+                                const data = await result.json();
+                                
+                                if (data.success) {
+                                    currentUser = data.user;
+                                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                                    updateAuthButton();
+                                    hideModal();
+                                    alert('Successfully signed in with Google!');
+                                } else {
+                                    alert(data.message || 'Failed to sign in with Google. Please try again.');
+                                }
+                            } catch (error) {
+                                console.error('Error during Google sign in:', error);
+                                alert('An error occurred during Google sign in. Please try again.');
+                            }
+                        }
+                    },
+                });
+                client.requestAccessToken();
+            } catch (error) {
+                console.error('Error initiating Google sign in:', error);
+                alert('Failed to initiate Google sign in. Please try again.');
+            }
+        }
     </script>
 
     <style>
@@ -2313,6 +2360,34 @@
 
         #resetPasswordForm .submit-button {
             margin-top: 1rem;
+        }
+
+        .google-signin-container {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .google-signin-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 10px 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .google-signin-button:hover {
+            background-color: #f5f5f5;
+        }
+
+        .google-signin-button img {
+            width: 18px;
+            height: 18px;
         }
     </style>
 </body>
